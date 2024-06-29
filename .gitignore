@@ -1,0 +1,8 @@
+node_modules
+typechain
+config.ts
+
+.env
+privates.txt
+proxies.txt
+*.csv

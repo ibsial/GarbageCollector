@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "CommonJS",
+    "moduleResolution": "Node",
+    "outDir": "build",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true,
+    // "isolatedModules": true,
+    "allowJs": true,
+    "resolveJsonModule": true,
+    "sourceMap": true,
+    "paths": {
+      "ccxt": ["./node_modules/ccxt/js/ccxt.d.ts"]
+    }
+  },
+  // "include": [
+  //   // "./src/**/*",
+  //   // "./src/config.json"
+  //   // "./src/utils/types.d.ts"
+  // ]
+}

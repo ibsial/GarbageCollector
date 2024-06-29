@@ -1,0 +1,113 @@
+[
+    {
+        "chainId": 204,
+        "address": "0xb01d49c26416a352fac4fbb3d555d5f2543e3247",
+        "name": "CUBISWAP",
+        "symbol": "CUBI",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/31803/thumb/IMG_20230917_222524_599.PNG?1696530618"
+    },
+    {
+        "chainId": 204,
+        "address": "0xb26cfc2c8a5656cfe599fc344cbefec260ba9c0b",
+        "name": "OpMoon",
+        "symbol": "OPMOON",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/31664/thumb/opmoon.jpeg?1696530481"
+    },
+    {
+        "chainId": 204,
+        "address": "0xe7798f023fc62146e8aa1b36da45fb70855a77ea",
+        "name": "Bridged Binance Peg Ethereum  opBNB ",
+        "symbol": "ETH",
+        "decimals": 18
+    },
+    {
+        "chainId": 204,
+        "address": "0x9e5aac1ba1a2e6aed6b32689dfcf62a509ca96f3",
+        "name": "Bridged Tether  opBNB ",
+        "symbol": "USDT",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/32613/thumb/usdt_opbnb_bridged.png?1698734789"
+    },
+    {
+        "chainId": 204,
+        "address": "0xa41b3067ec694dbec668c389550ba8fc589e5797",
+        "name": "Binary Swap",
+        "symbol": "0101",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/31661/thumb/0101.jpeg?1696530478"
+    },
+    {
+        "chainId": 204,
+        "address": "0x196ad5a70279fc112db4f8baf6f5022c9b1cf0a5",
+        "name": "LuigiSwap",
+        "symbol": "LUIGI",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/31802/thumb/luigi.png?1696530617"
+    },
+    {
+        "chainId": 204,
+        "address": "0xaf9fe3b5ccdae78188b1f8b9a49da7ae9510f151",
+        "name": "XCAD Network",
+        "symbol": "XCAD",
+        "decimals": 17,
+        "logoURI": "https://assets.coingecko.com/coins/images/15857/thumb/xcad_logo.jpg?1707832192"
+    },
+    {
+        "chainId": 204,
+        "address": "0x3e2e61f1c075881f3fb8dd568043d8c221fd5c61",
+        "name": "Venus",
+        "symbol": "XVS",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/12677/thumb/download.jpg?1696512482"
+    },
+    {
+        "chainId": 204,
+        "address": "0xf0e2f2a84c898989c66fca1d5bce869e9bc85ddf",
+        "name": "Miracle Play",
+        "symbol": "MPT",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/32653/thumb/MPT.png?1698895300"
+    },
+    {
+        "chainId": 204,
+        "address": "0x0c0efea731e3e9810c2b4822d5497eac107808ab",
+        "name": "Ankr Staked BNB",
+        "symbol": "ANKRBNB",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/28451/thumb/ankrBNB.png?1696527446"
+    },
+    {
+        "chainId": 204,
+        "address": "0x9d94a7ff461e83f161c8c040e78557e31d8cba72",
+        "name": "Thena",
+        "symbol": "THE",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/28864/thumb/Symbol-Color200x200.png?1706810126"
+    },
+    {
+        "chainId": 204,
+        "address": "0x4200000000000000000000000000000000000006",
+        "name": "Wrapped BNB",
+        "symbol": "WBNB",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/12591/thumb/binance-coin-logo.png?1696512401"
+    },
+    {
+        "chainId": 204,
+        "address": "0xebb78043e29f4af24e6266a7d142f5a08443969e",
+        "name": "Derp",
+        "symbol": "DERP",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/33069/thumb/derpdex_%281%29.png?1700793428"
+    },
+    {
+        "chainId": 204,
+        "address": "0x2b1d36f5b61addaf7da7ebbd11b35fd8cfb0de31",
+        "name": "Interport Token",
+        "symbol": "ITP",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/28338/thumb/ITP_Logo_200.png?1696527344"
+    }
+]

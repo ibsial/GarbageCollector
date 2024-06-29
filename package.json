@@ -1,0 +1,25 @@
+{
+  "author": "github: ibsial | telegram: @findmeonchain",
+  "scripts": {
+    "start": "npx typechain --target ethers-v6 --out-dir typechain './src/utils/abi/*.json' && npx ts-node ./index.ts",
+    "dev": ""
+  },
+  "dependencies": {
+    "@inquirer/select": "^2.3.1",
+    "@types/cli-progress": "^3.11.5",
+    "@types/node": "^20.11.16",
+    "axios": "^1.6.1",
+    "chalk": "^4.1.2",
+    "cli-progress": "^3.12.0",
+    "dotenv": "^16.4.1",
+    "ethers": "^6.8.1",
+    "https-proxy-agent": "^7.0.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3",
+    "user-agents": "^1.1.111"
+  },
+  "devDependencies": {
+    "@typechain/ethers-v6": "^0.5.1",
+    "typechain": "^8.3.2"
+  }
+}

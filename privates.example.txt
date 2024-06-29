@@ -1,0 +1,11 @@
+(Use this when addresses are not needed)
+key1
+key2
+...
+
+OR
+
+(use this when addresses are needed)
+key1,addr1
+key2,addr2
+...

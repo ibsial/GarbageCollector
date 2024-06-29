@@ -1,0 +1,249 @@
+[
+    {
+        "chainId": 5000,
+        "address": "0x201eba5cc46d216ce6dc03f6a759e8e766e956ae",
+        "name": "Mantle Bridged USDT  Mantle ",
+        "symbol": "USDT",
+        "decimals": 6,
+        "logoURI": "https://assets.coingecko.com/coins/images/35069/thumb/logo.png?1707291114"
+    },
+    {
+        "chainId": 5000,
+        "address": "0xd2b4c9b0d70e3da1fbdd98f469bd02e77e12fc79",
+        "name": "Aurelius USD",
+        "symbol": "AUSD",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/37318/thumb/aUSD.png?1713975421"
+    },
+    {
+        "chainId": 5000,
+        "address": "0xc1e0c8c30f251a07a894609616580ad2ceb547f2",
+        "name": "Cleopatra",
+        "symbol": "CLEO",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/34150/thumb/CLEO_token.png?1704190970"
+    },
+    {
+        "chainId": 5000,
+        "address": "0xab575258d37eaa5c8956efabe71f4ee8f6397cf3",
+        "name": "Mantle USD",
+        "symbol": "MUSD",
+        "decimals": 18
+    },
+    {
+        "chainId": 5000,
+        "address": "0xabbeed1d173541e0546b38b1c0394975be200000",
+        "name": "Slash Vision Labs",
+        "symbol": "SVL",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/37444/thumb/svl.jpeg?1714443652"
+    },
+    {
+        "chainId": 5000,
+        "address": "0x09bc4e0d864854c6afb6eb9a9cdf58ac190d0df9",
+        "name": "Mantle Bridged USDC  Mantle ",
+        "symbol": "USDC",
+        "decimals": 6,
+        "logoURI": "https://assets.coingecko.com/coins/images/35296/thumb/USDC_Icon.png?1708082083"
+    },
+    {
+        "chainId": 5000,
+        "address": "0x029d924928888697d3f3d169018d9d98d9f0d6b4",
+        "name": "Muito Finance",
+        "symbol": "MUTO",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/35954/thumb/200_200-3.png?1710251972"
+    },
+    {
+        "chainId": 5000,
+        "address": "0x6a3b0eb5b57c9a4f5772fc900dae427e65f8c1a5",
+        "name": "Cashtree Token",
+        "symbol": "CTT",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/31475/thumb/Coin-CTT%28Hi-Res%29.png?1696530287"
+    },
+    {
+        "chainId": 5000,
+        "address": "0xdeaddeaddeaddeaddeaddeaddeaddeaddead1111",
+        "name": "Wrapped Ether  Mantle Bridge ",
+        "symbol": "WETH",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/31013/thumb/wrapped-eth-mantle-bridge.png?1696529850"
+    },
+    {
+        "chainId": 5000,
+        "address": "0x78c1b0c915c4faa5fffa6cabf0219da63d7f4cb8",
+        "name": "Wrapped Mantle",
+        "symbol": "WMNT",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/30983/thumb/mantle.jpeg?1696529822"
+    },
+    {
+        "chainId": 5000,
+        "address": "0x51cfe5b1e764dc253f4c8c1f19a081ff4c3517ed",
+        "name": "Mantle Inu",
+        "symbol": "MINU",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/31014/thumb/mantle-inu.jpeg?1696529851"
+    },
+    {
+        "chainId": 5000,
+        "address": "0x5a093a9c4f440c6b105f0af7f7c4f1fbe45567f9",
+        "name": "Stratum Exchange",
+        "symbol": "STRAT",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/33646/thumb/coin_strat.png?1702541330"
+    },
+    {
+        "chainId": 5000,
+        "address": "0x779f4e5fb773e17bc8e809f4ef1abb140861159a",
+        "name": "KTX Finance",
+        "symbol": "KTC",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/30537/thumb/KTX.jpeg?1696529409"
+    },
+    {
+        "chainId": 5000,
+        "address": "0x26a6b0dcdcfb981362afa56d581e4a7dba3be140",
+        "name": "Puff The Dragon",
+        "symbol": "PUFF",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/35950/thumb/photo_2024-03-11_10.18.27.jpeg?1710240090"
+    },
+    {
+        "chainId": 5000,
+        "address": "0x4515a45337f461a11ff0fe8abf3c606ae5dc00c9",
+        "name": "MOE",
+        "symbol": "MOE",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/34422/thumb/MOE.png?1704821927"
+    },
+    {
+        "chainId": 5000,
+        "address": "0x25356aeca4210ef7553140edb9b8026089e49396",
+        "name": "Lendle",
+        "symbol": "LEND",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/31588/thumb/lendle_logo_200_200_cg.png?1696530405"
+    },
+    {
+        "chainId": 5000,
+        "address": "0x5ecdb76feda945dc71f7d9ce62dfe7eafefffab4",
+        "name": "Minterest",
+        "symbol": "MINTY",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/29455/thumb/MINTY.png?1706817774"
+    },
+    {
+        "chainId": 5000,
+        "address": "0xdeaddeaddeaddeaddeaddeaddeaddeaddead0000",
+        "name": "Mantle",
+        "symbol": "MNT",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/30980/thumb/token-logo.png?1696529819"
+    },
+    {
+        "chainId": 5000,
+        "address": "0x74ccbe53f77b08632ce0cb91d3a545bf6b8e0979",
+        "name": "Fantom Bomb",
+        "symbol": "BOMB",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/24109/thumb/logo-blue.png?1696523301"
+    },
+    {
+        "chainId": 5000,
+        "address": "0x5be26527e817998a7206475496fde1e68957c5a6",
+        "name": "Ondo US Dollar Yield",
+        "symbol": "USDY",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/31700/thumb/usdy_%281%29.png?1696530524"
+    },
+    {
+        "chainId": 5000,
+        "address": "0x70ba1a777b3f639c58fd5bc6a5c8780ddcef533b",
+        "name": "Bark AI",
+        "symbol": "BARK",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/34415/thumb/Logo_BARK.jpg?1704819436"
+    },
+    {
+        "chainId": 5000,
+        "address": "0xcda86a272531e8640cd7f1a92c01839911b90bb0",
+        "name": "Mantle Staked Ether",
+        "symbol": "METH",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/33345/thumb/symbol_transparent_bg.png?1701697066"
+    },
+    {
+        "chainId": 5000,
+        "address": "0x981bd9f77c8aafc14ebc86769503f86a3cc29af5",
+        "name": "Tarot",
+        "symbol": "TAROT",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/31800/thumb/TAROT.jpg?1696530615"
+    },
+    {
+        "chainId": 5000,
+        "address": "0x05f41f99e6c72511f157674c6e43eda2a2e599a0",
+        "name": "KUMA Protocol US KUMA Interest Bearing ",
+        "symbol": "USK",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/33445/thumb/USK.png?1701888523"
+    },
+    {
+        "chainId": 5000,
+        "address": "0xeb466342c4d449bc9f53a865d5cb90586f405215",
+        "name": "Axelar Bridged USDC",
+        "symbol": "AXLUSDC",
+        "decimals": 6,
+        "logoURI": "https://assets.coingecko.com/coins/images/26476/thumb/uausdc_D_3x.png?1696525548"
+    },
+    {
+        "chainId": 5000,
+        "address": "0x872952d3c1caf944852c5adda65633f1ef218a26",
+        "name": "Liquid Crypto",
+        "symbol": "LQDX",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/33627/thumb/LQDX.png?1702533263"
+    },
+    {
+        "chainId": 5000,
+        "address": "0x60d01ec2d5e98ac51c8b4cf84dfcce98d527c747",
+        "name": "iZUMi Finance",
+        "symbol": "IZI",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/21791/thumb/izumi-logo-symbol.png?1696521144"
+    },
+    {
+        "chainId": 5000,
+        "address": "0x371c7ec6d8039ff7933a2aa28eb827ffe1f52f07",
+        "name": "JOE",
+        "symbol": "JOE",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/17569/thumb/JoeToken.png?1703732357"
+    },
+    {
+        "chainId": 5000,
+        "address": "0x91824fc3573c5043837f6357b72f60014a710501",
+        "name": "Aperture Finance",
+        "symbol": "APTR",
+        "decimals": 6,
+        "logoURI": "https://assets.coingecko.com/coins/images/37940/thumb/icon_white.png?1715967425"
+    },
+    {
+        "chainId": 5000,
+        "address": "0x458ed78eb972a369799fb278c0243b25e5242a83",
+        "name": "Wrapped stETH",
+        "symbol": "WSTETH",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/18834/thumb/wstETH.png?1696518295"
+    },
+    {
+        "chainId": 5000,
+        "address": "0x527856315a4bcd2f428ea7fa05ea251f7e96a50a",
+        "name": "CeDeFiAi",
+        "symbol": "CDFI",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/36863/thumb/CeDeFiAi.png?1712643622"
+    }
+]
