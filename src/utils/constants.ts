@@ -15,6 +15,10 @@ export const scenarios = [
         name: `Garbage collector & native sender`,
         value: 'Garbage collector & native sender'
     },
+    {
+        name: `Relay bridge`,
+        value: 'Relay bridge'
+    },
 ]
 // prettier-ignore
 export const sushiswapV2Routers: {[key in ChainName]: string} = {
@@ -199,9 +203,8 @@ export const chains: {[key: string]: Chain} = {
     Zksync: {
         id: 324,
         lzId: '165',
-
         rpc: ['https://mainnet.era.zksync.io'],
-        explorer: 'https://explorer.zksync.io/tx/',
+        explorer: 'https://era.zksync.network/tx/',
         currency: 'ETH',
         tokens: {
             ETH: {
