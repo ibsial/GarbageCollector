@@ -66,3 +66,33 @@ export class NativeSenderConfig {
      */
     deductFee: boolean = true
 }
+
+export class RelayBridgeConfig {
+    /*********************************************************/
+    /*********************** CHAIN LIST **********************
+        Ethereum | Arbitrum | Optimism |  Base   |   Linea   |  
+        Zksync   |          |          |         |           |
+        Scroll   |  Blast   |          |         |           |
+                 |          |          | Taiko   |           |
+    **********************************************************/
+    /**
+        This module bridges ONLY ETH between ETH-chains
+        
+        You can set multiple *from* chains and one *to* chain
+        
+     */
+    fromNetworks: ChainName[] = ['Zksync']
+
+    toNetwork: ChainName = 'Linea'
+    /**
+     * You can set value
+     * as NUMBER: {from: '0.1', to: '0.11'}
+     * as PERCENTAGE: {from: '80%', to: '100%'} (you can also set both 100%)
+     */
+    values: {from: string; to: string} = {from: '100%', to: '100%'}
+    /**
+     * If set to *true*, fee will be deducted before bridge: *(Value - Fee)* will be sent
+     * If set to *false*, fee wont be deducted before bridge: *(Value)* will be sent
+     */
+    deductFee: boolean = true
+}

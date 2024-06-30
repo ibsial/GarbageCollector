@@ -1,14 +1,5 @@
 import {ERC20__factory, Multicall2, Multicall2__factory, WETH__factory} from '../../typechain'
-import {
-    ethers,
-    Wallet,
-    JsonRpcProvider,
-    TransactionRequest,
-    parseUnits,
-    BigNumberish,
-    TransactionResponse,
-    formatEther,
-} from 'ethers'
+import {ethers, Wallet, JsonRpcProvider, TransactionRequest, parseUnits, BigNumberish, TransactionResponse, formatEther} from 'ethers'
 import {defaultSleep, retry} from '../utils/helpers'
 import {DEV, maxRetries} from '../../config'
 import {chains} from '../utils/constants'
@@ -181,7 +172,7 @@ async function waitGwei(want: number = 40) {
         gasPrice = (await getGwei(signerOrProvider, 1)).gasPrice
     }
 }
-async function getTxStatus(signerOrProvider: Wallet | JsonRpcProvider, hash: string, maxWaitTime = 5 * 60): Promise<string> {
+async function getTxStatus(signerOrProvider: Wallet | JsonRpcProvider, hash: string, maxWaitTime = 3 * 60): Promise<string> {
     return retry(
         async () => {
             let time = 0
@@ -213,11 +204,13 @@ async function estimateTx(signer: Wallet, txBody: TransactionRequest, multiplier
 async function sendTx(signer: Wallet, txBody: TransactionRequest, gasMultipliers = {price: 1.3, limit: 1.3}, waitConfirmation = true) {
     let gasLimit = txBody?.gasLimit ?? (await estimateTx(signer, txBody, gasMultipliers.limit))
     txBody.gasLimit = gasLimit
-    let fee = await getGasPrice(signer, gasMultipliers.price)
-    txBody = {...txBody, ...fee}
+    if (txBody?.gasPrice == undefined && txBody?.maxFeePerGas == undefined) {
+        let fee = await getGasPrice(signer, gasMultipliers.price)
+        txBody = {...txBody, ...fee}
+    }
     let txReceipt: TransactionResponse = await retry(
         signer.sendTransaction.bind(signer),
-        {maxRetryCount: 2, retryInterval: 20, needLog: false},
+        {maxRetryCount: 3, retryInterval: 20, needLog: false},
         txBody
     )
     if (waitConfirmation) {

@@ -200,11 +200,15 @@ class GarbageCollector extends GarbageCollectorConfig {
                 continue
             }
             if (token.address.toLowerCase() == chains[networkName].tokens.WNATIVE.address.toLowerCase()) {
+                // CELO does not have a wTOKEN. WTF?
                 if (networkName == 'Celo') {
                     continue
                 }
                 // need to unwrap in this case, not swap
                 try {
+                    if (token.balance < 10000000000000n) {
+                        continue
+                    }
                     let unwrapHash = await unwrap(this.signer.connect(getProvider(networkName)), token.address, token.balance, {limit: 1, price: 1.1})
                     console.log(c.green(`unwrapped ${formatEther(token.balance)} ${token.symbol} ${chains[networkName].explorer + unwrapHash}`))
                 } catch (e: any) {

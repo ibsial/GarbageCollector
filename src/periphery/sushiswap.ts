@@ -183,7 +183,7 @@ class Sushiswap {
         }
         let swapHash = await sendTx(this.signer, swapTx, {price: 1.1, limit: 1.1}, true)
         console.log(
-            `Sushiswap:`,
+            `[Sushiswap]`,
             `$${c.bold(tokenIn.symbol)} --> $${c.bold(tokenOut.symbol)} ${c.green(chains[this.networkName].explorer + swapHash)}`
         )
         return true

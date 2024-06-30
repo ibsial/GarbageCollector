@@ -65,8 +65,7 @@ const retry = async (
                 console.log(e)
             }
             if (needLog) {
-                // console.log(e?.message)
-                console.log(e?.response?.data)
+                console.log(e?.message)
                 console.log(`catched error, retrying... [${i}]`)
             }
             // console.log(c.magenta('if you see this, please contact the author and tell about error above'))
@@ -121,8 +120,9 @@ async function importPrivateData(path: string) {
 }
 async function importAndValidatePrivateData(path: string, validateAddr: boolean) {
     let intialData = await importPrivateData(path)
-    let privates: string[] = []
-    let addresses: string[] = []
+    // let privates: string[] = []
+    // let addresses: string[] = []
+    let keysAndAddresses: {key: string, address: string}[] = []
     for (let i = 0; i < intialData.length; i++) {
         try {
             let signer = new Wallet(intialData[i][0])
@@ -140,10 +140,12 @@ async function importAndValidatePrivateData(path: string, validateAddr: boolean)
                 }
             }
         }
-        privates.push(intialData[i][0])
-        addresses.push(intialData[i][1] == undefined ? '' : intialData[i][1])
+        keysAndAddresses.push({key: intialData[i][0], address: intialData[i][1] == undefined ? '' : intialData[i][1]})
+        // privates.push(intialData[i][0])
+        // addresses.push(intialData[i][1] == undefined ? '' : intialData[i][1])
     }
-    return [privates, addresses]
+    // return [privates, addresses]
+    return keysAndAddresses
 }
 async function importProxies(path: string) {
     let data: string[] = []

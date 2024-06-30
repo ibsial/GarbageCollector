@@ -9,11 +9,11 @@
     },
     {
         "chainId": 10,
-        "address": "0x2dad3a13ef0c6366220f989157009e501e7938f8",
-        "name": "Extra Finance",
-        "symbol": "EXTRA",
+        "address": "0x3b08fcd15280e7b5a6e404c4abb87f7c774d1b2e",
+        "name": "Overnight Finance",
+        "symbol": "OVN",
         "decimals": 18,
-        "logoURI": "https://assets.coingecko.com/coins/images/30973/thumb/Ex_logo-white-blue_ring_288x.png?1696529812"
+        "logoURI": "https://assets.coingecko.com/coins/images/31970/thumb/OVN.png?1696959174"
     },
     {
         "chainId": 10,
@@ -105,19 +105,19 @@
     },
     {
         "chainId": 10,
-        "address": "0x3b08fcd15280e7b5a6e404c4abb87f7c774d1b2e",
-        "name": "Overnight Finance",
-        "symbol": "OVN",
-        "decimals": 18,
-        "logoURI": "https://assets.coingecko.com/coins/images/31970/thumb/OVN.png?1696959174"
-    },
-    {
-        "chainId": 10,
         "address": "0xfa436399d0458dbe8ab890c3441256e3e09022a8",
         "name": "ZipSwap",
         "symbol": "ZIP",
         "decimals": 18,
         "logoURI": "https://assets.coingecko.com/coins/images/22910/thumb/zip.png?1696522207"
+    },
+    {
+        "chainId": 10,
+        "address": "0x4b03afc91295ed778320c2824bad5eb5a1d852dd",
+        "name": "NBL",
+        "symbol": "NBL",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/34811/thumb/%E6%88%AA%E5%9B%BE-%E5%A4%A7.png?1706122685"
     },
     {
         "chainId": 10,
@@ -142,6 +142,14 @@
         "symbol": "CFES",
         "decimals": 0,
         "logoURI": "https://assets.coingecko.com/coins/images/33365/thumb/CFES.png?1701613582"
+    },
+    {
+        "chainId": 10,
+        "address": "0x2dad3a13ef0c6366220f989157009e501e7938f8",
+        "name": "Extra Finance",
+        "symbol": "EXTRA",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/30973/thumb/Ex_logo-white-blue_ring_288x.png?1696529812"
     },
     {
         "chainId": 10,
@@ -217,6 +225,14 @@
     },
     {
         "chainId": 10,
+        "address": "0x4200000000000000000000000000000000000042",
+        "name": "Optimism",
+        "symbol": "OP",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/25244/thumb/Optimism.png?1696524385"
+    },
+    {
+        "chainId": 10,
         "address": "0xf467c7d5a4a9c4687ffc7986ac6ad5a4c81e1404",
         "name": "Kite",
         "symbol": "KITE",
@@ -241,14 +257,6 @@
     },
     {
         "chainId": 10,
-        "address": "0x4b03afc91295ed778320c2824bad5eb5a1d852dd",
-        "name": "NBL",
-        "symbol": "NBL",
-        "decimals": 18,
-        "logoURI": "https://assets.coingecko.com/coins/images/34811/thumb/%E6%88%AA%E5%9B%BE-%E5%A4%A7.png?1706122685"
-    },
-    {
-        "chainId": 10,
         "address": "0xfe5b10f053871e66a319a57a16cf4e709f51367f",
         "name": "OVERPOWERED",
         "symbol": "OVERPOW",
@@ -269,14 +277,6 @@
         "name": "Exactly WBTC",
         "symbol": "EXAWBTC",
         "decimals": 8
-    },
-    {
-        "chainId": 10,
-        "address": "0x4200000000000000000000000000000000000042",
-        "name": "Optimism",
-        "symbol": "OP",
-        "decimals": 18,
-        "logoURI": "https://assets.coingecko.com/coins/images/25244/thumb/Optimism.png?1696524385"
     },
     {
         "chainId": 10,
@@ -336,19 +336,19 @@
     },
     {
         "chainId": 10,
-        "address": "0x2513486f18eee1498d7b6281f668b955181dd0d9",
-        "name": "OpenXSwap Gov  Token",
-        "symbol": "XOPENX",
-        "decimals": 18,
-        "logoURI": "https://assets.coingecko.com/coins/images/28325/thumb/X_op_red_sm.png?1696527332"
-    },
-    {
-        "chainId": 10,
         "address": "0x9a601c5bb360811d96a23689066af316a30c3027",
         "name": "Pika Protocol",
         "symbol": "PIKA",
         "decimals": 18,
         "logoURI": "https://assets.coingecko.com/coins/images/30279/thumb/Pika_protocol.png?1696529185"
+    },
+    {
+        "chainId": 10,
+        "address": "0x2513486f18eee1498d7b6281f668b955181dd0d9",
+        "name": "OpenXSwap Gov  Token",
+        "symbol": "XOPENX",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/28325/thumb/X_op_red_sm.png?1696527332"
     },
     {
         "chainId": 10,

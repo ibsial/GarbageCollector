@@ -4,7 +4,7 @@ import axios, {AxiosInstance} from 'axios'
 import {c, retry} from '../utils/helpers'
 import {chains} from '../utils/constants'
 import {approve, getGwei, sendTx} from './web3Client'
-import {DEV} from '../../config'
+import {DEV, maxRetries} from '../../config'
 import {HttpsProxyAgent} from 'https-proxy-agent'
 
 class OdosAggregator {
@@ -47,7 +47,7 @@ class OdosAggregator {
     ): Promise<boolean> {
         let quote = await this.#quoteSwap(tokenIn, tokenOut, amountIn)
         if (quote == undefined) {
-            // console.log(`Odos:      ${tokenIn.symbol} --> ${tokenOut.symbol} swap is too expensive or is not available`)
+            // console.log(`[Odos]      ${tokenIn.symbol} --> ${tokenOut.symbol} swap is too expensive or is not available`)
             return false
         }
         try {
@@ -97,7 +97,7 @@ class OdosAggregator {
         }
         if (this.#isTokenNative(tokenIn.address) && this.#isTokenNative(tokenOut.address)) {
             if (DEV) {
-                console.log(`Odos:      can't swap same asset (${tokenIn.name} --> ${tokenOut.name})`)
+                console.log(`[Odos]      can't swap same asset (${tokenIn.name} --> ${tokenOut.name})`)
             }
             return undefined
         }
@@ -134,7 +134,7 @@ class OdosAggregator {
                 }
                 return body
             },
-            {maxRetryCount: 3, retryInterval: 5, needLog: false, throwOnError: false}
+            {maxRetryCount: maxRetries, retryInterval: 5, needLog: false, throwOnError: false}
         )
         return res
     }
@@ -192,7 +192,7 @@ class OdosAggregator {
                     throw Error('OdosAggregator:executeSwap swap simulation failed')
                 }
             },
-            {maxRetryCount: 3, retryInterval: 5, needLog: false, throwOnError: false}
+            {maxRetryCount: maxRetries, retryInterval: 5, needLog: false, throwOnError: false}
         )
         if (tx == undefined) {
             console.log(c.red('OdosAggregator:executeSwap swap simulation failed'))
@@ -204,9 +204,10 @@ class OdosAggregator {
             adjustedTx.gasLimit = (BigInt(adjustedTx.gasLimit) * 11n) / 10n
         }
         delete adjustedTx?.gas
-        let swapHash = await sendTx(this.signer, adjustedTx, {price: 1, limit: 1}, true)
+        let gasPriceMultiplier = this.networkName == 'Ethereum' || this.networkName == 'Polygon' || this.networkName == 'Avalanche' ? 1.1 : 1
+        let swapHash = await sendTx(this.signer, adjustedTx, {price: gasPriceMultiplier, limit: 1}, true)
         console.log(
-            `Odos:     `,
+            `[Odos]     `,
             `$${c.bold(tokenIn.symbol)} --> $${c.bold(tokenOut.symbol)} ${c.green(chains[this.networkName].explorer + swapHash)}`
         )
         return true
