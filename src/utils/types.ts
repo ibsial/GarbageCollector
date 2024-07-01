@@ -59,7 +59,8 @@ export declare type NotChainName =
     | '!Core'
     | '!Manta'
     | '!Taiko'
-// | '!Zora'
+    // | '!Zora'
+    | '!Nova'
 
 export declare type TokenlistResp = {
     name: string
