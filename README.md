@@ -10,9 +10,11 @@
 -   Отправка нативки на нужный адрес
 -   Бридж ETH под ноль через Relay Bridge
 
+---
+
 ## Описание модулей и их нюансов
 
-### Balance сhecker
+### ***Balance сhecker***
 
 #### Что умеет:
 
@@ -31,7 +33,7 @@
 
 `chainsToExclude = []` (_Остальные переменные не влияют на чекер_)
 
-### Garbage collector
+### ***Garbage collector***
 
 #### Что умеет:
 
@@ -64,7 +66,7 @@
 `chainsToExclude = ['!Zksync']`  
 `tokensToIgnore = ['0x5a7d6b2f92c77fad6ccabd7ee0624e64907eaf3e']`
 
-### Garbage collector & native sender
+### ***Garbage collector & native sender***
 
 #### Что умеет:
 
@@ -103,7 +105,7 @@
 `values = {from: '100%', to: '100%'}`  
 `deductFee = true`
 
-### Relay bridge
+### ***Relay bridge***
 
 #### Что умеет:
 
@@ -144,6 +146,8 @@
 `toNetwork = ['Linea']`  
 `values = {from: '100%', to: '100%'}`  
 `deductFee = true`
+
+---
 
 ## Запуск скрипта
 
