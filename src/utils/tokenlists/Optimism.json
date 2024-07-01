@@ -9,19 +9,11 @@
     },
     {
         "chainId": 10,
-        "address": "0x3b08fcd15280e7b5a6e404c4abb87f7c774d1b2e",
-        "name": "Overnight Finance",
-        "symbol": "OVN",
+        "address": "0x2dad3a13ef0c6366220f989157009e501e7938f8",
+        "name": "Extra Finance",
+        "symbol": "EXTRA",
         "decimals": 18,
-        "logoURI": "https://assets.coingecko.com/coins/images/31970/thumb/OVN.png?1696959174"
-    },
-    {
-        "chainId": 10,
-        "address": "0xd9cc3d70e730503e7f28c1b407389198c4b75fa2",
-        "name": "TLX",
-        "symbol": "TLX",
-        "decimals": 18,
-        "logoURI": "https://assets.coingecko.com/coins/images/37043/thumb/TLXlogoMain.png?1713162908"
+        "logoURI": "https://assets.coingecko.com/coins/images/30973/thumb/Ex_logo-white-blue_ring_288x.png?1696529812"
     },
     {
         "chainId": 10,
@@ -33,27 +25,11 @@
     },
     {
         "chainId": 10,
-        "address": "0x9560e827af36c94d2ac33a39bce1fe78631088db",
-        "name": "Velodrome Finance",
-        "symbol": "VELO",
-        "decimals": 18,
-        "logoURI": "https://assets.coingecko.com/coins/images/25783/thumb/velo.png?1696524870"
-    },
-    {
-        "chainId": 10,
         "address": "0x6d80113e533a2c0fe82eabd35f1875dcea89ea97",
         "name": "Aave v3 sUSD",
         "symbol": "ASUSD",
         "decimals": 18,
         "logoURI": "https://assets.coingecko.com/coins/images/32918/thumb/asusd.png?1699825436"
-    },
-    {
-        "chainId": 10,
-        "address": "0xe64b4eb5eec6343887c4683da31f0ca62ea39ce3",
-        "name": "Aktionariat BEE Digital Growth AG Token",
-        "symbol": "BEES",
-        "decimals": 0,
-        "logoURI": "https://assets.coingecko.com/coins/images/33367/thumb/BEES.png?1701613820"
     },
     {
         "chainId": 10,
@@ -65,11 +41,19 @@
     },
     {
         "chainId": 10,
-        "address": "0xc5b001dc33727f8f26880b184090d3e252470d45",
-        "name": "Ethos Reserve Note",
-        "symbol": "ERN",
+        "address": "0xb5090d514bcaca7dafb7e52763658844121f346d",
+        "name": "Binary Holdings",
+        "symbol": "BNRY",
         "decimals": 18,
-        "logoURI": "https://assets.coingecko.com/coins/images/29744/thumb/ERN200x200.png?1696528676"
+        "logoURI": "https://assets.coingecko.com/coins/images/37521/thumb/Vector-1.png?1714634222"
+    },
+    {
+        "chainId": 10,
+        "address": "0x9a601c5bb360811d96a23689066af316a30c3027",
+        "name": "Pika Protocol",
+        "symbol": "PIKA",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/30279/thumb/Pika_protocol.png?1696529185"
     },
     {
         "chainId": 10,
@@ -89,11 +73,19 @@
     },
     {
         "chainId": 10,
-        "address": "0xf8e943f646816e4b51279b8934753821ed832dca",
-        "name": "Cthulhu Finance",
-        "symbol": "CTH",
+        "address": "0x3b08fcd15280e7b5a6e404c4abb87f7c774d1b2e",
+        "name": "Overnight Finance",
+        "symbol": "OVN",
         "decimals": 18,
-        "logoURI": "https://assets.coingecko.com/coins/images/29487/thumb/logo200.png?1696528431"
+        "logoURI": "https://assets.coingecko.com/coins/images/31970/thumb/OVN.png?1696959174"
+    },
+    {
+        "chainId": 10,
+        "address": "0x9560e827af36c94d2ac33a39bce1fe78631088db",
+        "name": "Velodrome Finance",
+        "symbol": "VELO",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/25783/thumb/velo.png?1696524870"
     },
     {
         "chainId": 10,
@@ -137,19 +129,19 @@
     },
     {
         "chainId": 10,
+        "address": "0x7f5c764cbc14f9669b88837ca1490cca17c31607",
+        "name": "Bridged USDC  Optimism ",
+        "symbol": "USDCE",
+        "decimals": 6,
+        "logoURI": "https://assets.coingecko.com/coins/images/31580/thumb/USDC-icon.png?1696530397"
+    },
+    {
+        "chainId": 10,
         "address": "0x10b3667304130ecc9c972008459249e8141ced97",
         "name": "Aktionariat Clever Forever Education AG",
         "symbol": "CFES",
         "decimals": 0,
         "logoURI": "https://assets.coingecko.com/coins/images/33365/thumb/CFES.png?1701613582"
-    },
-    {
-        "chainId": 10,
-        "address": "0x2dad3a13ef0c6366220f989157009e501e7938f8",
-        "name": "Extra Finance",
-        "symbol": "EXTRA",
-        "decimals": 18,
-        "logoURI": "https://assets.coingecko.com/coins/images/30973/thumb/Ex_logo-white-blue_ring_288x.png?1696529812"
     },
     {
         "chainId": 10,
@@ -201,6 +193,14 @@
     },
     {
         "chainId": 10,
+        "address": "0xc5b001dc33727f8f26880b184090d3e252470d45",
+        "name": "Ethos Reserve Note",
+        "symbol": "ERN",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/29744/thumb/ERN200x200.png?1696528676"
+    },
+    {
+        "chainId": 10,
         "address": "0x071682832d213638f8eda67a873262e581a4006d",
         "name": "Aktionariat Vereign AG Tokenized Shares",
         "symbol": "VRGNS",
@@ -217,11 +217,11 @@
     },
     {
         "chainId": 10,
-        "address": "0xb153fb3d196a8eb25522705560ac152eeec57901",
-        "name": "Magic Internet Money  Optimism ",
-        "symbol": "MIM",
-        "decimals": 18,
-        "logoURI": "https://assets.coingecko.com/coins/images/37659/thumb/mim.png?1715165153"
+        "address": "0xe64b4eb5eec6343887c4683da31f0ca62ea39ce3",
+        "name": "Aktionariat BEE Digital Growth AG Token",
+        "symbol": "BEES",
+        "decimals": 0,
+        "logoURI": "https://assets.coingecko.com/coins/images/33367/thumb/BEES.png?1701613820"
     },
     {
         "chainId": 10,
@@ -233,11 +233,11 @@
     },
     {
         "chainId": 10,
-        "address": "0xf467c7d5a4a9c4687ffc7986ac6ad5a4c81e1404",
-        "name": "Kite",
-        "symbol": "KITE",
+        "address": "0xb153fb3d196a8eb25522705560ac152eeec57901",
+        "name": "Magic Internet Money  Optimism ",
+        "symbol": "MIM",
         "decimals": 18,
-        "logoURI": "https://assets.coingecko.com/coins/images/35343/thumb/_KITE.png?1708317581"
+        "logoURI": "https://assets.coingecko.com/coins/images/37659/thumb/mim.png?1715165153"
     },
     {
         "chainId": 10,
@@ -288,6 +288,22 @@
     },
     {
         "chainId": 10,
+        "address": "0xf467c7d5a4a9c4687ffc7986ac6ad5a4c81e1404",
+        "name": "Kite",
+        "symbol": "KITE",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/35343/thumb/_KITE.png?1708317581"
+    },
+    {
+        "chainId": 10,
+        "address": "0xd9cc3d70e730503e7f28c1b407389198c4b75fa2",
+        "name": "TLX",
+        "symbol": "TLX",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/37043/thumb/TLXlogoMain.png?1713162908"
+    },
+    {
+        "chainId": 10,
         "address": "0x513c7e3a9c69ca3e22550ef58ac1c0088e918fff",
         "name": "Aave v3 OP",
         "symbol": "AOP",
@@ -301,14 +317,6 @@
         "symbol": "MIMATIC",
         "decimals": 18,
         "logoURI": "https://assets.coingecko.com/coins/images/35519/thumb/mimatic-red.png?1709006627"
-    },
-    {
-        "chainId": 10,
-        "address": "0x970d50d09f3a656b43e11b0d45241a84e3a6e011",
-        "name": "Overnight fi DAI ",
-        "symbol": "DAI+",
-        "decimals": 18,
-        "logoURI": "https://assets.coingecko.com/coins/images/29634/thumb/DAI_.png?1696528571"
     },
     {
         "chainId": 10,
@@ -333,14 +341,6 @@
         "symbol": "HAI",
         "decimals": 18,
         "logoURI": "https://assets.coingecko.com/coins/images/35863/thumb/hai-logo-200x200.png?1711190591"
-    },
-    {
-        "chainId": 10,
-        "address": "0x9a601c5bb360811d96a23689066af316a30c3027",
-        "name": "Pika Protocol",
-        "symbol": "PIKA",
-        "decimals": 18,
-        "logoURI": "https://assets.coingecko.com/coins/images/30279/thumb/Pika_protocol.png?1696529185"
     },
     {
         "chainId": 10,
@@ -392,14 +392,6 @@
     },
     {
         "chainId": 10,
-        "address": "0xb5090d514bcaca7dafb7e52763658844121f346d",
-        "name": "Binary Holdings",
-        "symbol": "BNRY",
-        "decimals": 18,
-        "logoURI": "https://assets.coingecko.com/coins/images/37521/thumb/Vector-1.png?1714634222"
-    },
-    {
-        "chainId": 10,
         "address": "0xc26921b5b9ee80773774d36c84328ccb22c3a819",
         "name": "Wrapped OptiDoge",
         "symbol": "WOPTIDOGE",
@@ -424,11 +416,19 @@
     },
     {
         "chainId": 10,
-        "address": "0x7f5c764cbc14f9669b88837ca1490cca17c31607",
-        "name": "Bridged USDC  Optimism ",
-        "symbol": "USDCE",
-        "decimals": 6,
-        "logoURI": "https://assets.coingecko.com/coins/images/31580/thumb/USDC-icon.png?1696530397"
+        "address": "0xf8e943f646816e4b51279b8934753821ed832dca",
+        "name": "Cthulhu Finance",
+        "symbol": "CTH",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/29487/thumb/logo200.png?1696528431"
+    },
+    {
+        "chainId": 10,
+        "address": "0x970d50d09f3a656b43e11b0d45241a84e3a6e011",
+        "name": "Overnight fi DAI ",
+        "symbol": "DAI+",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/29634/thumb/DAI_.png?1696528571"
     },
     {
         "chainId": 10,
@@ -477,6 +477,14 @@
         "symbol": "CRVUSD",
         "decimals": 18,
         "logoURI": "https://assets.coingecko.com/coins/images/30118/thumb/crvusd.jpeg?1696529040"
+    },
+    {
+        "chainId": 10,
+        "address": "0xecc68d0451e20292406967fe7c04280e5238ac7d",
+        "name": "Axelar Bridged Frax Ether",
+        "symbol": "AXLFRXETH",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/38976/thumb/Screen_Shot_2024-06-18_at_12.55.54_PM_2.png?1719714886"
     },
     {
         "chainId": 10,

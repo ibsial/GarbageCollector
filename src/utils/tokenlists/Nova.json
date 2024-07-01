@@ -1,0 +1,114 @@
+[
+    {
+        "chainId": 42170,
+        "address": "0x4b2576bc44310d6dfb4cfcf2630f25190fc60803",
+        "name": "MoonsDust",
+        "symbol": "MOOND",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/22050/thumb/moondlogo.png?1696521394"
+    },
+    {
+        "chainId": 42170,
+        "address": "0x0057ac2d777797d31cd3f8f13bf5e927571d6ad0",
+        "name": "r CryptoCurrency Moons",
+        "symbol": "MOON",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/11222/thumb/Moons.png?1696511153"
+    },
+    {
+        "chainId": 42170,
+        "address": "0x6dcb98f460457fe4952e12779ba852f82ecc62c1",
+        "name": "r FortNiteBR Bricks",
+        "symbol": "BRICK",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/11223/thumb/Brick.png?1696511154"
+    },
+    {
+        "chainId": 42170,
+        "address": "0x750ba8b76187092b0d1e87e28daaf484d1b5273b",
+        "name": "Arbitrum Bridged USDC  Arbitrum Nova ",
+        "symbol": "USDC",
+        "decimals": 6,
+        "logoURI": "https://assets.coingecko.com/coins/images/35259/thumb/USDC_Icon.png?1708007444"
+    },
+    {
+        "chainId": 42170,
+        "address": "0x223fb0ceb2c6e5310264efe38151d7d083db91f1",
+        "name": "Superpower Squad",
+        "symbol": "SQUAD",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/28466/thumb/SQUAD200X200.png?1696527460"
+    },
+    {
+        "chainId": 42170,
+        "address": "0x6ab6d61428fde76768d7b45d8bfeec19c6ef91a8",
+        "name": "DPS Rum",
+        "symbol": "RUM",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/29753/thumb/rum.png?1696528685"
+    },
+    {
+        "chainId": 42170,
+        "address": "0x80a16016cc4a2e6a2caca8a4a498b1699ff0f844",
+        "name": "DPS TreasureMaps",
+        "symbol": "TMAP",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/29754/thumb/tmap.png?1696528686"
+    },
+    {
+        "chainId": 42170,
+        "address": "0xb962150760f9a3bb00e3e9cf48297ee20ada4a33",
+        "name": "Zoomer",
+        "symbol": "ZOOMER",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/30894/thumb/zoooooooooomer.jpg?1696529740"
+    },
+    {
+        "chainId": 42170,
+        "address": "0xf823c3cd3cebe0a1fa952ba88dc9eef8e0bf46ad",
+        "name": "Arbitrum",
+        "symbol": "ARB",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/16547/thumb/photo_2023-03-29_21.47.00.jpeg?1696516109"
+    },
+    {
+        "chainId": 42170,
+        "address": "0xefaeee334f0fd1712f9a8cc375f427d9cdd40d73",
+        "name": "DPS Doubloon",
+        "symbol": "DBL",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/29755/thumb/doubloon.jpg?1696528687"
+    },
+    {
+        "chainId": 42170,
+        "address": "0x8afe4055ebc86bd2afb3940c0095c9aca511d852",
+        "name": "Arbius",
+        "symbol": "AIUS",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/35246/thumb/arbius-200x-logo.png?1707987961"
+    },
+    {
+        "chainId": 42170,
+        "address": "0x000000000026839b3f4181f2cf69336af6153b99",
+        "name": "Reboot",
+        "symbol": "GG",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/31228/thumb/gg_cyan_black_square.png?1703749951"
+    },
+    {
+        "chainId": 42170,
+        "address": "0x722e8bdd2ce80a4422e880164f2079488e115365",
+        "name": "WETH",
+        "symbol": "WETH",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/2518/thumb/weth.png?1696503332"
+    },
+    {
+        "chainId": 42170,
+        "address": "0xda10009cbd5d07dd0cecc66161fc93d7c9000da1",
+        "name": "Dai",
+        "symbol": "DAI",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/9956/thumb/Badge_Dai.png?1696509996"
+    }
+]

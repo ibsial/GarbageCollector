@@ -5,7 +5,7 @@ export declare type Chain = {
     lzId: string
     rpc: string[]
     explorer: string
-    currency: string
+    currency: {name: string; price?: number}
     tokens: {
         [key: string]: {
             name: string
@@ -36,7 +36,8 @@ export declare type ChainName =
     | 'Core'
     | 'Manta'
     | 'Taiko'
-// | 'Zora'
+    // | 'Zora'
+    | 'Nova'
 
 export declare type NotChainName =
     | '!Ethereum'

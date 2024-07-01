@@ -53,7 +53,7 @@ class NativeSender extends NativeSenderConfig {
                 let sendHash = await transfer(this.signer.connect(getProvider(networkName)), this.receiver, value, undefined, {price: 1, limit: 1})
                 console.log(
                     c.green(
-                        `${bigintToPrettyStr(value, 18n, 4)} ${chains[networkName].currency} sent to ${this.receiver} ${
+                        `${bigintToPrettyStr(value, 18n, 4)} ${chains[networkName].currency.name} sent to ${this.receiver} ${
                             chains[networkName].explorer + sendHash
                         }`
                     )
@@ -61,7 +61,7 @@ class NativeSender extends NativeSenderConfig {
                 await defaultSleep(RandomHelpers.getRandomNumber(sleepBetweenActions))
             } catch (e: any) {
                 console.log(e?.message)
-                console.log(c.red(`Could not send ${chains[networkName].currency} to ${this.receiver}`))
+                console.log(c.red(`Could not send ${chains[networkName].currency.name} to ${this.receiver}`))
             }
         }
         return true

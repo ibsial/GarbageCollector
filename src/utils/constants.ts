@@ -5,7 +5,7 @@ export const timeout = 5
 export const scenarios = [
     {
         name: `Balance cheker`,
-        value: 'Balance cheker',
+        value: 'Balance cheker'
     },
     {
         name: `Garbage collector`,
@@ -18,7 +18,7 @@ export const scenarios = [
     {
         name: `Relay bridge`,
         value: 'Relay bridge'
-    },
+    }
 ]
 // prettier-ignore
 export const sushiswapV2Routers: {[key in ChainName]: string} = {
@@ -42,6 +42,7 @@ export const sushiswapV2Routers: {[key in ChainName]: string} = {
     Manta:    '',
     Taiko:    '',
     // Zora:     '',
+    Nova: '0x1b02dA8Cb0d097eB8D57A175b88c7D8b47997506'
 }
 export const networkNameToCoingeckoQueryString: {[key in ChainName]: string} = {
     Ethereum: 'ethereum',
@@ -62,8 +63,9 @@ export const networkNameToCoingeckoQueryString: {[key in ChainName]: string} = {
     Celo: 'celo',
     Core: 'core',
     Manta: '',
-    Taiko: ''
-    // Zora: 'zora'
+    Taiko: '',
+    // Zora: 'zora',
+    Nova: 'arbitrum-nova'
 }
 export const withdrawNetworks: {[key: string]: {name: string; token: string; fee: string}} = {
     Optimism: {
@@ -105,7 +107,7 @@ export const chains: {[key: string]: Chain} = {
 
         rpc: ['https://ethereum.publicnode.com'],
         explorer: 'https://etherscan.io/tx/',
-        currency: 'ETH',
+        currency: {name: 'ETH'},
         tokens: {
             ETH: {
                 name: 'Ethereum',
@@ -125,7 +127,7 @@ export const chains: {[key: string]: Chain} = {
         lzId: '110',
         rpc: ['https://arbitrum-one.publicnode.com'],
         explorer: 'https://arbiscan.io/tx/',
-        currency: 'ETH',
+        currency: {name: 'ETH'},
         tokens: {
             ETH: {
                 name: 'Ethereum',
@@ -145,7 +147,7 @@ export const chains: {[key: string]: Chain} = {
         lzId: '111',
         rpc: ['https://optimism-rpc.publicnode.com'],
         explorer: 'https://optimistic.etherscan.io/tx/',
-        currency: 'ETH',
+        currency: {name: 'ETH'},
         tokens: {
             ETH: {
                 name: 'Ethereum',
@@ -165,7 +167,7 @@ export const chains: {[key: string]: Chain} = {
         lzId: '184',
         rpc: ['https://base.publicnode.com'],
         explorer: 'https://basescan.org/tx/',
-        currency: 'ETH',
+        currency: {name: 'ETH'},
         tokens: {
             ETH: {
                 name: 'Ethereum',
@@ -185,7 +187,7 @@ export const chains: {[key: string]: Chain} = {
         lzId: '183',
         rpc: ['https://rpc.linea.build'],
         explorer: 'https://lineascan.build/tx/',
-        currency: 'ETH',
+        currency: {name: 'ETH'},
         tokens: {
             ETH: {
                 name: 'Ethereum',
@@ -205,7 +207,7 @@ export const chains: {[key: string]: Chain} = {
         lzId: '165',
         rpc: ['https://mainnet.era.zksync.io'],
         explorer: 'https://era.zksync.network/tx/',
-        currency: 'ETH',
+        currency: {name: 'ETH'},
         tokens: {
             ETH: {
                 name: 'Ethereum',
@@ -225,7 +227,7 @@ export const chains: {[key: string]: Chain} = {
         lzId: '102',
         rpc: ['https://rpc.ankr.com/bsc'],
         explorer: 'https://bscscan.com/tx/',
-        currency: 'BNB',
+        currency: {name: 'BNB'},
         tokens: {
             BNB: {
                 name: 'Binance coin',
@@ -245,7 +247,7 @@ export const chains: {[key: string]: Chain} = {
         lzId: '202',
         rpc: ['https://opbnb-mainnet-rpc.bnbchain.org'],
         explorer: 'https://opbnbscan.com/tx/',
-        currency: 'BNB',
+        currency: {name: 'BNB'},
         tokens: {
             BNB: {
                 name: 'Binance coin',
@@ -265,7 +267,7 @@ export const chains: {[key: string]: Chain} = {
         lzId: '109',
         rpc: ['https://polygon-rpc.com', 'https://rpc.ankr.com/polygon'],
         explorer: 'https://polygonscan.com/tx/',
-        currency: 'MATIC',
+        currency: {name: 'MATIC'},
         tokens: {
             MATIC: {
                 name: 'MATIC',
@@ -286,7 +288,7 @@ export const chains: {[key: string]: Chain} = {
 
         rpc: ['https://avalanche.public-rpc.com'],
         explorer: 'https://snowtrace.io/tx/',
-        currency: 'AVAX',
+        currency: {name: 'AVAX'},
         tokens: {
             AVAX: {
                 name: 'AVAX',
@@ -306,7 +308,7 @@ export const chains: {[key: string]: Chain} = {
         lzId: '214',
         rpc: ['https://rpc.scroll.io'],
         explorer: 'https://scrollscan.com/tx/',
-        currency: 'ETH',
+        currency: {name: 'ETH'},
         tokens: {
             ETH: {
                 name: 'Ethereum',
@@ -327,7 +329,7 @@ export const chains: {[key: string]: Chain} = {
 
         rpc: ['https://rpc.blast.io'],
         explorer: 'https://blastscan.io/tx/',
-        currency: 'ETH',
+        currency: {name: 'ETH'},
         tokens: {
             ETH: {
                 name: 'ETH',
@@ -347,7 +349,7 @@ export const chains: {[key: string]: Chain} = {
         lzId: '181',
         rpc: ['https://rpc.mantle.xyz'],
         explorer: 'https://mantlescan.info/tx/',
-        currency: 'MNT',
+        currency: {name: 'MNT'},
         tokens: {
             MNT: {
                 name: 'Mantle',
@@ -367,7 +369,7 @@ export const chains: {[key: string]: Chain} = {
         lzId: '145',
         rpc: ['https://rpc.gnosischain.com'],
         explorer: 'https://gnosisscan.io/tx/',
-        currency: 'xDAI',
+        currency: {name: 'xDAI'},
         tokens: {
             xDAI: {
                 name: 'xDAI',
@@ -387,7 +389,7 @@ export const chains: {[key: string]: Chain} = {
         lzId: '112',
         rpc: ['https://rpc.fantom.network'],
         explorer: 'https://ftmscan.com/tx/',
-        currency: 'FTM',
+        currency: {name: 'FTM'},
         tokens: {
             FTM: {
                 name: 'FTM',
@@ -407,9 +409,9 @@ export const chains: {[key: string]: Chain} = {
         lzId: '125',
         rpc: ['https://forno.celo.org'],
         explorer: 'https://celoscan.io/tx/',
-        currency: 'Celo',
+        currency: {name: 'CELO'},
         tokens: {
-            Celo: {
+            CELO: {
                 name: 'Celo',
                 decimals: 18n,
                 address: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE'
@@ -427,9 +429,9 @@ export const chains: {[key: string]: Chain} = {
         lzId: '153',
         rpc: ['https://rpc.coredao.org'],
         explorer: 'https://scan.coredao.org/tx/',
-        currency: 'Core',
+        currency: {name: 'CORE'},
         tokens: {
-            Core: {
+            CORE: {
                 name: 'Core',
                 decimals: 18n,
                 address: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE'
@@ -447,7 +449,7 @@ export const chains: {[key: string]: Chain} = {
         lzId: '217',
         rpc: ['https://manta-pacific.drpc.org'],
         explorer: 'https://manta.socialscan.io/tx/',
-        currency: 'ETH',
+        currency: {name: 'ETH'},
         tokens: {
             ETH: {
                 name: 'ETH',
@@ -467,7 +469,42 @@ export const chains: {[key: string]: Chain} = {
         lzId: '290',
         rpc: ['https://rpc.taiko.xyz'],
         explorer: 'https://taikoscan.io/tx/',
-        currency: 'ETH',
+        currency: {name: 'ETH'},
+        tokens: {
+            ETH: {
+                name: 'ETH',
+                decimals: 18n,
+                address: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE'
+            },
+            WNATIVE: {
+                name: 'WETH',
+                decimals: 18n,
+                address: '0xA51894664A773981C6C112C43ce576f315d5b1B6'
+            }
+        },
+        multicall: '0xcA11bde05977b3631167028862bE2a173976CA11'
+    },
+    // Zora: { // not supported by coingecko xdd
+    //     id: 7777777,
+    //     lzId: '290',
+    //     rpc: ['https://7777777.rpc.thirdweb.com'],
+    //     explorer: 'https://zora.superscan.network/tx/',
+    //     currency: {name: 'ETH'},
+    //     tokens: {
+    //         ETH: {
+    //             name: 'ETH',
+    //             decimals: 18n,
+    //             address: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE'
+    //         }
+    //     },
+    //     multicall: '0xcA11bde05977b3631167028862bE2a173976CA11'
+    // }
+    Nova: {
+        id: 42170,
+        lzId: '175',
+        rpc: ['https://arbitrum-nova-rpc.publicnode.com'],
+        explorer: 'https://nova.arbiscan.io/tx/',
+        currency: {name: 'ETH'},
         tokens: {
             ETH: {
                 name: 'ETH',
@@ -482,19 +519,4 @@ export const chains: {[key: string]: Chain} = {
         },
         multicall: '0xcA11bde05977b3631167028862bE2a173976CA11'
     }
-    // Zora: { // not supported by coingecko xdd
-    //     id: 7777777,
-    //     lzId: '290',
-    //     rpc: ['https://7777777.rpc.thirdweb.com'],
-    //     explorer: 'https://zora.superscan.network/tx/',
-    //     currency: 'ETH',
-    //     tokens: {
-    //         ETH: {
-    //             name: 'ETH',
-    //             decimals: 18n,
-    //             address: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE'
-    //         }
-    //     },
-    //     multicall: '0xcA11bde05977b3631167028862bE2a173976CA11'
-    // }
 }

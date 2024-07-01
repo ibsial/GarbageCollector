@@ -1,86 +1,6 @@
 [
     {
         "chainId": 534352,
-        "address": "0xeb466342c4d449bc9f53a865d5cb90586f405215",
-        "name": "Bridged Axelar Wrapped USD Coin  Scroll",
-        "symbol": "AXLUSDC",
-        "decimals": 6,
-        "logoURI": "https://assets.coingecko.com/coins/images/32612/thumb/USDC.png?1698734090"
-    },
-    {
-        "chainId": 534352,
-        "address": "0x95a52ec1d60e74cd3eb002fe54a2c74b185a4c16",
-        "name": "Skydrome",
-        "symbol": "SKY",
-        "decimals": 18,
-        "logoURI": "https://assets.coingecko.com/coins/images/33902/thumb/icon_200x200.png?1703237670"
-    },
-    {
-        "chainId": 534352,
-        "address": "0x3c1bca5a656e69edcd0d4e36bebb3fcdaca60cf1",
-        "name": "Bridged Wrapped Bitcoin  Scroll ",
-        "symbol": "WBTC",
-        "decimals": 8,
-        "logoURI": "https://assets.coingecko.com/coins/images/32614/thumb/wrapped_bitcoin_wbtc.png?1698735124"
-    },
-    {
-        "chainId": 534352,
-        "address": "0x188b158caf5ea252012dbd6030afc030329c4961",
-        "name": "Zen",
-        "symbol": "ZEN",
-        "decimals": 18,
-        "logoURI": "https://assets.coingecko.com/coins/images/38087/thumb/circle_zen_png_200.png?1716477696"
-    },
-    {
-        "chainId": 534352,
-        "address": "0xf55bec9cafdbe8730f096aa55dad6d22d44099df",
-        "name": "Bridged Tether  Scroll ",
-        "symbol": "USDT",
-        "decimals": 6,
-        "logoURI": "https://assets.coingecko.com/coins/images/32610/thumb/usdt_%281%29.png?1698733524"
-    },
-    {
-        "chainId": 534352,
-        "address": "0x61a9cc561b6c1f9c31bcdeb447afecf25f33bbf9",
-        "name": "Pandacoin Inu",
-        "symbol": "PANDA",
-        "decimals": 18,
-        "logoURI": "https://assets.coingecko.com/coins/images/35746/thumb/panda.jpeg?1709714542"
-    },
-    {
-        "chainId": 534352,
-        "address": "0x6b7d1c9d519dfc3a5d8d1b7c15d4e5bbe8dde1cf",
-        "name": "OmniKingdoms Gold",
-        "symbol": "OMKG",
-        "decimals": 18,
-        "logoURI": "https://assets.coingecko.com/coins/images/32674/thumb/Avatar.png?1698911193"
-    },
-    {
-        "chainId": 534352,
-        "address": "0xf610a9dfb7c89644979b4a0f27063e9e7d7cda32",
-        "name": "Bridged Wrapped Lido Staked Ether  Scro",
-        "symbol": "WSTETH",
-        "decimals": 18,
-        "logoURI": "https://assets.coingecko.com/coins/images/32615/thumb/wsteth.png?1698735772"
-    },
-    {
-        "chainId": 534352,
-        "address": "0x06efdbff2a14a7c8e15944d1f4a48f9f95f663a4",
-        "name": "Bridged USD Coin  Scroll ",
-        "symbol": "USDC",
-        "decimals": 6,
-        "logoURI": "https://assets.coingecko.com/coins/images/32611/thumb/USDC.png?1698733754"
-    },
-    {
-        "chainId": 534352,
-        "address": "0x5300000000000000000000000000000000000004",
-        "name": "Bridged Wrapped Ether  Scroll ",
-        "symbol": "WETH",
-        "decimals": 18,
-        "logoURI": "https://assets.coingecko.com/coins/images/32315/thumb/weth_%281%29.png?1697365181"
-    },
-    {
-        "chainId": 534352,
         "address": "0x2147a89fb4608752807216d5070471c09a0dce32",
         "name": "Z Protocol",
         "symbol": "ZP",
@@ -89,27 +9,11 @@
     },
     {
         "chainId": 534352,
-        "address": "0x690f1d2da47d9a759a93dd2b0ace3c1627f216ba",
-        "name": "Venium",
-        "symbol": "VENIUM",
-        "decimals": 18,
-        "logoURI": "https://assets.coingecko.com/coins/images/36346/thumb/scrolliumlogo.png?1711187400"
-    },
-    {
-        "chainId": 534352,
-        "address": "0xaaae8378809bb8815c08d3c59eb0c7d1529ad769",
-        "name": "Nuri Exchange",
-        "symbol": "NURI",
-        "decimals": 18,
-        "logoURI": "https://assets.coingecko.com/coins/images/38831/thumb/Nuri_token.png?1719192439"
-    },
-    {
-        "chainId": 534352,
-        "address": "0x750351a9f75f98f2c2e91d4edb3beb14e719557e",
-        "name": "Scribes",
-        "symbol": "SCRIBES",
-        "decimals": 18,
-        "logoURI": "https://assets.coingecko.com/coins/images/38185/thumb/scribes.png?1716788481"
+        "address": "0xeb466342c4d449bc9f53a865d5cb90586f405215",
+        "name": "Bridged Axelar Wrapped USD Coin  Scroll",
+        "symbol": "AXLUSDC",
+        "decimals": 6,
+        "logoURI": "https://assets.coingecko.com/coins/images/32612/thumb/USDC.png?1698734090"
     },
     {
         "chainId": 534352,
@@ -121,6 +25,22 @@
     },
     {
         "chainId": 534352,
+        "address": "0xecc68d0451e20292406967fe7c04280e5238ac7d",
+        "name": "Axelar Bridged Frax Ether",
+        "symbol": "AXLFRXETH",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/38976/thumb/Screen_Shot_2024-06-18_at_12.55.54_PM_2.png?1719714886"
+    },
+    {
+        "chainId": 534352,
+        "address": "0x3c1bca5a656e69edcd0d4e36bebb3fcdaca60cf1",
+        "name": "Bridged Wrapped Bitcoin  Scroll ",
+        "symbol": "WBTC",
+        "decimals": 8,
+        "logoURI": "https://assets.coingecko.com/coins/images/32614/thumb/wrapped_bitcoin_wbtc.png?1698735124"
+    },
+    {
+        "chainId": 534352,
         "address": "0x1a2fcb585b327fadec91f55d45829472b15f17a4",
         "name": "Tokan",
         "symbol": "TKN",
@@ -129,11 +49,99 @@
     },
     {
         "chainId": 534352,
+        "address": "0xf55bec9cafdbe8730f096aa55dad6d22d44099df",
+        "name": "Bridged Tether  Scroll ",
+        "symbol": "USDT",
+        "decimals": 6,
+        "logoURI": "https://assets.coingecko.com/coins/images/32610/thumb/usdt_%281%29.png?1698733524"
+    },
+    {
+        "chainId": 534352,
+        "address": "0x690f1d2da47d9a759a93dd2b0ace3c1627f216ba",
+        "name": "Venium",
+        "symbol": "VENIUM",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/36346/thumb/scrolliumlogo.png?1711187400"
+    },
+    {
+        "chainId": 534352,
+        "address": "0x06efdbff2a14a7c8e15944d1f4a48f9f95f663a4",
+        "name": "Bridged USD Coin  Scroll ",
+        "symbol": "USDC",
+        "decimals": 6,
+        "logoURI": "https://assets.coingecko.com/coins/images/32611/thumb/USDC.png?1698733754"
+    },
+    {
+        "chainId": 534352,
+        "address": "0x6b7d1c9d519dfc3a5d8d1b7c15d4e5bbe8dde1cf",
+        "name": "OmniKingdoms Gold",
+        "symbol": "OMKG",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/32674/thumb/Avatar.png?1698911193"
+    },
+    {
+        "chainId": 534352,
+        "address": "0x5300000000000000000000000000000000000004",
+        "name": "Bridged Wrapped Ether  Scroll ",
+        "symbol": "WETH",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/32315/thumb/weth_%281%29.png?1697365181"
+    },
+    {
+        "chainId": 534352,
+        "address": "0xf610a9dfb7c89644979b4a0f27063e9e7d7cda32",
+        "name": "Bridged Wrapped Lido Staked Ether  Scro",
+        "symbol": "WSTETH",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/32615/thumb/wsteth.png?1698735772"
+    },
+    {
+        "chainId": 534352,
+        "address": "0x750351a9f75f98f2c2e91d4edb3beb14e719557e",
+        "name": "Scribes",
+        "symbol": "SCRIBES",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/38185/thumb/scribes.png?1716788481"
+    },
+    {
+        "chainId": 534352,
+        "address": "0xaaae8378809bb8815c08d3c59eb0c7d1529ad769",
+        "name": "Nuri Exchange",
+        "symbol": "NURI",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/38831/thumb/Nuri_token.png?1719192439"
+    },
+    {
+        "chainId": 534352,
+        "address": "0x188b158caf5ea252012dbd6030afc030329c4961",
+        "name": "Zen",
+        "symbol": "ZEN",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/38087/thumb/circle_zen_png_200.png?1716477696"
+    },
+    {
+        "chainId": 534352,
+        "address": "0x61a9cc561b6c1f9c31bcdeb447afecf25f33bbf9",
+        "name": "Pandacoin Inu",
+        "symbol": "PANDA",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/35746/thumb/panda.jpeg?1709714542"
+    },
+    {
+        "chainId": 534352,
         "address": "0x2fc5cf65fd0a660801f119832b2158756968266d",
         "name": "Chi USD",
         "symbol": "CHI",
         "decimals": 18,
         "logoURI": "https://assets.coingecko.com/coins/images/37906/thumb/CHI_PNG200x200.png?1715932591"
+    },
+    {
+        "chainId": 534352,
+        "address": "0x95a52ec1d60e74cd3eb002fe54a2c74b185a4c16",
+        "name": "Skydrome",
+        "symbol": "SKY",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/33902/thumb/icon_200x200.png?1703237670"
     },
     {
         "chainId": 534352,

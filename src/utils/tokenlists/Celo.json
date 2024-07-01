@@ -9,14 +9,6 @@
     },
     {
         "chainId": 42220,
-        "address": "0x471ece3750da237f93b8e339c536989b8978a438",
-        "name": "Celo",
-        "symbol": "CELO",
-        "decimals": 18,
-        "logoURI": "https://assets.coingecko.com/coins/images/11090/thumb/InjXBNx9_400x400.jpg?1696511031"
-    },
-    {
-        "chainId": 42220,
         "address": "0x00be915b9dcf56a3cbe739d9b9c202ca692409ec",
         "name": "Ubeswap  OLD ",
         "symbol": "UBE",
@@ -30,6 +22,14 @@
         "symbol": "UBE",
         "decimals": 18,
         "logoURI": "https://assets.coingecko.com/coins/images/36950/thumb/ubeswap.png?1712898123"
+    },
+    {
+        "chainId": 42220,
+        "address": "0x7ff62f59e3e89ea34163ea1458eebcc81177cfb6",
+        "name": "MENTO",
+        "symbol": "MENTO",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/38958/thumb/MENTO_TOKEN_icon_200.png?1719691251"
     },
     {
         "chainId": 42220,
@@ -86,6 +86,14 @@
         "symbol": "MCELO",
         "decimals": 18,
         "logoURI": "https://assets.coingecko.com/coins/images/22346/thumb/1OY4GRnl_400x400_%281%29.jpg?1696521689"
+    },
+    {
+        "chainId": 42220,
+        "address": "0x471ece3750da237f93b8e339c536989b8978a438",
+        "name": "Celo",
+        "symbol": "CELO",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/11090/thumb/InjXBNx9_400x400.jpg?1696511031"
     },
     {
         "chainId": 42220,

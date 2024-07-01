@@ -1,5 +1,5 @@
 import select from '@inquirer/select'
-import { scenarios } from '../utils/constants'
+import {scenarios} from '../utils/constants'
 
 class Menu {
     async chooseTask() {

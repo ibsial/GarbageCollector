@@ -433,7 +433,7 @@
     },
     {
         "chainId": 56,
-        "address": "0xab287e6d370c61f105630e656b5468acb4d00423",
+        "address": "0x5ce12f6d9f2fcaf0b11494a1c39e09eeb16ca7e8",
         "name": "BinStarter",
         "symbol": "BSR",
         "decimals": 18,
@@ -2519,6 +2519,14 @@
     },
     {
         "chainId": 56,
+        "address": "0xe00cebf04e6a0a82a82a58f3b714d4b1cc67f6a1",
+        "name": "BTRIPS",
+        "symbol": "BTR",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/19273/thumb/btr.png?1696518716"
+    },
+    {
+        "chainId": 56,
         "address": "0x641a6dc991a49f7be9fe3c72c5d0fbb223edb12f",
         "name": "Realfinance Network",
         "symbol": "REFI",
@@ -2979,14 +2987,6 @@
         "symbol": "SUPE",
         "decimals": 18,
         "logoURI": "https://assets.coingecko.com/coins/images/21874/thumb/nF9bWyQe_400x400.jpg?1696521228"
-    },
-    {
-        "chainId": 56,
-        "address": "0x7f7158c1f5898523bb6869910847e83b84a7c8d2",
-        "name": "Volley",
-        "symbol": "VOY",
-        "decimals": 18,
-        "logoURI": "https://assets.coingecko.com/coins/images/34078/thumb/VOL.jpg?1703908137"
     },
     {
         "chainId": 56,
@@ -7171,14 +7171,6 @@
         "symbol": "DEFC",
         "decimals": 9,
         "logoURI": "https://assets.coingecko.com/coins/images/17020/thumb/deficoin.png?1696516584"
-    },
-    {
-        "chainId": 56,
-        "address": "0x3022d80e02075f5a2a442a318229487f9ea66d82",
-        "name": "Cells Token",
-        "symbol": "CELLS",
-        "decimals": 18,
-        "logoURI": "https://assets.coingecko.com/coins/images/30218/thumb/logo200.png?1696529129"
     },
     {
         "chainId": 56,
@@ -15380,6 +15372,14 @@
     },
     {
         "chainId": 56,
+        "address": "0x5ed41afccc1633bca322b9292db451fc7e423a5e",
+        "name": "UpBots Token",
+        "symbol": "MBOT",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/12476/thumb/mbxn-icon.png?1719371419"
+    },
+    {
+        "chainId": 56,
         "address": "0x6d4e8507084c7b58d33b3b88915591670f959b2f",
         "name": "Miner Arena",
         "symbol": "MINAR",
@@ -15489,6 +15489,14 @@
         "symbol": "NKS",
         "decimals": 18,
         "logoURI": "https://assets.coingecko.com/coins/images/34505/thumb/NKS_logo.png?1705287289"
+    },
+    {
+        "chainId": 56,
+        "address": "0x86bf362b3bcb067895481aa071a7364e5884232e",
+        "name": "Andy",
+        "symbol": "ANDY",
+        "decimals": 9,
+        "logoURI": "https://assets.coingecko.com/coins/images/38980/thumb/andy_%28bsc%29.jpg?1719801658"
     },
     {
         "chainId": 56,
@@ -17111,6 +17119,14 @@
     },
     {
         "chainId": 56,
+        "address": "0xfa2e4ec5a818c2d2c352f4b152c06338d476b646",
+        "name": "XPX",
+        "symbol": "XPX",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/38961/thumb/XPX_Logo_Elements-19.png?1719709723"
+    },
+    {
+        "chainId": 56,
         "address": "0xb7f86029269ee2f93f51e116e08901e955a6668c",
         "name": "Baby Sora",
         "symbol": "BABYSORA",
@@ -18454,6 +18470,14 @@
     },
     {
         "chainId": 56,
+        "address": "0xdebd6e2da378784a69dc6ec99fe254223b312287",
+        "name": "EXIT Designer Token",
+        "symbol": "EXIT",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/38970/thumb/EXIT_LOGO_200x200.png?1719712689"
+    },
+    {
+        "chainId": 56,
         "address": "0x872952d3c1caf944852c5adda65633f1ef218a26",
         "name": "Liquid Crypto",
         "symbol": "LQDX",
@@ -19050,6 +19074,14 @@
         "symbol": "CNYD",
         "decimals": 18,
         "logoURI": "https://assets.coingecko.com/coins/images/35198/thumb/CNYD_Logo_200x200.png?1707839781"
+    },
+    {
+        "chainId": 56,
+        "address": "0x2a5da6b2e641484b1233e69109ddaaa330551e90",
+        "name": "RangerBet",
+        "symbol": "RBET",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/38973/thumb/rangerbet.jpg?1719713469"
     },
     {
         "chainId": 56,
@@ -20107,6 +20139,14 @@
     },
     {
         "chainId": 56,
+        "address": "0xd979d11c03cc7a66028755846f77fff0a270f753",
+        "name": "Land Of Heroes",
+        "symbol": "LOH",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/38987/thumb/logo_LOH.png?1719807145"
+    },
+    {
+        "chainId": 56,
         "address": "0x29abc4d03d133d8fd1f1c54318428353ce08727e",
         "name": "KyotoSwap",
         "symbol": "KSWAP",
@@ -20160,6 +20200,14 @@
         "symbol": "BRES",
         "decimals": 18,
         "logoURI": "https://assets.coingecko.com/coins/images/37887/thumb/Logo_Icon.png?1715842141"
+    },
+    {
+        "chainId": 56,
+        "address": "0x34980c35353a8d7b1a1ba02e02e387a8383e004a",
+        "name": "Snake",
+        "symbol": "SNK",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/38989/thumb/%D9%A2%D9%A0%D9%A2%D9%A4%D9%A0%D9%A6%D9%A2%D9%A5_%D9%A0%D9%A7%D9%A1%D9%A7%D9%A0%D9%A5.jpg?1719807416"
     },
     {
         "chainId": 56,
@@ -20680,6 +20728,14 @@
         "symbol": "AGATA",
         "decimals": 18,
         "logoURI": "https://assets.coingecko.com/coins/images/35835/thumb/agatechlogo.jpg?1716055496"
+    },
+    {
+        "chainId": 56,
+        "address": "0x218617d3250be4a1f182c28a1a94b1ab37d94235",
+        "name": "Lumox Studio",
+        "symbol": "LUMOX",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/38994/thumb/logo-2.png?1719808775"
     },
     {
         "chainId": 56,
@@ -21231,7 +21287,7 @@
         "name": "Solv Protocol solvBTC",
         "symbol": "SOLVBTC",
         "decimals": 18,
-        "logoURI": "https://assets.coingecko.com/coins/images/36800/thumb/SOLV_BTC.jpg?1712469500"
+        "logoURI": "https://assets.coingecko.com/coins/images/36800/thumb/solvBTC.png?1719810684"
     },
     {
         "chainId": 56,
@@ -24424,14 +24480,6 @@
         "symbol": "CELL",
         "decimals": 18,
         "logoURI": "https://assets.coingecko.com/coins/images/14465/thumb/cellframe-coingecko.png?1696514152"
-    },
-    {
-        "chainId": 56,
-        "address": "0xc822bb8f72c212f0f9477ab064f3bdf116c193e6",
-        "name": "UpBots",
-        "symbol": "UBXN",
-        "decimals": 18,
-        "logoURI": "https://assets.coingecko.com/coins/images/12476/thumb/mbxn-icon.png?1719371419"
     },
     {
         "chainId": 56,

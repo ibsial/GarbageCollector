@@ -98,8 +98,8 @@ class RelayBridge extends RelayBridgeConfig {
             let toNetwork = this.toNetwork
             // since relay bridge is good only for eth, require that from user
             if (
-                chains[fromNetwork].currency.toLowerCase() != currency.toLowerCase() ||
-                chains[toNetwork].currency.toLowerCase() != currency.toLowerCase()
+                chains[fromNetwork].currency.name.toLowerCase() != currency.toLowerCase() ||
+                chains[toNetwork].currency.name.toLowerCase() != currency.toLowerCase()
             ) {
                 console.log(
                     '[relay]',

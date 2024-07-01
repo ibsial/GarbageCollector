@@ -122,7 +122,7 @@ async function importAndValidatePrivateData(path: string, validateAddr: boolean)
     let intialData = await importPrivateData(path)
     // let privates: string[] = []
     // let addresses: string[] = []
-    let keysAndAddresses: {key: string, address: string}[] = []
+    let keysAndAddresses: {key: string; address: string}[] = []
     for (let i = 0; i < intialData.length; i++) {
         try {
             let signer = new Wallet(intialData[i][0])

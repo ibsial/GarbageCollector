@@ -2,9 +2,9 @@ import {formatEther, formatUnits, Wallet} from 'ethers'
 import {DEV, GarbageCollectorConfig, sleepBetweenActions} from '../../config'
 import {c, defaultSleep, RandomHelpers, retry} from '../utils/helpers'
 import {ChainName, NotChainName, TokenlistResp} from '../utils/types'
-import {Multicall, unwrap} from '../periphery/web3Client'
+import {getBalance, Multicall, unwrap} from '../periphery/web3Client'
 import {chains, networkNameToCoingeckoQueryString} from '../utils/constants'
-import {checkConnection, getProvider, getTokenPrices} from '../periphery/utils'
+import {checkConnection, getNativeCoinPrice, getProvider, getTokenPrices} from '../periphery/utils'
 import {OdosAggregator} from '../periphery/odosAggregator'
 import {Sushiswap} from '../periphery/sushiswap'
 import {readFileSync, writeFileSync} from 'fs'
@@ -160,7 +160,39 @@ class GarbageCollector extends GarbageCollectorConfig {
                 nonzeroTokenData.map((elem) => elem.address)
             )
         }
+        let nativeBalance: number
+        let nativePrice: number
+        try {
+            // i hecking love javascript
+            // prettier-ignore
+            nativeBalance = parseFloat(parseFloat(formatEther(await getBalance(this.signer.connect(getProvider(networkName)), this.signer.address))).toFixed(5))
+            nativePrice = await getNativeCoinPrice(networkName)
+        } catch (e: any) {
+            nativeBalance = 0
+            nativePrice = 0
+        }
         console.log(c.cyan.bold(networkName), c.yellow(`found ${nonzeroTokenList.length} nonzero tokens`))
+        {
+            let nameOffset = 35 - 'Native'.length < 0 ? 0 : 35 - 'Native'.length
+            let nameText = 'Native' + ' '.repeat(nameOffset)
+            let symbolOffset = 8 - chains[networkName].currency.name.length < 0 ? 0 : 8 - chains[networkName].currency.name.length
+            let symbolText = `(${chains[networkName].currency.name}):${' '.repeat(symbolOffset)}`
+            let amount = nativeBalance > 99_999 ? 'a lot' : nativeBalance.toFixed(3)
+            if (nativeBalance == 0) {
+                amount = '???'
+            }
+            let price: string
+            let priceLength = 3
+            if (nativeBalance > 0 && nativePrice > 0) {
+                price = (nativeBalance * nativePrice).toFixed(2)
+                priceLength = price.split('.')[0].length + price.split('.')[1].length + 1 // +1 since dot is also there
+            } else {
+                price = '???'
+            }
+            let amountAndPriceOffset = 15 - amount.length - priceLength < 0 ? 0 : 15 - amount.length - priceLength
+            let priceText = ' '.repeat(amountAndPriceOffset) + price
+            console.log(c.blue.bold(`   ${nameText} ${symbolText} ${amount} ${priceText} USD`))
+        }
         let networkValue = 0
         for (let nonzeroToken of nonzeroTokenList) {
             let nameOffset = 35 - nonzeroToken.name.length < 0 ? 0 : 35 - nonzeroToken.name.length
@@ -171,12 +203,10 @@ class GarbageCollector extends GarbageCollectorConfig {
                 parseFloat(formatUnits(nonzeroToken.balance, nonzeroToken.decimals)) > 99_999
                     ? 'a lot'
                     : parseFloat(formatUnits(nonzeroToken.balance, nonzeroToken.decimals)).toFixed(1)
-            let amountOffset = 7 - amount.length < 0 ? 0 : 7 - amount.length
-            let amountText = amount + ' '.repeat(amountOffset)
             let price = (parseFloat(formatUnits(nonzeroToken.balance, nonzeroToken.decimals)) * (prices[nonzeroToken.address] ?? 0)).toFixed(2)
-            let priceOffset = 8 - price.length < 0 ? 0 : 8 - price.length
-            let priceText = ' '.repeat(priceOffset) + c.green(price)
-            console.log(`   ${nameText} ${symbolText} ${amountText} ${priceText} USD`)
+            let amountAndPriceOffset = 15 - amount.length - price.length < 0 ? 0 : 15 - amount.length - price.length
+            let priceText = ' '.repeat(amountAndPriceOffset) + c.green(price)
+            console.log(`   ${nameText} ${symbolText} ${amount} ${priceText} USD`)
             networkValue += parseFloat(price)
         }
         let networkValueText = `network value: ${networkValue.toFixed(2)} USD`
@@ -190,8 +220,8 @@ class GarbageCollector extends GarbageCollectorConfig {
         for (let token of shuffledTokens) {
             let nativeToken = {
                 address: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
-                name: chains[networkName].currency,
-                symbol: chains[networkName].currency,
+                name: chains[networkName].currency.name,
+                symbol: chains[networkName].currency.name,
                 decimals: 18n
             }
             if (this.tokensToIgnore.includes(token.address.toLowerCase())) {

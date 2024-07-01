@@ -1,6 +1,14 @@
 [
     {
         "chainId": 59144,
+        "address": "0xd2671165570f41bbb3b0097893300b6eb6101e6c",
+        "name": "Wrapped rsETH",
+        "symbol": "WRSETH",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/37919/thumb/rseth.png?1715936438"
+    },
+    {
+        "chainId": 59144,
         "address": "0xe5d7c2a44ffddf6b295a15c148167daaaf5cf34f",
         "name": "Bridged Wrapped Ether  Linea ",
         "symbol": "WETH",
@@ -33,11 +41,11 @@
     },
     {
         "chainId": 59144,
-        "address": "0x82cc61354d78b846016b559e3ccd766fa7e793d5",
-        "name": "Linda",
-        "symbol": "LINDA",
+        "address": "0x1a51b19ce03dbe0cb44c1528e34a7edd7771e9af",
+        "name": "Lynex",
+        "symbol": "LYNX",
         "decimals": 18,
-        "logoURI": "https://assets.coingecko.com/coins/images/33699/thumb/linda-logo-200.png?1705166731"
+        "logoURI": "https://assets.coingecko.com/coins/images/34874/thumb/LogoCircular_200x200.png?1706462851"
     },
     {
         "chainId": 59144,
@@ -49,6 +57,14 @@
     },
     {
         "chainId": 59144,
+        "address": "0x5fbdf89403270a1846f5ae7d113a989f850d1566",
+        "name": "Foxy",
+        "symbol": "FOXY",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/36870/thumb/Foxy_Logo_Square_200x200.png?1712645286"
+    },
+    {
+        "chainId": 59144,
         "address": "0xa219439258ca9da29e9cc4ce5596924745e12b93",
         "name": "Bridged Tether  Linea ",
         "symbol": "USDT",
@@ -57,11 +73,11 @@
     },
     {
         "chainId": 59144,
-        "address": "0xacb54d07ca167934f57f829bee2cc665e1a5ebef",
-        "name": "Croak",
-        "symbol": "CROAK",
+        "address": "0x82cc61354d78b846016b559e3ccd766fa7e793d5",
+        "name": "Linda",
+        "symbol": "LINDA",
         "decimals": 18,
-        "logoURI": "https://assets.coingecko.com/coins/images/38592/thumb/Croak-for-coingeko.png?1718092516"
+        "logoURI": "https://assets.coingecko.com/coins/images/33699/thumb/linda-logo-200.png?1705166731"
     },
     {
         "chainId": 59144,
@@ -73,27 +89,11 @@
     },
     {
         "chainId": 59144,
-        "address": "0x1e1f509963a6d33e169d9497b11c7dbfe73b7f13",
-        "name": "Overnight fi USDT ",
-        "symbol": "USDT+",
-        "decimals": 6,
-        "logoURI": "https://assets.coingecko.com/coins/images/30168/thumb/USDT_.png?1696529088"
-    },
-    {
-        "chainId": 59144,
-        "address": "0x5fbdf89403270a1846f5ae7d113a989f850d1566",
-        "name": "Foxy",
-        "symbol": "FOXY",
+        "address": "0x11f98c7e42a367dab4f200d2fdc460fb445ce9a8",
+        "name": "SpartaDEX",
+        "symbol": "SPARTA",
         "decimals": 18,
-        "logoURI": "https://assets.coingecko.com/coins/images/36870/thumb/Foxy_Logo_Square_200x200.png?1712645286"
-    },
-    {
-        "chainId": 59144,
-        "address": "0xd2671165570f41bbb3b0097893300b6eb6101e6c",
-        "name": "Wrapped rsETH",
-        "symbol": "WRSETH",
-        "decimals": 18,
-        "logoURI": "https://assets.coingecko.com/coins/images/37919/thumb/rseth.png?1715936438"
+        "logoURI": "https://assets.coingecko.com/coins/images/30836/thumb/SpartaDex_200x200.jpg?1696529694"
     },
     {
         "chainId": 59144,
@@ -113,19 +113,19 @@
     },
     {
         "chainId": 59144,
-        "address": "0x1a51b19ce03dbe0cb44c1528e34a7edd7771e9af",
-        "name": "Lynex",
-        "symbol": "LYNX",
+        "address": "0x7d43aabc515c356145049227cee54b608342c0ad",
+        "name": "Binance USD  Linea ",
+        "symbol": "BUSD",
         "decimals": 18,
-        "logoURI": "https://assets.coingecko.com/coins/images/34874/thumb/LogoCircular_200x200.png?1706462851"
+        "logoURI": "https://assets.coingecko.com/coins/images/31020/thumb/download_%2816%29.png?1696529856"
     },
     {
         "chainId": 59144,
-        "address": "0x11f98c7e42a367dab4f200d2fdc460fb445ce9a8",
-        "name": "SpartaDEX",
-        "symbol": "SPARTA",
+        "address": "0xacb54d07ca167934f57f829bee2cc665e1a5ebef",
+        "name": "Croak",
+        "symbol": "CROAK",
         "decimals": 18,
-        "logoURI": "https://assets.coingecko.com/coins/images/30836/thumb/SpartaDex_200x200.jpg?1696529694"
+        "logoURI": "https://assets.coingecko.com/coins/images/38592/thumb/Croak-for-coingeko.png?1718092516"
     },
     {
         "chainId": 59144,
@@ -145,14 +145,6 @@
     },
     {
         "chainId": 59144,
-        "address": "0x7d43aabc515c356145049227cee54b608342c0ad",
-        "name": "Binance USD  Linea ",
-        "symbol": "BUSD",
-        "decimals": 18,
-        "logoURI": "https://assets.coingecko.com/coins/images/31020/thumb/download_%2816%29.png?1696529856"
-    },
-    {
-        "chainId": 59144,
         "address": "0x1bf74c010e6320bab11e2e5a532b5ac15e0b8aa6",
         "name": "LayerZero Bridged weETH  Linea ",
         "symbol": "WEETH",
@@ -166,6 +158,14 @@
         "symbol": "NWG",
         "decimals": 18,
         "logoURI": "https://assets.coingecko.com/coins/images/38213/thumb/notwifgary.jpeg?1716823153"
+    },
+    {
+        "chainId": 59144,
+        "address": "0x1e1f509963a6d33e169d9497b11c7dbfe73b7f13",
+        "name": "Overnight fi USDT ",
+        "symbol": "USDT+",
+        "decimals": 6,
+        "logoURI": "https://assets.coingecko.com/coins/images/30168/thumb/USDT_.png?1696529088"
     },
     {
         "chainId": 59144,
@@ -286,6 +286,14 @@
         "symbol": "XRGB",
         "decimals": 18,
         "logoURI": "https://assets.coingecko.com/coins/images/35447/thumb/log2.png?1708620430"
+    },
+    {
+        "chainId": 59144,
+        "address": "0xecc68d0451e20292406967fe7c04280e5238ac7d",
+        "name": "Axelar Bridged Frax Ether",
+        "symbol": "AXLFRXETH",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/38976/thumb/Screen_Shot_2024-06-18_at_12.55.54_PM_2.png?1719714886"
     },
     {
         "chainId": 59144,

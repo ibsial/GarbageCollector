@@ -3,7 +3,7 @@ import {ChainName} from '../utils/types'
 import {chains, networkNameToCoingeckoQueryString} from '../utils/constants'
 import {RandomHelpers, retry} from '../utils/helpers'
 import axios, {AxiosInstance} from 'axios'
-import { HttpsProxyAgent } from 'https-proxy-agent'
+import {HttpsProxyAgent} from 'https-proxy-agent'
 
 function getProvider(networkName: ChainName) {
     // TODO: add proxy & make static
@@ -11,6 +11,22 @@ function getProvider(networkName: ChainName) {
         staticNetwork: true
     })
     return provider
+}
+async function getNativeCoinPrice(networkName: ChainName): Promise<number> {
+    let price: number | undefined = await retry(
+        async () => {
+            if (chains[networkName].currency?.price != undefined && chains[networkName].currency?.price != 0) {
+                return chains[networkName].currency?.price
+            }
+            let url = `https://min-api.cryptocompare.com/data/price?fsym=${chains[networkName].currency.name}&tsyms=USD`
+            let resp = await axios.get(url)
+            let body: {USD: number} = resp.data
+            return body.USD
+        },
+        {maxRetryCount: 3, retryInterval: 10, throwOnError: false}
+    )
+    if (price == undefined) price = 0
+    return price
 }
 async function getTokenPrices(networkName: ChainName, addresses: string[]): Promise<{[key: string]: number}> {
     let llamaNetworkName: string = networkName
@@ -49,7 +65,11 @@ async function getTokenPrices(networkName: ChainName, addresses: string[]): Prom
 async function checkConnection(proxy?: string) {
     let session: AxiosInstance
     if (proxy) {
-        session = axios.create({httpAgent: new HttpsProxyAgent(`http://${proxy}`), httpsAgent: new HttpsProxyAgent(`http://${proxy}`), timeout: 5_000})
+        session = axios.create({
+            httpAgent: new HttpsProxyAgent(`http://${proxy}`),
+            httpsAgent: new HttpsProxyAgent(`http://${proxy}`),
+            timeout: 5_000
+        })
     } else {
         session = axios.create({timeout: 5_000})
     }
@@ -60,4 +80,4 @@ async function checkConnection(proxy?: string) {
         return false
     }
 }
-export {getProvider, getTokenPrices, checkConnection}
+export {getProvider, getTokenPrices, getNativeCoinPrice, checkConnection}

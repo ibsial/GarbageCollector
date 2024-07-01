@@ -7,7 +7,7 @@ import {GarbageCollector} from './src/core/garbageCollector'
 import {goodGwei, shuffleWallets, sleepBetweenAccs, sleepBetweenActions} from './config'
 import {NativeSender} from './src/core/nativeSender'
 import {waitGwei} from './src/periphery/web3Client'
-import { RelayBridge } from './src/periphery/relayBridge'
+import {RelayBridge} from './src/periphery/relayBridge'
 
 async function main() {
     let scenario = await menu.chooseTask()
