@@ -71,7 +71,7 @@ class RelayBridge extends RelayBridgeConfig {
                 let testTx = {...tx}
                 testTx.value = 1000000000n
                 let estimate = await estimateTx(signer, testTx)
-                let cost = (BigInt(tx?.gasPrice ?? tx?.maxFeePerGas) * BigInt(estimate) * 13n) / 10n
+                let cost = (BigInt(tx?.gasPrice ?? tx?.maxFeePerGas) * BigInt(estimate) * 16n) / 10n
                 tx.value = this.deductFee ? BigInt(tx?.value) - cost : BigInt(tx?.value)
                 tx.gasLimit = estimate
                 console.log(c.yellow(`[relay] bridging ${formatEther(tx.value)} ETH from ${fromNetwork} to ${toNetwork}`))
