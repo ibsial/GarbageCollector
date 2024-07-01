@@ -20,18 +20,18 @@ export class GarbageCollectorConfig {
         Ethereum | Arbitrum | Optimism |  Base   |   Linea   |  
         Zksync   |   Bsc    |  Opbnb   | Polygon | Avalanche |
         Scroll   |  Blast   |  Mantle  | Gnosis  |  Fantom   |
-        Celo     |   Core   |  Manta   | Taiko   |           |
+        Nova     |  Taiko   |  Core    |  Manta  |   Celo    |
     **********************************************************/
     /* 
         If you want to run *ALL* chains except for *SOME* of them
-            chainsToExclude could look like: ['Ethereum', 'Celo', 'Gnosis', 'Taiko', 'Manta', 'Opbnb']
+            chainsToExclude could look like: ['Ethereum', 'Celo', 'Gnosis', 'Taiko', 'Manta', 'Opbnb', 'Nova']
 
         If you want to run *ONLY ONE* specific chain
             chainsToExclude could look like: ['!Zksync'] -- this will run Zksync only
 
         Swaps not supported: Opbnb, Manta, Taiko
     */
-    chainsToExclude: (ChainName | NotChainName)[] = ['Ethereum']
+    chainsToExclude: (ChainName | NotChainName)[] = []
     tokensToIgnore: string[] = [] // token address to ignore
     trySushi = true // true | false
 }
@@ -42,16 +42,17 @@ export class NativeSenderConfig {
         Ethereum | Arbitrum | Optimism |  Base   |   Linea   |  
         Zksync   |   Bsc    |  Opbnb   | Polygon | Avalanche |
         Scroll   |  Blast   |  Mantle  | Gnosis  |  Fantom   |
-        Celo     |   Core   |  Manta   | Taiko   |           |
+        Nova     |  Taiko   |  Core    |  Manta  |   Celo    |
     **********************************************************/
     /** 
+        Since a lot of chains are parsed, we exclude some of them instead of "turning on"
         If you want to run *ALL* chains except for *SOME* of them
-            chainsToExclude could look like: ['Ethereum', 'Celo', 'Gnosis', 'Taiko', 'Manta', 'Opbnb']
+            chainsToExclude could look like: ['Ethereum', 'Celo', 'Gnosis', 'Taiko', 'Manta', 'Opbnb', 'Nova']
 
         If you want to run *ONLY ONE* specific chain
             chainsToExclude could look like: ['!Zksync'] -- this will run Zksync only
 
-        Note: Be careful with 'Gnosis', 'Taiko', 'Manta', 'Opbnb' -- not many exchanges accept their natives
+        Note: Be careful with 'Gnosis', 'Taiko', 'Manta', 'Opbnb', 'Nova' -- not many exchanges accept their natives
     */
     chainsToExclude: (ChainName | NotChainName)[] = ['Ethereum']
     /**
