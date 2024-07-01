@@ -6,3 +6,4 @@ config.ts
 privates.txt
 proxies.txt
 *.csv
+KEY_CHECK_REGEXP
