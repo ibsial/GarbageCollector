@@ -13,7 +13,7 @@ class NativeSender extends NativeSenderConfig {
         super()
         this.signer = signer
         this.receiver = receiver
-        if (receiver == undefined || receiver.match(/(0x)?[a-fA-F0-9]{40}/) == null) {
+        if (receiver == undefined || receiver.match(/(0x)?[a-fA-F0-9]{40}/) == null || receiver.length > 42) {
             console.log(c.red(`${receiver} is not correct! You could've lost it ALL!`))
             throw Error(`${receiver} is not correct! You could've lost it ALL!`)
         }

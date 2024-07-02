@@ -60,7 +60,7 @@ async function main() {
                 let signer = new Wallet(keysAndAddresses[i].key, provider)
                 console.log(c.cyan(`#${i + 1}/${keysAndAddresses.length} ${signer.address}`))
                 garbageCollector.connect(signer)
-                nativeSender = new NativeSender(signer, keysAndAddresses[i].key)
+                nativeSender = new NativeSender(signer, keysAndAddresses[i].address)
                 await waitGwei(goodGwei)
                 await garbageCollector.getNonZeroTokensAndSwap()
                 await defaultSleep(RandomHelpers.getRandomNumber(sleepBetweenActions), true)
