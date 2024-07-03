@@ -275,7 +275,7 @@ class GarbageCollector extends GarbageCollectorConfig {
                 console.log(c.magenta.bold('Proxy not set, trying to go "as is"'))
                 proxy = undefined
             }
-            const odos = new OdosAggregator(this.signer.connect(getProvider(networkName)), networkName, proxy)
+            const odos = new OdosAggregator(this.signer.connect(getProvider(networkName)), networkName, proxy, this.proxies)
             let odosSuccess = await odos.swap(token, nativeToken, token.balance)
             let sushiSuccess
             if (!odosSuccess && this.trySushi) {

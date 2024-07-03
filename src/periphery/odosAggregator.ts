@@ -1,7 +1,7 @@
 import {formatUnits, TransactionRequest, Wallet, ZeroAddress} from 'ethers'
 import {ChainName, OdosAssembleType, OdosQuoteType} from '../utils/types'
 import axios, {AxiosInstance} from 'axios'
-import {c, retry} from '../utils/helpers'
+import {c, RandomHelpers, retry} from '../utils/helpers'
 import {chains} from '../utils/constants'
 import {approve, getGwei, sendTx} from './web3Client'
 import {DEV, maxRetries} from '../../config'
@@ -13,7 +13,8 @@ class OdosAggregator {
     signer: Wallet
     networkName: ChainName
     session: AxiosInstance
-    constructor(signer: Wallet, network?: ChainName, proxy?: string) {
+    proxies: string[] | undefined
+    constructor(signer: Wallet, network?: ChainName, proxy?: string, proxies?: string[]) {
         this.signer = signer
         this.networkName = network ?? 'Ethereum'
         if (proxy) {
@@ -25,6 +26,7 @@ class OdosAggregator {
         } else {
             this.session = axios.create({timeout: 7_000})
         }
+        this.proxies = proxies
     }
     setNetwork(newNetworkName: ChainName) {
         this.networkName = newNetworkName
@@ -129,16 +131,22 @@ class OdosAggregator {
         }
         let res: OdosQuoteType | undefined = await retry(
             async () => {
-                let resp = await this.session.post(this.quoteUrl, payload, {
-                    headers: {
-                        'Content-Type': 'application/json'
+                try {
+                    let resp = await this.session.post(this.quoteUrl, payload, {
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    })
+                    let body: OdosQuoteType = resp.data
+                    if (body.netOutValue < 0.01) {
+                        return
                     }
-                })
-                let body: OdosQuoteType = resp.data
-                if (body.netOutValue < 0.01) {
-                    return
+                    return body
+                } catch (e: any) {
+                    // how to do this better? Maybe introduce a "callback" to retry helper?
+                    this.changeSession()
+                    throw e
                 }
-                return body
             },
             {maxRetryCount: maxRetries, retryInterval: 5, needLog: false, throwOnError: false}
         )
@@ -161,10 +169,16 @@ class OdosAggregator {
     ) {
         let approvalTarget: string | undefined = await retry(
             async () => {
-                let resp = await this.session.get(`https://api.odos.xyz/info/contract-info/v2/${chains[this.networkName].id}`, {
-                    headers: {'Content-Type': 'application/json'}
-                })
-                return resp.data.routerAddress
+                try {
+                    let resp = await this.session.get(`https://api.odos.xyz/info/contract-info/v2/${chains[this.networkName].id}`, {
+                        headers: {'Content-Type': 'application/json'}
+                    })
+                    return resp.data.routerAddress
+                } catch (e: any) {
+                    // how to do this better? Maybe introduce a "callback" to retry helper?
+                    this.changeSession()
+                    throw e
+                }
             },
             {maxRetryCount: 5, retryInterval: 5, needLog: false, throwOnError: false}
         )
@@ -184,18 +198,24 @@ class OdosAggregator {
         }
         let tx: OdosAssembleType['transaction'] | undefined = await retry(
             async () => {
-                const assembleRequestBody = {
-                    userAddr: this.signer.address, // the checksummed address used to generate the quote
-                    pathId: quote.pathId, // Replace with the pathId from quote response in step 1
-                    simulate: true // this can be set to true if the user isn't doing their own estimate gas call for the transaction
-                }
-                let resp = await this.session.post(this.assembleUrl, assembleRequestBody, {headers: {'Content-Type': 'application/json'}})
-                let body: OdosAssembleType = resp.data
-                if (body.simulation.isSuccess) {
-                    return body.transaction
-                } else {
-                    // console.log('OdosAggregator:executeSwap swap simulation failed')
-                    throw Error('OdosAggregator:executeSwap swap simulation failed')
+                try {
+                    const assembleRequestBody = {
+                        userAddr: this.signer.address, // the checksummed address used to generate the quote
+                        pathId: quote.pathId, // Replace with the pathId from quote response in step 1
+                        simulate: true // this can be set to true if the user isn't doing their own estimate gas call for the transaction
+                    }
+                    let resp = await this.session.post(this.assembleUrl, assembleRequestBody, {headers: {'Content-Type': 'application/json'}})
+                    let body: OdosAssembleType = resp.data
+                    if (body.simulation.isSuccess) {
+                        return body.transaction
+                    } else {
+                        // console.log('OdosAggregator:executeSwap swap simulation failed')
+                        throw Error('OdosAggregator:executeSwap swap simulation failed')
+                    }
+                } catch (e: any) {
+                    // how to do this better? Maybe introduce a "callback" to retry helper?
+                    this.changeSession()
+                    throw e
                 }
             },
             {maxRetryCount: maxRetries, retryInterval: 5, needLog: false, throwOnError: false}
@@ -224,6 +244,17 @@ class OdosAggregator {
             token.toLowerCase() == '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE'.toLowerCase() ||
             token.toLowerCase() == '0x0000000000000000000000000000000000001010'.toLowerCase() // polygon MATIC address o_0
         )
+    }
+    changeSession() {
+        if (this.proxies != undefined && this.proxies.length > 0) {
+            let proxy = RandomHelpers.getRandomElementFromArray(this.proxies)
+            console.log('Odos: changed proxy to:', proxy)
+            this.session = axios.create({
+                httpAgent: new HttpsProxyAgent(`http://${proxy}`),
+                httpsAgent: new HttpsProxyAgent(`http://${proxy}`),
+                timeout: 7_000
+            })
+        }
     }
 }
 
