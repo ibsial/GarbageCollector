@@ -4225,14 +4225,6 @@
     },
     {
         "chainId": 1,
-        "address": "0x3543638ed4a9006e4840b105944271bcea15605d",
-        "name": "U Network",
-        "symbol": "UUU",
-        "decimals": 18,
-        "logoURI": "https://assets.coingecko.com/coins/images/3877/thumb/2645.png?1696504538"
-    },
-    {
-        "chainId": 1,
         "address": "0x543ff227f64aa17ea132bf9886cab5db55dcaddf",
         "name": "DAOstack",
         "symbol": "GEN",
@@ -6278,14 +6270,6 @@
         "symbol": "DSS",
         "decimals": 18,
         "logoURI": "https://assets.coingecko.com/coins/images/12602/thumb/DSS.png?1696512411"
-    },
-    {
-        "chainId": 1,
-        "address": "0x0ad896863ce4cd84f10a9d30d4f509ceffd53c84",
-        "name": "Chocolate Like Butterfly",
-        "symbol": "CLB",
-        "decimals": 18,
-        "logoURI": "https://assets.coingecko.com/coins/images/28859/thumb/clb.png?1696527833"
     },
     {
         "chainId": 1,
@@ -10774,13 +10758,6 @@
     },
     {
         "chainId": 1,
-        "address": "0xd4ae236a5080a09c0f7bd6e6b84919523573a43b",
-        "name": "Future T I M E Dividend",
-        "symbol": "FUTURE",
-        "decimals": 18
-    },
-    {
-        "chainId": 1,
         "address": "0x302cae5dcf8f051d0177043c3438020b89b33218",
         "name": "Boost",
         "symbol": "BOOST",
@@ -12425,14 +12402,6 @@
         "symbol": "STORE",
         "decimals": 18,
         "logoURI": "https://assets.coingecko.com/coins/images/20463/thumb/bit_store.PNG?1696519868"
-    },
-    {
-        "chainId": 1,
-        "address": "0xaea46a60368a7bd060eec7df8cba43b7ef41ad85",
-        "name": "Fetch ai",
-        "symbol": "FET",
-        "decimals": 18,
-        "logoURI": "https://assets.coingecko.com/coins/images/5681/thumb/Fetch.jpg?1696506140"
     },
     {
         "chainId": 1,
@@ -17698,14 +17667,6 @@
     },
     {
         "chainId": 1,
-        "address": "0x9c4a4204b79dd291d6b6571c5be8bbcd0622f050",
-        "name": "Tracer DAO",
-        "symbol": "TCR",
-        "decimals": 18,
-        "logoURI": "https://assets.coingecko.com/coins/images/18271/thumb/tracer_logo.png?1696517765"
-    },
-    {
-        "chainId": 1,
         "address": "0xa41f142b6eb2b164f8164cae0716892ce02f311f",
         "name": "Avocado DAO",
         "symbol": "AVG",
@@ -18807,14 +18768,6 @@
         "symbol": "METAMEME",
         "decimals": 9,
         "logoURI": "https://assets.coingecko.com/coins/images/33679/thumb/logo200x200.jpg?1702718320"
-    },
-    {
-        "chainId": 1,
-        "address": "0x1e917e764bc34d3bc313fe8159a6bd9d9ffd450d",
-        "name": "WEWE",
-        "symbol": "WEWE",
-        "decimals": 18,
-        "logoURI": "https://assets.coingecko.com/coins/images/30458/thumb/IMG_3939.JPG?1696529345"
     },
     {
         "chainId": 1,
@@ -22425,14 +22378,6 @@
     },
     {
         "chainId": 1,
-        "address": "0x755582d6db18003e67eccaa7090421a775280a36",
-        "name": "FP  JeerGirl",
-        "symbol": "JEERGIRL",
-        "decimals": 18,
-        "logoURI": "https://assets.coingecko.com/coins/images/34108/thumb/JEERGIRL.jpg?1703988353"
-    },
-    {
-        "chainId": 1,
         "address": "0x9d69a8ccb7cbc03d3dbb2c4ab03c0c1fad3e74b0",
         "name": "Creatopy Builder",
         "symbol": "CREATOPY",
@@ -24345,14 +24290,6 @@
     },
     {
         "chainId": 1,
-        "address": "0x63e28547f0997e8ab265b24b7e5df302f3498ff3",
-        "name": "FP  WorldOfWomen",
-        "symbol": "UWOW",
-        "decimals": 18,
-        "logoURI": "https://assets.coingecko.com/coins/images/34111/thumb/WOW.png?1703996347"
-    },
-    {
-        "chainId": 1,
         "address": "0xd567b5f02b9073ad3a982a099a23bf019ff11d1c",
         "name": "Gamestarter",
         "symbol": "GAME",
@@ -25094,14 +25031,6 @@
         "symbol": "MDI",
         "decimals": 18,
         "logoURI": "https://assets.coingecko.com/coins/images/31082/thumb/Medicle%28MDI%29_NEW_.png?1696529915"
-    },
-    {
-        "chainId": 1,
-        "address": "0xd17c18979a45c0f3604331831c409f7bff64d3c1",
-        "name": "Farmer Friends",
-        "symbol": "FRENS",
-        "decimals": 18,
-        "logoURI": "https://assets.coingecko.com/coins/images/31048/thumb/FRENS_logo.png?1696529883"
     },
     {
         "chainId": 1,
@@ -30724,14 +30653,6 @@
     },
     {
         "chainId": 1,
-        "address": "0x359108ca299ca693502ef217e2109ad02aa4277c",
-        "name": "FP  MutantApeYachtClub",
-        "symbol": "UMAYC",
-        "decimals": 18,
-        "logoURI": "https://assets.coingecko.com/coins/images/32675/thumb/mayc_logo.69fd41b5.png?1698911670"
-    },
-    {
-        "chainId": 1,
         "address": "0xb53b9e28b98c47e87acfd5a85eeb44a0940ecb12",
         "name": "Ordible",
         "symbol": "ORB",
@@ -31916,14 +31837,6 @@
     },
     {
         "chainId": 1,
-        "address": "0x00b4651795193daca7e73b5ddd031dfde8ca5720",
-        "name": "CHAINMAIL",
-        "symbol": "MAIL",
-        "decimals": 18,
-        "logoURI": "https://assets.coingecko.com/coins/images/33431/thumb/Z_hlFCgV_400x400.jpg?1701818031"
-    },
-    {
-        "chainId": 1,
         "address": "0x12f9a180198d91f854f3ca23caf8be1c83ef3b76",
         "name": "AquaStake",
         "symbol": "AQUA",
@@ -32657,14 +32570,6 @@
         "symbol": "SOHOT",
         "decimals": 9,
         "logoURI": "https://assets.coingecko.com/coins/images/34719/thumb/SOHOTRN.png?1705916112"
-    },
-    {
-        "chainId": 1,
-        "address": "0x8df5066cf67d909eb67b82854cf54026d31fffae",
-        "name": "KOI",
-        "symbol": "KOI",
-        "decimals": 18,
-        "logoURI": "https://assets.coingecko.com/coins/images/33927/thumb/coingecko.png?1703408786"
     },
     {
         "chainId": 1,
@@ -39034,6 +38939,14 @@
     },
     {
         "chainId": 1,
+        "address": "0xaea46a60368a7bd060eec7df8cba43b7ef41ad85",
+        "name": "Artificial Superintelligence Alliance",
+        "symbol": "FET",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/5681/thumb/ASI.png?1719827289"
+    },
+    {
+        "chainId": 1,
         "address": "0x46971fc433d90cf2ff1da4a66abe320dfb0ce3b1",
         "name": "Winee3",
         "symbol": "WNE",
@@ -41270,14 +41183,6 @@
         "symbol": "EGG",
         "decimals": 18,
         "logoURI": "https://assets.coingecko.com/coins/images/17298/thumb/200x200_pixel.png?1696516851"
-    },
-    {
-        "chainId": 1,
-        "address": "0x8bbf1dccbedd5c70d8e793d432fb56b848dd1698",
-        "name": "Ape In",
-        "symbol": "APEIN",
-        "decimals": 18,
-        "logoURI": "https://assets.coingecko.com/coins/images/18262/thumb/apein.PNG?1696517757"
     },
     {
         "chainId": 1,

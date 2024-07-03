@@ -86,11 +86,15 @@ export class RelayBridgeConfig {
 
     toNetwork: ChainName = 'Linea'
     /**
+     * If value will be < than minToBridge, action will be skipped
+     */
+    minToBridge: string = '0.002'
+    /**
      * You can set value
      * as NUMBER: {from: '0.1', to: '0.11'}
      * as PERCENTAGE: {from: '80%', to: '100%'} (you can also set both 100%)
      */
-    values: {from: string; to: string} = {from: '100%', to: '100%'}
+    values: {from: string; to: string} = {from: '95%', to: '100%'}
     /**
      * If set to *true*, fee will be deducted before bridge: *(Value - Fee)* will be sent
      * If set to *false*, fee wont be deducted before bridge: *(Value)* will be sent

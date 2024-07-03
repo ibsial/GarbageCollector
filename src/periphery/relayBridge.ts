@@ -93,6 +93,7 @@ class RelayBridge extends RelayBridgeConfig {
 
     async executeRelayBridge(signer: Wallet, currency = 'ETH') {
         let networks = RandomHelpers.shuffleArray(this.fromNetworks)
+        let hasBridged = false
         for (let i = 0; i < networks.length; i++) {
             let fromNetwork = networks[i] as ChainName
             let toNetwork = this.toNetwork
@@ -109,13 +110,20 @@ class RelayBridge extends RelayBridgeConfig {
             }
             let valueToBridge = await this.getSendValue(fromNetwork)
             if (valueToBridge < 0n) {
-                console.log(c.red(`value to bridge must be > 0. Got: ${formatEther(valueToBridge)}`))
+                console.log(c.red(`[relay] value to bridge must be > 0. Got: ${formatEther(valueToBridge)}`))
+                continue
+            }
+            if (valueToBridge < parseEther(this.minToBridge)) {
+                console.log(c.yellow(`[relay] value to bridge from ${fromNetwork} is below limit of ${this.minToBridge} ${chains[fromNetwork].currency.name}`))
+                continue
             }
             let success = await this.bridgeRelay(signer.connect(getProvider(fromNetwork)), currency, fromNetwork, toNetwork, valueToBridge)
             if (success) {
                 await defaultSleep(RandomHelpers.getRandomNumber(sleepBetweenActions))
+                hasBridged = true
             }
         }
+        return hasBridged
     }
 
     async getSendValue(networkName: ChainName): Promise<bigint> {

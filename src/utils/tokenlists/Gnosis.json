@@ -1,11 +1,11 @@
 [
     {
         "chainId": 100,
-        "address": "0xe91d153e0b41518a2ce8dd3d7944fa863463a97d",
-        "name": "XDAI",
-        "symbol": "XDAI",
+        "address": "0x0aa1e96d2a46ec6beb2923de1e61addf5f5f1dce",
+        "name": "RealToken Ecosystem Governance",
+        "symbol": "REG",
         "decimals": 18,
-        "logoURI": "https://assets.coingecko.com/coins/images/11062/thumb/Identity-Primary-DarkBG.png?1696511004"
+        "logoURI": "https://assets.coingecko.com/coins/images/37785/thumb/realt.jpeg?1715586329"
     },
     {
         "chainId": 100,
@@ -17,19 +17,19 @@
     },
     {
         "chainId": 100,
+        "address": "0x4ecaba5870353805a9f068101a40e0f32ed605c6",
+        "name": "Gnosis xDai Bridged USDT  Gnosis ",
+        "symbol": "USDT",
+        "decimals": 6,
+        "logoURI": "https://assets.coingecko.com/coins/images/35072/thumb/logo.png?1707292488"
+    },
+    {
+        "chainId": 100,
         "address": "0xb5d592f85ab2d955c25720ebe6ff8d4d1e1be300",
         "name": "Particle",
         "symbol": "PRTCLE",
         "decimals": 18,
         "logoURI": "https://assets.coingecko.com/coins/images/14395/thumb/unknown.png?1696514085"
-    },
-    {
-        "chainId": 100,
-        "address": "0x6c76971f98945ae98dd7d4dfca8711ebea946ea6",
-        "name": "Bridged Wrapped stETH  Gnosis ",
-        "symbol": "WSTETH",
-        "decimals": 18,
-        "logoURI": "https://assets.coingecko.com/coins/images/33017/thumb/wStETH.png?1700190250"
     },
     {
         "chainId": 100,
@@ -41,6 +41,14 @@
     },
     {
         "chainId": 100,
+        "address": "0x3a97704a1b25f08aa230ae53b352e2e72ef52843",
+        "name": "Agave",
+        "symbol": "AGVE",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/14146/thumb/agve.png?1696513865"
+    },
+    {
+        "chainId": 100,
         "address": "0xedbc7449a9b594ca4e053d9737ec5dc4cbccbfb2",
         "name": "Aave v3 EURe",
         "symbol": "AEURE",
@@ -49,11 +57,11 @@
     },
     {
         "chainId": 100,
-        "address": "0x4ecaba5870353805a9f068101a40e0f32ed605c6",
-        "name": "Gnosis xDai Bridged USDT  Gnosis ",
-        "symbol": "USDT",
-        "decimals": 6,
-        "logoURI": "https://assets.coingecko.com/coins/images/35072/thumb/logo.png?1707292488"
+        "address": "0x5cb9073902f2035222b9749f8fb0c9bfe5527108",
+        "name": "Monerium GBP emoney",
+        "symbol": "GBPE",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/39004/thumb/gbp.png?1719840784"
     },
     {
         "chainId": 100,
@@ -62,14 +70,6 @@
         "symbol": "USDC",
         "decimals": 6,
         "logoURI": "https://assets.coingecko.com/coins/images/35300/thumb/USDC_Icon.png?1708083625"
-    },
-    {
-        "chainId": 100,
-        "address": "0x0aa1e96d2a46ec6beb2923de1e61addf5f5f1dce",
-        "name": "RealToken Ecosystem Governance",
-        "symbol": "REG",
-        "decimals": 18,
-        "logoURI": "https://assets.coingecko.com/coins/images/37785/thumb/realt.jpeg?1715586329"
     },
     {
         "chainId": 100,
@@ -97,19 +97,19 @@
     },
     {
         "chainId": 100,
-        "address": "0x3a97704a1b25f08aa230ae53b352e2e72ef52843",
-        "name": "Agave",
-        "symbol": "AGVE",
-        "decimals": 18,
-        "logoURI": "https://assets.coingecko.com/coins/images/14146/thumb/agve.png?1696513865"
-    },
-    {
-        "chainId": 100,
         "address": "0x2a22f9c3b484c3629090feed35f17ff8f88f76f0",
         "name": "Gnosis xDAI Bridged USDC  Gnosis ",
         "symbol": "USDCE",
         "decimals": 6,
         "logoURI": "https://assets.coingecko.com/coins/images/38775/thumb/USDC_Icon.webp?1718798033"
+    },
+    {
+        "chainId": 100,
+        "address": "0x6c76971f98945ae98dd7d4dfca8711ebea946ea6",
+        "name": "Bridged Wrapped stETH  Gnosis ",
+        "symbol": "WSTETH",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/33017/thumb/wStETH.png?1700190250"
     },
     {
         "chainId": 100,
@@ -142,6 +142,14 @@
         "symbol": "AGNO",
         "decimals": 18,
         "logoURI": "https://assets.coingecko.com/coins/images/32928/thumb/gno.png?1699826574"
+    },
+    {
+        "chainId": 100,
+        "address": "0xe91d153e0b41518a2ce8dd3d7944fa863463a97d",
+        "name": "XDAI",
+        "symbol": "XDAI",
+        "decimals": 18,
+        "logoURI": "https://assets.coingecko.com/coins/images/11062/thumb/Identity-Primary-DarkBG.png?1696511004"
     },
     {
         "chainId": 100,

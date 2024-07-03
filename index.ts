@@ -45,8 +45,10 @@ async function main() {
                 console.log(c.cyan(`#${i + 1}/${keysAndAddresses.length} ${signer.address}`))
                 garbageCollector.connect(signer)
                 await waitGwei(goodGwei)
-                await garbageCollector.getNonZeroTokensAndSwap()
-                await sleep(RandomHelpers.getRandomNumber(sleepBetweenAccs))
+                let anySwapHappened = await garbageCollector.getNonZeroTokensAndSwap()
+                if (anySwapHappened) {
+                    await sleep(RandomHelpers.getRandomNumber(sleepBetweenAccs))
+                }
             }
             break
         case 'Garbage collector & native sender':
@@ -62,8 +64,10 @@ async function main() {
                 garbageCollector.connect(signer)
                 nativeSender = new NativeSender(signer, keysAndAddresses[i].address)
                 await waitGwei(goodGwei)
-                await garbageCollector.getNonZeroTokensAndSwap()
-                await defaultSleep(RandomHelpers.getRandomNumber(sleepBetweenActions), true)
+                let anySwapHappened = await garbageCollector.getNonZeroTokensAndSwap()
+                if (anySwapHappened) {
+                    await defaultSleep(RandomHelpers.getRandomNumber(sleepBetweenActions), true)
+                }
                 await waitGwei(goodGwei)
                 await nativeSender.sendNative()
                 await sleep(RandomHelpers.getRandomNumber(sleepBetweenAccs))
@@ -79,8 +83,10 @@ async function main() {
                 console.log(c.cyan(`#${i + 1}/${keysAndAddresses.length} ${signer.address}`))
                 await waitGwei(goodGwei)
                 const relay = new RelayBridge(signer)
-                await relay.executeRelayBridge(signer)
-                await sleep(RandomHelpers.getRandomNumber(sleepBetweenAccs))
+                let result = await relay.executeRelayBridge(signer)
+                if (result) {
+                    await sleep(RandomHelpers.getRandomNumber(sleepBetweenAccs))
+                }
             }
             break
         default:

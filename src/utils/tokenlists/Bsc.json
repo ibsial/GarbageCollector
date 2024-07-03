@@ -15372,14 +15372,6 @@
     },
     {
         "chainId": 56,
-        "address": "0x5ed41afccc1633bca322b9292db451fc7e423a5e",
-        "name": "UpBots Token",
-        "symbol": "MBOT",
-        "decimals": 18,
-        "logoURI": "https://assets.coingecko.com/coins/images/12476/thumb/mbxn-icon.png?1719371419"
-    },
-    {
-        "chainId": 56,
         "address": "0x6d4e8507084c7b58d33b3b88915591670f959b2f",
         "name": "Miner Arena",
         "symbol": "MINAR",
@@ -24108,10 +24100,10 @@
     {
         "chainId": 56,
         "address": "0x031b41e504677879370e9dbcf937283a8691fa7f",
-        "name": "Fetch ai",
+        "name": "Artificial Superintelligence Alliance",
         "symbol": "FET",
         "decimals": 18,
-        "logoURI": "https://assets.coingecko.com/coins/images/5681/thumb/Fetch.jpg?1696506140"
+        "logoURI": "https://assets.coingecko.com/coins/images/5681/thumb/ASI.png?1719827289"
     },
     {
         "chainId": 56,

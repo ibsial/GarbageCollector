@@ -20,10 +20,10 @@ class OdosAggregator {
             this.session = axios.create({
                 httpAgent: new HttpsProxyAgent(`http://${proxy}`),
                 httpsAgent: new HttpsProxyAgent(`http://${proxy}`),
-                timeout: 5_000
+                timeout: 7_000
             })
         } else {
-            this.session = axios.create({timeout: 5_000})
+            this.session = axios.create({timeout: 7_000})
         }
     }
     setNetwork(newNetworkName: ChainName) {
@@ -45,9 +45,15 @@ class OdosAggregator {
         },
         amountIn: bigint
     ): Promise<boolean> {
-        let quote = await this.#quoteSwap(tokenIn, tokenOut, amountIn)
-        if (quote == undefined) {
-            // console.log(`[Odos]      ${tokenIn.symbol} --> ${tokenOut.symbol} swap is too expensive or is not available`)
+        let quote
+        try {
+            quote = await this.#quoteSwap(tokenIn, tokenOut, amountIn)
+            if (quote == undefined) {
+                // console.log(`[Odos]      ${tokenIn.symbol} --> ${tokenOut.symbol} swap is too expensive or is not available`)
+                return false
+            }
+        } catch (e: any) {
+            console.log(c.red(`OdosAggregator:swap Quote failed, reason: ${e?.message ?? 'unknown'}`))
             return false
         }
         try {

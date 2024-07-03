@@ -84,6 +84,7 @@ class GarbageCollector extends GarbageCollectorConfig {
     }
     async getNonZeroTokensAndSwap() {
         let networks = RandomHelpers.shuffleArray(Object.keys(chains))
+        let swapHappened = false
         for (let i = 0; i < networks.length; i++) {
             let networkName = networks[i] as ChainName
             if (this.chainsToExclude.length > 0 && this.chainsToExclude[0].includes('!')) {
@@ -99,8 +100,12 @@ class GarbageCollector extends GarbageCollectorConfig {
                 continue
             }
             await this.getNonZeroTokensForChain(networkName)
-            await this.swapTokensToNativeForChain(networkName)
+            let anySwapHappened = await this.swapTokensToNativeForChain(networkName)
+            if (anySwapHappened) {
+                swapHappened = true
+            }
         }
+        return swapHappened
     }
     // unused yet
     async getNonZeroTokens() {
@@ -217,6 +222,7 @@ class GarbageCollector extends GarbageCollectorConfig {
     }
     async swapTokensToNativeForChain(networkName: ChainName) {
         let shuffledTokens = RandomHelpers.shuffleArray(this.nonzeroTokens[networkName])
+        let anySwapDone = false
         for (let token of shuffledTokens) {
             let nativeToken = {
                 address: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
@@ -277,11 +283,13 @@ class GarbageCollector extends GarbageCollectorConfig {
                 sushiSuccess = await sushi.swap(token, nativeToken, token.balance)
             }
             if (odosSuccess || sushiSuccess) {
+                anySwapDone = true
                 await defaultSleep(RandomHelpers.getRandomNumber(sleepBetweenActions))
             } else {
                 await defaultSleep(1, false)
             }
         }
+        return anySwapDone
     }
 }
 
