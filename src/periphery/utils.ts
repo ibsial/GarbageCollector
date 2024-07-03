@@ -74,7 +74,7 @@ async function checkConnection(proxy?: string) {
         session = axios.create({timeout: 5_000})
     }
     try {
-        let resp = session.get('https://api.odos.xyz/info/chains')
+        let resp = await session.get('https://api.odos.xyz/info/chains')
         return true
     } catch (e: any) {
         return false

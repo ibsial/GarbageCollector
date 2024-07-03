@@ -1,6 +1,6 @@
 import {formatUnits, TransactionRequest, Wallet, ZeroAddress} from 'ethers'
 import {ChainName, OdosAssembleType, OdosQuoteType} from '../utils/types'
-import axios, {AxiosInstance} from 'axios'
+import axios, {AxiosError, AxiosInstance} from 'axios'
 import {c, RandomHelpers, retry} from '../utils/helpers'
 import {chains} from '../utils/constants'
 import {approve, getGwei, sendTx} from './web3Client'
@@ -144,7 +144,9 @@ class OdosAggregator {
                     return body
                 } catch (e: any) {
                     // how to do this better? Maybe introduce a "callback" to retry helper?
-                    this.changeSession()
+                    if (e instanceof AxiosError) {
+                        this.changeSession()
+                    }
                     throw e
                 }
             },
@@ -176,7 +178,9 @@ class OdosAggregator {
                     return resp.data.routerAddress
                 } catch (e: any) {
                     // how to do this better? Maybe introduce a "callback" to retry helper?
-                    this.changeSession()
+                    if (e instanceof AxiosError) {
+                        this.changeSession()
+                    }
                     throw e
                 }
             },
@@ -214,7 +218,9 @@ class OdosAggregator {
                     }
                 } catch (e: any) {
                     // how to do this better? Maybe introduce a "callback" to retry helper?
-                    this.changeSession()
+                    if (e instanceof AxiosError) {
+                        this.changeSession()
+                    }
                     throw e
                 }
             },
@@ -248,7 +254,7 @@ class OdosAggregator {
     changeSession() {
         if (this.proxies != undefined && this.proxies.length > 0) {
             let proxy = RandomHelpers.getRandomElementFromArray(this.proxies)
-            console.log('Odos: changed proxy to:', proxy)
+            // console.log('Odos: changed proxy to:', proxy)
             this.session = axios.create({
                 httpAgent: new HttpsProxyAgent(`http://${proxy}`),
                 httpsAgent: new HttpsProxyAgent(`http://${proxy}`),
