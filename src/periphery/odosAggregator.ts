@@ -227,7 +227,9 @@ class OdosAggregator {
             {maxRetryCount: maxRetries, retryInterval: 5, needLog: false, throwOnError: false}
         )
         if (tx == undefined) {
-            console.log(c.red('OdosAggregator:executeSwap swap simulation failed'))
+            if (DEV) {
+                console.log(c.red('OdosAggregator:executeSwap swap simulation failed'))
+            }
             return false
         }
         let adjustedTx: TransactionRequest & OdosAssembleType['transaction'] = tx
