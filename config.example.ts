@@ -33,6 +33,7 @@ export class GarbageCollectorConfig {
     */
     chainsToExclude: (ChainName | NotChainName)[] = []
     tokensToIgnore: string[] = [] // token address to ignore
+    tokensToInclude: string[] = [] // tokens to check explicitly
     trySushi = true // true | false
 }
 
