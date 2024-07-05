@@ -68,6 +68,11 @@ class RelayBridge extends RelayBridgeConfig {
                     }
                 )
                 let tx = bridgeResp.data?.steps[0].items[0].data
+                if (tx?.gasPrice != undefined) {
+                    if (tx.gasPrice?.type == 'BigNumber') {
+                        tx.gasPrice = tx.gasPrice.hex
+                    }
+                }
                 let testTx = {...tx}
                 testTx.value = 1000000000n
                 let estimate = await estimateTx(signer, testTx)
@@ -114,7 +119,9 @@ class RelayBridge extends RelayBridgeConfig {
                 continue
             }
             if (valueToBridge < parseEther(this.minToBridge)) {
-                console.log(c.yellow(`[relay] value to bridge from ${fromNetwork} is below limit of ${this.minToBridge} ${chains[fromNetwork].currency.name}`))
+                console.log(
+                    c.yellow(`[relay] value to bridge from ${fromNetwork} is below limit of ${this.minToBridge} ${chains[fromNetwork].currency.name}`)
+                )
                 continue
             }
             let success = await this.bridgeRelay(signer.connect(getProvider(fromNetwork)), currency, fromNetwork, toNetwork, valueToBridge)
@@ -128,8 +135,8 @@ class RelayBridge extends RelayBridgeConfig {
 
     async getSendValue(networkName: ChainName): Promise<bigint> {
         if (parseFloat(this.values.from) < 0 || parseFloat(this.values.to) < 0) {
-            console.log(c.red(`Can't pass negative numbers to NativeSender`))
-            throw Error(`Can't pass negative numbers to NativeSender`)
+            console.log(c.red(`Can't pass negative numbers to Relay Bridge`))
+            throw Error(`Can't pass negative numbers to Relay Bridge`)
         }
         if (this.values.from.includes('%') && this.values.to.includes('%')) {
             let precision = 1000
@@ -143,8 +150,8 @@ class RelayBridge extends RelayBridgeConfig {
             let value = parseEther(RandomHelpers.getRandomNumber({from: parseFloat(this.values.from), to: parseFloat(this.values.to)}).toFixed())
             return value
         } else {
-            console.log(c.red(`Your "values" in "NativeSenderConfig" are wrong. Should be *number* or *percentage*`))
-            throw Error(`Your "values" in "NativeSenderConfig" are wrong. Should be *number* or *percentage*`)
+            console.log(c.red(`Your "values" in "RelayBridgeConfig" are wrong. Should be *number* or *percentage*`))
+            throw Error(`Your "values" in "RelayBridgeConfig" are wrong. Should be *number* or *percentage*`)
         }
     }
 }
