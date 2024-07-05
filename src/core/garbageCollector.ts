@@ -30,6 +30,24 @@ class GarbageCollector extends GarbageCollectorConfig {
 
         this.tokensToIgnore = this.tokensToIgnore.map((elem) => elem.toLowerCase().trim())
         this.chainsToExclude = this.chainsToExclude.map((elem) => elem.toLowerCase().trim()) as (ChainName | NotChainName)[]
+        this.tokensToInclude.concat([
+            // tokens to check explicitly
+            // Zksync
+            '0x28a487240e4d45cff4a2980d334cc933b7483842', // MATIC
+            '0x6A5279E99CA7786fb13F827Fc1Fb4F61684933d6', // AVAX
+            '0x45559297BdEDf453e172833AC7086f7D03f6690B', // ZKINU
+            '0x8d266fa745b7cf3856af0c778828473b8d33a149', // zkfloki
+            '0x5e38cb3e6c0faafaa5c32c482864fcef5a0660ad', // zkshib
+            '0x7400793aAd94C8CA801aa036357d10F5Fd0ce08f', // BNB
+
+            '0x2297aebd383787a160dd0d9f71508148769342e3', // BTCb in poly/bsc/...
+
+            // scroll
+            '0xb65ad8d81d1e4cb2975352338805af6e39ba8be8' // SCROLLY
+        ])
+        // remove duplicates from array:
+        // https://stackoverflow.com/questions/9229645/remove-duplicate-values-from-js-array
+        this.tokensToInclude = Array.from(new Set(this.tokensToInclude))
     }
     connect(signer: Wallet) {
         this.signer = signer
@@ -146,6 +164,14 @@ class GarbageCollector extends GarbageCollectorConfig {
             this.signer.address,
             this.tokenlists[networkName].map((elem) => elem.address)
         )
+        if (this.tokensToInclude.length > 0) {
+            let explicitTokensToInclude = await Multicall.setNetwork(networkName).callBalance(this.signer.address, this.tokensToInclude)
+            for (let token of explicitTokensToInclude) {
+                if (nonzeroTokens.find((element) => element.token.toLowerCase() == token.token.toLowerCase()) == undefined) {
+                    nonzeroTokens.push(token)
+                }
+            }
+        }
         let nonzeroTokenData = await Multicall.getTokenInfo(nonzeroTokens.map((elem) => elem.token))
         let nonzeroTokenList: {address: string; name: string; symbol: string; decimals: bigint; balance: bigint}[] = []
         // could be done better lol
@@ -188,7 +214,7 @@ class GarbageCollector extends GarbageCollectorConfig {
             }
             let price: string
             let priceLength = 3
-            if (nativeBalance > 0 && nativePrice > 0) {
+            if (nativeBalance >= 0 && nativePrice > 0) {
                 price = (nativeBalance * nativePrice).toFixed(2)
                 priceLength = price.split('.')[0].length + price.split('.')[1].length + 1 // +1 since dot is also there
             } else {
