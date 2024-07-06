@@ -46,14 +46,14 @@ class NativeSender extends NativeSenderConfig {
                     let txCost = gasLimit * gasPrice
                     value = value - txCost
                     if (value < 0n) {
-                        console.log(c.red(`Can't send negative value`))
+                        console.log(c.red(`[NativeSender in ${networkName}] Can't send negative value`))
                         return false
                     }
                 }
                 let sendHash = await transfer(this.signer.connect(getProvider(networkName)), this.receiver, value, undefined, {price: 1, limit: 1})
                 console.log(
                     c.green(
-                        `${bigintToPrettyStr(value, 18n, 4)} ${chains[networkName].currency.name} sent to ${this.receiver} ${
+                        `[NativeSender in ${networkName}] ${bigintToPrettyStr(value, 18n, 4)} ${chains[networkName].currency.name} sent to ${this.receiver} ${
                             chains[networkName].explorer + sendHash
                         }`
                     )
@@ -61,7 +61,7 @@ class NativeSender extends NativeSenderConfig {
                 await defaultSleep(RandomHelpers.getRandomNumber(sleepBetweenActions))
             } catch (e: any) {
                 console.log(e?.message)
-                console.log(c.red(`Could not send ${chains[networkName].currency.name} to ${this.receiver}`))
+                console.log(c.red(`[NativeSender in ${networkName}] Could not send ${chains[networkName].currency.name} to ${this.receiver}`))
             }
         }
         return true
