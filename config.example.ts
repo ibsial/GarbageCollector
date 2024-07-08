@@ -75,7 +75,7 @@ export class RelayBridgeConfig {
         Ethereum | Arbitrum | Optimism |  Base   |   Linea   |  
         Zksync   |          |          |         |           |
         Scroll   |  Blast   |          |         |           |
-                 |          |          | Taiko   |           |
+        Nova     |          |          | Taiko   |           |
     **********************************************************/
     /**
         This module bridges ONLY ETH between ETH-chains

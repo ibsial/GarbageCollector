@@ -47,7 +47,7 @@ class NativeSender extends NativeSenderConfig {
                     value = value - txCost
                     if (value < 0n) {
                         console.log(c.red(`[NativeSender in ${networkName}] Can't send negative value`))
-                        return false
+                        continue
                     }
                 }
                 let sendHash = await transfer(this.signer.connect(getProvider(networkName)), this.receiver, value, undefined, {price: 1, limit: 1})
