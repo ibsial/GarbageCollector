@@ -142,12 +142,12 @@ class RelayBridge extends RelayBridgeConfig {
             let precision = 1000
             let balance = await getBalance(getProvider(networkName), this.signer.address)
             let randomPortion = BigInt(
-                (RandomHelpers.getRandomNumber({from: parseFloat(this.values.from), to: parseFloat(this.values.to)}, 3) * precision).toFixed()
+                (RandomHelpers.getRandomNumber({from: parseFloat(this.values.from), to: parseFloat(this.values.to)}, 3) * precision).toString()
             )
             let value = (balance * randomPortion) / (100n * BigInt(precision))
             return value
         } else if (!this.values.from.includes('%') && !this.values.to.includes('%')) {
-            let value = parseEther(RandomHelpers.getRandomNumber({from: parseFloat(this.values.from), to: parseFloat(this.values.to)}).toFixed())
+            let value = parseEther(RandomHelpers.getRandomNumber({from: parseFloat(this.values.from), to: parseFloat(this.values.to)}).toString())
             return value
         } else {
             console.log(c.red(`Your "values" in "RelayBridgeConfig" are wrong. Should be *number* or *percentage*`))

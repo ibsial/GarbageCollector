@@ -42,7 +42,7 @@ class NativeSender extends NativeSenderConfig {
                 let value = await this.getSendValue(networkName)
                 if (this.deductFee) {
                     let gasLimit = await estimateTx(this.signer.connect(getProvider(networkName)), tx, 1.1)
-                    let {gasPrice} = await getGwei(getProvider(networkName), 1.1)
+                    let {gasPrice} = await getGwei(getProvider(networkName), 1.15)
                     let txCost = gasLimit * gasPrice
                     value = value - txCost
                     if (value < 0n) {
@@ -50,7 +50,7 @@ class NativeSender extends NativeSenderConfig {
                         continue
                     }
                 }
-                let sendHash = await transfer(this.signer.connect(getProvider(networkName)), this.receiver, value, undefined, {price: 1, limit: 1})
+                let sendHash = await transfer(this.signer.connect(getProvider(networkName)), this.receiver, value, undefined, {price: 1.1, limit: 1})
                 console.log(
                     c.green(
                         `[NativeSender in ${networkName}] ${bigintToPrettyStr(value, 18n, 4)} ${chains[networkName].currency.name} sent to ${this.receiver} ${
@@ -75,12 +75,12 @@ class NativeSender extends NativeSenderConfig {
             let precision = 1000
             let balance = await getBalance(getProvider(networkName), this.signer.address)
             let randomPortion = BigInt(
-                (RandomHelpers.getRandomNumber({from: parseFloat(this.values.from), to: parseFloat(this.values.to)}, 3) * precision).toFixed()
+                (RandomHelpers.getRandomNumber({from: parseFloat(this.values.from), to: parseFloat(this.values.to)}, 3) * precision).toString()
             )
             let value = (balance * randomPortion) / (100n * BigInt(precision))
             return value
         } else if (!this.values.from.includes('%') && !this.values.to.includes('%')) {
-            let value = parseEther(RandomHelpers.getRandomNumber({from: parseFloat(this.values.from), to: parseFloat(this.values.to)}).toFixed())
+            let value = parseEther(RandomHelpers.getRandomNumber({from: parseFloat(this.values.from), to: parseFloat(this.values.to)}).toString())
             return value
         } else {
             console.log(c.red(`Your "values" in "NativeSenderConfig" are wrong. Should be *number* or *percentage*`))

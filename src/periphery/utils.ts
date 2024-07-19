@@ -30,8 +30,13 @@ async function getNativeCoinPrice(networkName: ChainName): Promise<number> {
 }
 async function getTokenPrices(networkName: ChainName, addresses: string[]): Promise<{[key: string]: number}> {
     let llamaNetworkName: string = networkName
-    if (networkName == 'Zksync') {
-        llamaNetworkName = 'era'
+    switch (networkName) {
+        case 'Zksync':
+            llamaNetworkName = 'era'
+            break
+        case 'Nova':
+            llamaNetworkName = 'arbitrum_nova'
+            break
     }
     let prices: {[key: string]: number} | undefined = await retry(
         async () => {
