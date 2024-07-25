@@ -2,7 +2,7 @@ import {formatEther, parseEther, Wallet} from 'ethers'
 import {chains} from '../utils/constants'
 import axios from 'axios'
 import {estimateTx, getBalance, sendRawTx} from './web3Client'
-import {c, defaultSleep, RandomHelpers, retry} from '../utils/helpers'
+import {bigintToPrettyStr, c, defaultSleep, RandomHelpers, retry} from '../utils/helpers'
 import {maxRetries, RelayBridgeConfig, sleepBetweenActions} from '../../config'
 import {ChainName} from '../utils/types'
 import {getProvider} from './utils'
@@ -19,6 +19,16 @@ class RelayBridge extends RelayBridgeConfig {
                 const fromChainId = chains[fromNetwork].id.toString()
                 const toChainId = chains[toNetwork].id.toString()
                 let avgBridgeFee = 501_383_102_086_736n
+                if (value - avgBridgeFee <= 0n) {
+                    avgBridgeFee = 50_000_000_000_000n
+                    if (value - avgBridgeFee <= 0n) {
+                        // prettier-ignore
+                        console.log(
+                            c.red(`[relay] Can't from ${fromNetwork} to ${toNetwork} ${bigintToPrettyStr(value, undefined, 6)} ${currency}: Small amount`)
+                        )
+                        return false
+                    }
+                }
                 const quoteBridgeResp = await axios.post(
                     'https://api.relay.link/execute/bridge',
                     {
@@ -44,6 +54,18 @@ class RelayBridge extends RelayBridgeConfig {
                 )
                 let bridgeFee = BigInt(quoteBridgeResp.data?.fees.relayer)
                 let valueToBridge = this.deductFee ? value - bridgeFee : value
+                if (valueToBridge <= 0n) {
+                    console.log(
+                        c.red(
+                            `[relay] Can't from ${fromNetwork} to ${toNetwork} ${bigintToPrettyStr(
+                                valueToBridge,
+                                undefined,
+                                6
+                            )} ${currency}: Small amount`
+                        )
+                    )
+                    return false
+                }
                 const bridgeResp = await axios.post(
                     'https://api.relay.link/execute/bridge',
                     {
@@ -78,6 +100,18 @@ class RelayBridge extends RelayBridgeConfig {
                 let estimate = await estimateTx(signer, testTx)
                 let cost = (BigInt(tx?.gasPrice ?? tx?.maxFeePerGas) * BigInt(estimate) * 16n) / 10n
                 tx.value = this.deductFee ? BigInt(tx?.value) - cost : BigInt(tx?.value)
+                if (tx.value <= 0n) {
+                    console.log(
+                        c.red(
+                            `[relay] Can't from ${fromNetwork} to ${toNetwork} ${bigintToPrettyStr(
+                                tx.value,
+                                undefined,
+                                6
+                            )} ${currency}: Value is too small after fee deduction`
+                        )
+                    )
+                    return false
+                }
                 tx.gasLimit = estimate
                 console.log(c.yellow(`[relay] bridging ${formatEther(tx.value)} ETH from ${fromNetwork} to ${toNetwork}`))
                 let hash = await sendRawTx(signer, tx, true)
