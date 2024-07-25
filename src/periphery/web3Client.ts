@@ -150,9 +150,11 @@ async function getGasPrice(
             if (fee.gasPrice !== null) {
                 return {gasPrice: (fee?.gasPrice! * parseUnits(multiplier.toString(), 3)) / 1000n}
             } else {
+                let maxPriority = fee?.maxPriorityFeePerGas! * parseUnits(multiplier.toString(), 3)
+                let maxFee = (fee?.maxFeePerGas! - fee?.maxPriorityFeePerGas!) * parseUnits(multiplier.toString(), 3) + maxPriority
                 return {
-                    maxFeePerGas: (fee?.maxFeePerGas! * parseUnits(multiplier.toString(), 3)) / 1000n,
-                    maxPriorityFeePerGas: (fee?.maxPriorityFeePerGas! * parseUnits(multiplier.toString(), 3)) / 1000n
+                    maxFeePerGas: maxFee,
+                    maxPriorityFeePerGas: maxPriority
                 }
             }
         },
