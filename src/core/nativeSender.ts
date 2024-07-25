@@ -1,5 +1,5 @@
-import {formatEther, parseEther, Wallet} from 'ethers'
-import {NativeSenderConfig, sleepBetweenActions} from '../../config'
+import {formatEther, formatUnits, parseEther, TransactionRequest, Wallet} from 'ethers'
+import {DEV, NativeSenderConfig, sleepBetweenActions} from '../../config'
 import {ChainName, NotChainName} from '../utils/types'
 import {bigintToPrettyStr, c, defaultSleep, RandomHelpers} from '../utils/helpers'
 import {chains} from '../utils/constants'
@@ -32,36 +32,42 @@ class NativeSender extends NativeSenderConfig {
             if (this.chainsToExclude.includes(networkName.toLowerCase() as ChainName | NotChainName)) {
                 continue
             }
-
+            let devLog = ''
             try {
-                let tx = {
+                let tx: TransactionRequest = {
                     from: this.signer,
                     to: this.receiver,
                     value: 1n
                 }
                 let value = await this.getSendValue(networkName)
+                devLog += `value: ${bigintToPrettyStr(value)}\n`
                 if (this.deductFee) {
-                    let gasLimit = await estimateTx(this.signer.connect(getProvider(networkName)), tx, 1.1)
-                    let {gasPrice} = await getGwei(getProvider(networkName), 1.15)
+                    let gasLimit = await estimateTx(this.signer.connect(getProvider(networkName)), tx, 1.05)
+                    tx.gasLimit = gasLimit
+                    let {gasPrice} = await getGwei(getProvider(networkName), 1.3)
                     let txCost = gasLimit * gasPrice
                     value = value - txCost
                     if (value < 0n) {
                         console.log(c.red(`[NativeSender in ${networkName}] Can't send negative value`))
                         continue
                     }
+                    devLog += `deducted tx cost: ${bigintToPrettyStr(txCost)} (gasLimit: ${gasLimit} gasPrice: ${formatUnits(gasPrice, 'gwei')}\n`
                 }
                 let sendHash = await transfer(this.signer.connect(getProvider(networkName)), this.receiver, value, undefined, {price: 1.1, limit: 1})
                 console.log(
                     c.green(
-                        `[NativeSender in ${networkName}] ${bigintToPrettyStr(value, 18n, 4)} ${chains[networkName].currency.name} sent to ${this.receiver} ${
-                            chains[networkName].explorer + sendHash
-                        }`
+                        `[NativeSender in ${networkName}] ${bigintToPrettyStr(value, 18n, 4)} ${chains[networkName].currency.name} sent to ${
+                            this.receiver
+                        } ${chains[networkName].explorer + sendHash}`
                     )
                 )
                 await defaultSleep(RandomHelpers.getRandomNumber(sleepBetweenActions))
             } catch (e: any) {
                 console.log(e?.message)
                 console.log(c.red(`[NativeSender in ${networkName}] Could not send ${chains[networkName].currency.name} to ${this.receiver}`))
+                if (DEV) {
+                    console.log(devLog)
+                }
             }
         }
         return true
