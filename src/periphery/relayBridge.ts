@@ -30,16 +30,19 @@ class RelayBridge extends RelayBridgeConfig {
                     }
                 }
                 const quoteBridgeResp = await axios.post(
-                    'https://api.relay.link/execute/bridge',
+                    'https://api.relay.link/quote',
                     {
                         user: await signer.getAddress(),
                         originChainId: fromChainId,
                         destinationChainId: toChainId,
-                        currency: currency.toLowerCase(),
+                        originCurrency: "0x0000000000000000000000000000000000000000",
+                        destinationCurrency: "0x0000000000000000000000000000000000000000",
                         recipient: await signer.getAddress(),
+                        tradeType: "EXACT_OUTPUT",
                         amount: (value - avgBridgeFee).toString(),
                         usePermit: false,
-                        source: 'relay.link'
+                        useExternalLiquidity:false,
+                        referrer: 'relay.link/bridge'
                     },
                     {
                         headers: {
@@ -52,7 +55,7 @@ class RelayBridge extends RelayBridgeConfig {
                         }
                     }
                 )
-                let bridgeFee = BigInt(quoteBridgeResp.data?.fees.relayer)
+                let bridgeFee = BigInt(quoteBridgeResp.data?.fees.relayer.amount)
                 let valueToBridge = this.deductFee ? value - bridgeFee : value
                 if (valueToBridge <= 0n) {
                     console.log(
@@ -67,16 +70,19 @@ class RelayBridge extends RelayBridgeConfig {
                     return false
                 }
                 const bridgeResp = await axios.post(
-                    'https://api.relay.link/execute/bridge',
+                    'https://api.relay.link/quote',
                     {
                         user: await signer.getAddress(),
                         originChainId: fromChainId,
                         destinationChainId: toChainId,
-                        currency: currency.toLowerCase(),
+                        originCurrency: "0x0000000000000000000000000000000000000000",
+                        destinationCurrency: "0x0000000000000000000000000000000000000000",
                         recipient: await signer.getAddress(),
+                        tradeType: "EXACT_OUTPUT",
                         amount: valueToBridge.toString(),
                         usePermit: false,
-                        source: 'relay.link'
+                        useExternalLiquidity:false,
+                        referrer: 'relay.link/bridge'
                     },
                     {
                         headers: {
