@@ -120,7 +120,7 @@ async function main() {
                 if (claimResult) {
                     await sleep(RandomHelpers.getRandomNumber(sleepBetweenActions))
                 }
-                await retry(
+                let sellResult: boolean | undefined = await retry(
                     async () => {
                         const garbageCollector = new GarbageCollector(signer, proxies)
                         garbageCollector.nonzeroTokens = {
@@ -136,11 +136,11 @@ async function main() {
                             ]
                         }
                         garbageCollector.chainsToExclude = ['!Base']
-                        let sellResult = await garbageCollector.swapTokensToNative()
+                        return await garbageCollector.swapTokensToNativeForChain('Base')
                     },
                     {maxRetryCount: maxRetries, retryInterval: 10, throwOnError: false}
                 )
-                if (!claimResult) {
+                if (!claimResult && (!sellResult || sellResult == undefined)) {
                     continue
                 }
                 await sleep(RandomHelpers.getRandomNumber(sleepBetweenAccs))
