@@ -1,6 +1,6 @@
 import {Contract, formatUnits, Wallet} from 'ethers'
 import {bigintToPrettyStr, c, RandomHelpers, retry} from '../utils/helpers'
-import axios, {AxiosInstance} from 'axios'
+import axios, {AxiosError, AxiosInstance} from 'axios'
 import {HttpsProxyAgent} from 'https-proxy-agent'
 import {getProvider} from './utils'
 import {sendTx} from './web3Client'
@@ -132,7 +132,10 @@ class OdosClient {
                     agreementSig
                 ])
                 let hash = await sendTx(this.signer, {data: txData, to: '0x4C8f8055D88705f52c9994969DDe61AB574895a3'})
-                console.log(c.green(`[odos claimer] claimed ${bigintToPrettyStr(BigInt(claimSig.data.claim.amount), 18n, 4)}`), chains['Base'].explorer + hash)
+                console.log(
+                    c.green(`[odos claimer] claimed ${bigintToPrettyStr(BigInt(claimSig.data.claim.amount), 18n, 4)}`),
+                    chains['Base'].explorer + hash
+                )
                 return true
             },
             {maxRetryCount: maxRetries, retryInterval: 10, throwOnError: false}
@@ -197,9 +200,11 @@ class OdosClient {
                   }
                 | undefined
         } catch (e: any) {
-            if (e.response.data.detail.includes('No available rewards')) {
-                console.log(c.yellow(`[odos claimer] $Odos already claimed`))
-                return undefined
+            if (e instanceof AxiosError) {
+                if (e.response!.data.detail.includes('No available rewards')) {
+                    console.log(c.yellow(`[odos claimer] $Odos already claimed`))
+                    return undefined
+                }
             }
             throw Error('request failed')
         }
