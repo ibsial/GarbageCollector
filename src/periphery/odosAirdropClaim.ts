@@ -201,7 +201,7 @@ class OdosClient {
                 | undefined
         } catch (e: any) {
             if (e instanceof AxiosError) {
-                if (e.response!.data.detail.includes('No available rewards')) {
+                if (e.response?.data?.detail?.includes('No available rewards')) {
                     console.log(c.yellow(`[odos claimer] $Odos already claimed`))
                     return undefined
                 }
