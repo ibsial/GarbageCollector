@@ -107,7 +107,7 @@ async function main() {
             }
             break
         case 'Odos claimer & seller':
-            keysAndAddresses = await importAndValidatePrivateData('./privates.txt', true)
+            keysAndAddresses = await importAndValidatePrivateData('./privates.txt', false)
             if (shuffleWallets) {
                 keysAndAddresses = RandomHelpers.shuffleArray(keysAndAddresses)
             }
