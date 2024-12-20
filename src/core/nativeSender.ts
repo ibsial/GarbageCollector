@@ -1,10 +1,11 @@
-import {formatEther, formatUnits, parseEther, TransactionRequest, Wallet} from 'ethers'
-import {DEV, NativeSenderConfig, sleepBetweenActions} from '../../config'
+import {BigNumberish, formatEther, formatUnits, parseEther, TransactionRequest, Wallet} from 'ethers'
+import {DEV, maxRetries, NativeSenderConfig, sleepBetweenActions} from '../../config'
 import {ChainName, NotChainName} from '../utils/types'
-import {bigintToPrettyStr, c, defaultSleep, RandomHelpers} from '../utils/helpers'
+import {bigintToPrettyStr, c, defaultSleep, RandomHelpers, retry} from '../utils/helpers'
 import {chains} from '../utils/constants'
-import {estimateTx, getBalance, getGwei, transfer} from '../periphery/web3Client'
+import {estimateTx, getBalance, getGwei, Multicall, sendTx, transfer} from '../periphery/web3Client'
 import {getProvider} from '../periphery/utils'
+import {ERC20__factory} from '../../typechain'
 
 class NativeSender extends NativeSenderConfig {
     signer: Wallet
@@ -72,6 +73,30 @@ class NativeSender extends NativeSenderConfig {
         }
         return true
     }
+    async sendToken(networkName: ChainName, tokenAddress: string) {
+        let result: boolean = await retry(
+            async () => {
+                let token = ERC20__factory.connect(tokenAddress, this.signer.connect(getProvider(networkName)))
+                let tokenInfo = (await Multicall.setNetwork(networkName).getTokenInfo([tokenAddress]))[0]
+                let amount: BigNumberish = await this.getTokenSendValue(networkName, tokenAddress)
+                if (amount <= 0n) {
+                    return false
+                }
+                let tx = {data: token.interface.encodeFunctionData('transfer', [this.receiver, amount]), to: tokenAddress}
+                let hash = await sendTx(this.signer.connect(getProvider(networkName)), tx)
+                console.log(
+                    c.green(`[token sender] sent ${bigintToPrettyStr(amount, tokenInfo.decimals, 4)} ${tokenInfo.name} to ${this.receiver}`),
+                    chains[networkName].explorer + hash
+                )
+                return true
+            },
+            {maxRetryCount: maxRetries, retryInterval: 10, throwOnError: false}
+        )
+        if (result == undefined) {
+            result = false
+        }
+        return result
+    }
     async getSendValue(networkName: ChainName): Promise<bigint> {
         if (parseFloat(this.values.from) < 0 || parseFloat(this.values.to) < 0) {
             console.log(c.red(`Can't pass negative numbers to NativeSender`))
@@ -92,6 +117,10 @@ class NativeSender extends NativeSenderConfig {
             console.log(c.red(`Your "values" in "NativeSenderConfig" are wrong. Should be *number* or *percentage*`))
             throw Error(`Your "values" in "NativeSenderConfig" are wrong. Should be *number* or *percentage*`)
         }
+    }
+    async getTokenSendValue(networkName: ChainName, tokenAddress: string): Promise<bigint> {
+        let balance = await getBalance(getProvider(networkName), this.signer.address, tokenAddress)
+        return balance
     }
 }
 

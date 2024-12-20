@@ -192,7 +192,7 @@ async function getTxStatus(signerOrProvider: Wallet | JsonRpcProvider, hash: str
             console.log(`could not get tx status in ${(maxWaitTime / 60).toFixed(1)} minutes`)
             throw new Error('Tx failed or receipt not found')
         },
-        {maxRetryCount: 20, retryInterval: 10}
+        {maxRetryCount: 3, retryInterval: 10}
     )
 }
 async function estimateTx(signer: Wallet, txBody: TransactionRequest, multiplier = 1.3) {

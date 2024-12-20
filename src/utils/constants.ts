@@ -18,6 +18,18 @@ export const scenarios = [
     {
         name: `Relay bridge`,
         value: 'Relay bridge'
+    },
+    {
+        name: `Odos claimer`,
+        value: 'Odos claimer'
+    },
+    {
+        name: `Odos claimer & seller`,
+        value: 'Odos claimer & seller'
+    },
+    {
+        name: `Odos claimer & sender`,
+        value: 'Odos claimer & sender'
     }
 ]
 // prettier-ignore

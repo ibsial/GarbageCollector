@@ -1,6 +1,7 @@
 node_modules
 typechain
 config.ts
+*.config.ts
 
 .env
 privates.txt
