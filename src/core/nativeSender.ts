@@ -3,8 +3,8 @@ import {DEV, maxRetries, NativeSenderConfig, sleepBetweenActions} from '../../co
 import {ChainName, NotChainName} from '../utils/types'
 import {bigintToPrettyStr, c, defaultSleep, RandomHelpers, retry} from '../utils/helpers'
 import {chains} from '../utils/constants'
-import {estimateTx, getBalance, getGwei, Multicall, sendTx, transfer} from '../periphery/web3Client'
-import {getProvider} from '../periphery/utils'
+import {estimateTx, getBalance, getGwei, getNativeBalance, Multicall, sendTx, transfer} from '../periphery/web3Client'
+import {getNativeCoinPrice, getProvider} from '../periphery/utils'
 import {ERC20__factory} from '../../typechain'
 
 class NativeSender extends NativeSenderConfig {
@@ -22,6 +22,7 @@ class NativeSender extends NativeSenderConfig {
     }
 
     async sendNative(): Promise<boolean> {
+        let anyNativeSent = false
         let networks = RandomHelpers.shuffleArray(Object.keys(chains))
         for (let i = 0; i < networks.length; i++) {
             let networkName = networks[i] as ChainName
@@ -41,6 +42,23 @@ class NativeSender extends NativeSenderConfig {
                     value: 1n
                 }
                 let value = await this.getSendValue(networkName)
+                let nativePrice = await getNativeCoinPrice(networkName)
+                let valueInUsd = (value * BigInt(Math.floor(nativePrice * 100_000_000))) / 100_000_000n
+                if (nativePrice == 0) {
+                    console.log(
+                        c.yellow(
+                            `[NativeSender in ${networkName}] could not fetch native currency price`
+                        )
+                    )
+                }
+                if (parseEther(this.minToSend) > valueInUsd) {
+                    console.log(
+                        c.yellow(
+                            `[NativeSender in ${networkName}] Send value ($${bigintToPrettyStr(valueInUsd, undefined, 4)}) is below $${this.minToSend}`
+                        )
+                    )
+                    continue
+                }
                 devLog += `value: ${bigintToPrettyStr(value)}\n`
                 if (this.deductFee) {
                     let gasLimit = await estimateTx(this.signer.connect(getProvider(networkName)), tx, 1.05)
@@ -63,6 +81,7 @@ class NativeSender extends NativeSenderConfig {
                     )
                 )
                 await defaultSleep(RandomHelpers.getRandomNumber(sleepBetweenActions))
+                anyNativeSent = true
             } catch (e: any) {
                 console.log(e?.message)
                 console.log(c.red(`[NativeSender in ${networkName}] Could not send ${chains[networkName].currency.name} to ${this.receiver}`))
@@ -71,7 +90,7 @@ class NativeSender extends NativeSenderConfig {
                 }
             }
         }
-        return true
+        return anyNativeSent
     }
     async sendToken(networkName: ChainName, tokenAddress: string) {
         let result: boolean = await retry(
@@ -98,10 +117,10 @@ class NativeSender extends NativeSenderConfig {
         return result
     }
     async getSendValue(networkName: ChainName): Promise<bigint> {
-        if (parseFloat(this.values.from) < 0 || parseFloat(this.values.to) < 0) {
-            console.log(c.red(`Can't pass negative numbers to NativeSender`))
-            throw Error(`Can't pass negative numbers to NativeSender`)
-        }
+        // if (parseFloat(this.values.from) < 0 || parseFloat(this.values.to) < 0) {
+        //     console.log(c.red(`Can't pass negative numbers to NativeSender`))
+        //     throw Error(`Can't pass negative numbers to NativeSender`)
+        // }
         if (this.values.from.includes('%') && this.values.to.includes('%')) {
             let precision = 1000
             let balance = await getBalance(getProvider(networkName), this.signer.address)
@@ -110,7 +129,20 @@ class NativeSender extends NativeSenderConfig {
             )
             let value = (balance * randomPortion) / (100n * BigInt(precision))
             return value
-        } else if (!this.values.from.includes('%') && !this.values.to.includes('%')) {
+        } else if (this.values.from.includes('-') && this.values.to.includes('-')) {
+            let balance = await getBalance(getProvider(networkName), this.signer.address)
+
+            let toLeaveFrom = balance - parseEther(this.values.to.replace('-', '')) // balance - max_to_leave
+            let toLeaveTo = balance - parseEther(this.values.from.replace('-', '')) // balance - min_to_leave
+
+            let randomValue = BigInt(RandomHelpers.getRandomBigInt({from: toLeaveFrom, to: toLeaveTo}).toString())
+            return randomValue
+        } else if (
+            !this.values.from.includes('%') &&
+            !this.values.to.includes('%') &&
+            !this.values.from.includes('-') &&
+            !this.values.to.includes('-')
+        ) {
             let value = parseEther(RandomHelpers.getRandomNumber({from: parseFloat(this.values.from), to: parseFloat(this.values.to)}).toString())
             return value
         } else {

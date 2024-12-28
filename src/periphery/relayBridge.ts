@@ -35,13 +35,13 @@ class RelayBridge extends RelayBridgeConfig {
                         user: await signer.getAddress(),
                         originChainId: fromChainId,
                         destinationChainId: toChainId,
-                        originCurrency: "0x0000000000000000000000000000000000000000",
-                        destinationCurrency: "0x0000000000000000000000000000000000000000",
+                        originCurrency: '0x0000000000000000000000000000000000000000',
+                        destinationCurrency: '0x0000000000000000000000000000000000000000',
                         recipient: await signer.getAddress(),
-                        tradeType: "EXACT_OUTPUT",
+                        tradeType: 'EXACT_OUTPUT',
                         amount: (value - avgBridgeFee).toString(),
                         usePermit: false,
-                        useExternalLiquidity:false,
+                        useExternalLiquidity: false,
                         referrer: 'relay.link/bridge'
                     },
                     {
@@ -75,13 +75,13 @@ class RelayBridge extends RelayBridgeConfig {
                         user: await signer.getAddress(),
                         originChainId: fromChainId,
                         destinationChainId: toChainId,
-                        originCurrency: "0x0000000000000000000000000000000000000000",
-                        destinationCurrency: "0x0000000000000000000000000000000000000000",
+                        originCurrency: '0x0000000000000000000000000000000000000000',
+                        destinationCurrency: '0x0000000000000000000000000000000000000000',
                         recipient: await signer.getAddress(),
-                        tradeType: "EXACT_OUTPUT",
+                        tradeType: 'EXACT_OUTPUT',
                         amount: valueToBridge.toString(),
                         usePermit: false,
-                        useExternalLiquidity:false,
+                        useExternalLiquidity: false,
                         referrer: 'relay.link/bridge'
                     },
                     {
@@ -174,10 +174,10 @@ class RelayBridge extends RelayBridgeConfig {
     }
 
     async getSendValue(networkName: ChainName): Promise<bigint> {
-        if (parseFloat(this.values.from) < 0 || parseFloat(this.values.to) < 0) {
-            console.log(c.red(`Can't pass negative numbers to Relay Bridge`))
-            throw Error(`Can't pass negative numbers to Relay Bridge`)
-        }
+        // if (parseFloat(this.values.from) < 0 || parseFloat(this.values.to) < 0) {
+        //     console.log(c.red(`Can't pass negative numbers to Relay Bridge`))
+        //     throw Error(`Can't pass negative numbers to Relay Bridge`)
+        // }
         if (this.values.from.includes('%') && this.values.to.includes('%')) {
             let precision = 1000
             let balance = await getBalance(getProvider(networkName), this.signer.address)
@@ -186,7 +186,27 @@ class RelayBridge extends RelayBridgeConfig {
             )
             let value = (balance * randomPortion) / (100n * BigInt(precision))
             return value
-        } else if (!this.values.from.includes('%') && !this.values.to.includes('%')) {
+        } else if (this.values.from.includes('-') && this.values.to.includes('-')) {
+            let balance = await getBalance(getProvider(networkName), this.signer.address)
+            let i = 0
+            while (i < 10) {
+                let toLeaveFrom = balance - parseEther(this.values.to.replace('-', '')) // balance - max_to_leave
+                let toLeaveTo = balance - parseEther(this.values.from.replace('-', '')) // balance - min_to_leave
+
+                let randomValue = BigInt(RandomHelpers.getRandomBigInt({from: toLeaveFrom, to: toLeaveTo}).toString())
+                if (randomValue < 0n) {
+                    i++
+                    continue
+                }
+                return randomValue
+            }
+            return 0n
+        } else if (
+            !this.values.from.includes('%') &&
+            !this.values.to.includes('%') &&
+            !this.values.from.includes('-') &&
+            !this.values.to.includes('-')
+        ) {
             let value = parseEther(RandomHelpers.getRandomNumber({from: parseFloat(this.values.from), to: parseFloat(this.values.to)}).toString())
             return value
         } else {

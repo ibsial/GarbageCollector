@@ -57,7 +57,7 @@ async function needApprove(
                 return true
             }
         },
-        {maxRetryCount: 20, retryInterval: 10}
+        {maxRetryCount: 3, retryInterval: 10}
     )
 }
 async function approve(signer: Wallet, tokenAddress: string, to: string, amount: BigNumberish, minAllowance?: BigNumberish) {
@@ -174,7 +174,7 @@ async function waitGwei(want: number = 40) {
         gasPrice = (await getGwei(signerOrProvider, 1)).gasPrice
     }
 }
-async function getTxStatus(signerOrProvider: Wallet | JsonRpcProvider, hash: string, maxWaitTime = 3 * 60): Promise<string> {
+async function getTxStatus(signerOrProvider: Wallet | JsonRpcProvider, hash: string, maxWaitTime = 1 * 60): Promise<string> {
     return retry(
         async () => {
             let time = 0

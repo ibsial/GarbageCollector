@@ -70,8 +70,10 @@ async function main() {
                     await defaultSleep(RandomHelpers.getRandomNumber(sleepBetweenActions), true)
                 }
                 await waitGwei(goodGwei)
-                await nativeSender.sendNative()
-                await sleep(RandomHelpers.getRandomNumber(sleepBetweenAccs))
+                let anyNativeSent = await nativeSender.sendNative()
+                if (anySwapHappened || anyNativeSent) {
+                    await sleep(RandomHelpers.getRandomNumber(sleepBetweenAccs))
+                }
             }
             break
         case 'Relay bridge':

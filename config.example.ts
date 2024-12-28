@@ -5,7 +5,7 @@ export const DEV = false
 export const maxRetries = 2
 export const shuffleWallets = true
 
-export const goodGwei = 5
+export const goodGwei = 50
 export const sleepBetweenActions = {from: 5, to: 60} // secs
 export const sleepBetweenAccs = {from: 5 * 60, to: 15 * 60} // secs
 
@@ -55,11 +55,18 @@ export class NativeSenderConfig {
 
         Note: Be careful with 'Gnosis', 'Taiko', 'Manta', 'Opbnb', 'Nova' -- not many exchanges accept their natives
     */
-    chainsToExclude: (ChainName | NotChainName)[] = ['Ethereum']
+    chainsToExclude: (ChainName | NotChainName)[] = ['!Bsc']
+    
+    /** 
+     * value in *USD*, not in token amount
+     * set 0 to disable
+     */
+    minToSend = '1'
     /**
      * You can set value
      * as NUMBER: {from: '0.1', to: '0.11'}
      * as PERCENTAGE: {from: '80%', to: '100%'} (you can also set both 100%)
+     * as NUMBER TO LEAVE: {from: '-0.1', to: '-0.2'} ([-0.1, -0.2] means you'll leave from 0.1 to 0.2 in the wallet)
      */
     values: {from: string; to: string} = {from: '90%', to: '100%'}
     /**
@@ -94,6 +101,7 @@ export class RelayBridgeConfig {
      * You can set value
      * as NUMBER: {from: '0.1', to: '0.11'}
      * as PERCENTAGE: {from: '80%', to: '100%'} (you can also set both 100%)
+     * as NUMBER TO LEAVE: {from: '-0.1', to: '-0.2'} ([-0.1, -0.2] means you'll leave from 0.1 to 0.2 in the wallet)
      */
     values: {from: string; to: string} = {from: '95%', to: '100%'}
     /**
