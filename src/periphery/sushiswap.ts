@@ -145,7 +145,7 @@ class Sushiswap {
             value: 0n
         }
         let approvalGasLimit = await estimateTx(this.signer, tx, 1.2) // ~60k
-        let swapGasLimit = approvalGasLimit * 35n / 10n // ~120k but lets make it 3x
+        let swapGasLimit = (approvalGasLimit * 35n) / 10n // ~120k but lets make it 3x
         let {gasPrice} = await getGwei(this.signer, 1.2)
         let executionCost = (approvalGasLimit + swapGasLimit) * gasPrice
         if (quote.funcName.includes('swapExactTokensForETHSupportingFeeOnTransferTokens')) {

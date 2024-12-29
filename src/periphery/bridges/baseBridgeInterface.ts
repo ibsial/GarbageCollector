@@ -24,7 +24,14 @@ interface BridgeInterface {
      *
      * @returns bridge fee
      */
-    estimateBridgeFee(signer: Wallet, currency: 'ETH', fromNetwork: ChainName, toNetwork: ChainName, value: bigint, additionalParams: any | undefined): Promise<bigint>
+    estimateBridgeFee(
+        signer: Wallet,
+        currency: 'ETH',
+        fromNetwork: ChainName,
+        toNetwork: ChainName,
+        value: bigint,
+        additionalParams: any | undefined
+    ): Promise<bigint>
 
     getSendValue(networkName: ChainName): Promise<bigint>
 }

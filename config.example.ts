@@ -79,7 +79,7 @@ export class NativeSenderConfig {
 export class BridgeConfig {
     /** Bridge types: Stargate, Relay **/
     bridgeType: BridgeType = 'Stargate'
-    // bridgeSpecificSettings: {[key in BridgeType]: {[key: string]: any}} = {
+
     bridgeSpecificSettings = {
         Stargate: {
             mode: 'economy', // "economy" (bus) or "fast" (taxi)
