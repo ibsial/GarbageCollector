@@ -15,17 +15,19 @@ async function getTokenBalance(signerOrProvider: Wallet | JsonRpcProvider, token
     const tokenContract = ERC20__factory.connect(tokenAddress, signerOrProvider)
     return tokenContract.balanceOf(address)
 }
-async function getBalance(signerOrProvider: Wallet | JsonRpcProvider, address: string, tokenAddress?: string): Promise<bigint> {
-    return retry(
-        async () => {
-            if (tokenAddress) {
-                return getTokenBalance(signerOrProvider, tokenAddress, address)
-            } else {
-                return getNativeBalance(signerOrProvider, address)
-            }
-        },
-        {maxRetryCount: 20, retryInterval: 10}
-    )
+async function getBalance(
+    signerOrProvider: Wallet | JsonRpcProvider,
+    address: string,
+    tokenAddress?: string,
+    retryParams = {maxRetryCount: 3, retryInterval: 10}
+): Promise<bigint> {
+    return retry(async () => {
+        if (tokenAddress) {
+            return getTokenBalance(signerOrProvider, tokenAddress, address)
+        } else {
+            return getNativeBalance(signerOrProvider, address)
+        }
+    }, retryParams)
 }
 async function waitBalance(signerOrProvider: Wallet | JsonRpcProvider, address: string, balanceBefore: bigint, tokenAddress?: string) {
     process.stdout.write(`waiting balance`)
@@ -42,23 +44,21 @@ async function needApprove(
     tokenAddress: string,
     from: string,
     to: string,
-    minAllowance: BigNumberish
+    minAllowance: BigNumberish,
+    retryParams = {maxRetryCount: 3, retryInterval: 10}
 ): Promise<boolean> {
-    return retry(
-        async () => {
-            const tokenContract = ERC20__factory.connect(tokenAddress, signerOrProvider)
-            let allowance = await tokenContract.allowance(from, to)
-            if (DEV) {
-                console.log(`allowance:${allowance}, want allowance: ${minAllowance}`)
-            }
-            if (allowance >= BigInt(minAllowance)) {
-                return false
-            } else {
-                return true
-            }
-        },
-        {maxRetryCount: 3, retryInterval: 10}
-    )
+    return retry(async () => {
+        const tokenContract = ERC20__factory.connect(tokenAddress, signerOrProvider)
+        let allowance = await tokenContract.allowance(from, to)
+        if (DEV) {
+            console.log(`allowance:${allowance}, want allowance: ${minAllowance}`)
+        }
+        if (allowance >= BigInt(minAllowance)) {
+            return false
+        } else {
+            return true
+        }
+    }, retryParams)
 }
 async function approve(signer: Wallet, tokenAddress: string, to: string, amount: BigNumberish, minAllowance?: BigNumberish) {
     if (minAllowance) {
@@ -110,22 +110,20 @@ async function unwrap(
         price: number
         limit: number
     },
-    waitConfirmation = true
+    waitConfirmation = true,
+    retryParams = {maxRetryCount: 3, retryInterval: 10}
 ) {
     let wnative = WETH__factory.connect(wrappedToken, signer)
-    return retry(
-        async () => {
-            let tokenBalance = value ?? (await getBalance(signer, signer.address, wrappedToken))
-            let tx = {
-                from: signer.address,
-                to: await wnative.getAddress(),
-                data: wnative.interface.encodeFunctionData('withdraw', [tokenBalance]),
-                value: 0n
-            }
-            return sendTx(signer, tx, gasMultipliers, waitConfirmation)
-        },
-        {maxRetryCount: 3, retryInterval: 10}
-    )
+    return retry(async () => {
+        let tokenBalance = value ?? (await getBalance(signer, signer.address, wrappedToken))
+        let tx = {
+            from: signer.address,
+            to: await wnative.getAddress(),
+            data: wnative.interface.encodeFunctionData('withdraw', [tokenBalance]),
+            value: 0n
+        }
+        return sendTx(signer, tx, gasMultipliers, waitConfirmation)
+    }, retryParams)
 }
 async function getGwei(signerOrProvider: Wallet | JsonRpcProvider, multiplier = 1.3): Promise<{gasPrice: bigint}> {
     return retry(
@@ -174,26 +172,28 @@ async function waitGwei(want: number = 40) {
         gasPrice = (await getGwei(signerOrProvider, 1)).gasPrice
     }
 }
-async function getTxStatus(signerOrProvider: Wallet | JsonRpcProvider, hash: string, maxWaitTime = 1 * 60): Promise<string> {
-    return retry(
-        async () => {
-            let time = 0
-            while (time < maxWaitTime) {
-                let receipt = await signerOrProvider.provider?.getTransactionReceipt(hash)
-                if (receipt?.status == 1) {
-                    return receipt.hash
-                } else if (receipt?.status == 0) {
-                    throw new Error('Tx failed')
-                } else {
-                    await new Promise((resolve) => setTimeout(resolve, 5 * 1000))
-                    time += 5
-                }
+async function getTxStatus(
+    signerOrProvider: Wallet | JsonRpcProvider,
+    hash: string,
+    maxWaitTime = 1 * 60,
+    retryParams = {maxRetryCount: 3, retryInterval: 10}
+): Promise<string> {
+    return retry(async () => {
+        let time = 0
+        while (time < maxWaitTime) {
+            let receipt = await signerOrProvider.provider?.getTransactionReceipt(hash)
+            if (receipt?.status == 1) {
+                return receipt.hash
+            } else if (receipt?.status == 0) {
+                throw new Error('Tx failed')
+            } else {
+                await new Promise((resolve) => setTimeout(resolve, 5 * 1000))
+                time += 5
             }
-            console.log(`could not get tx status in ${(maxWaitTime / 60).toFixed(1)} minutes`)
-            throw new Error('Tx failed or receipt not found')
-        },
-        {maxRetryCount: 3, retryInterval: 10}
-    )
+        }
+        console.log(`could not get tx status in ${(maxWaitTime / 60).toFixed(1)} minutes`)
+        throw new Error('Tx receipt not found')
+    }, retryParams)
 }
 async function estimateTx(signer: Wallet, txBody: TransactionRequest, multiplier = 1.3) {
     return retry(
@@ -203,28 +203,30 @@ async function estimateTx(signer: Wallet, txBody: TransactionRequest, multiplier
         {maxRetryCount: 3, retryInterval: 10, needLog: false}
     )
 }
-async function sendTx(signer: Wallet, txBody: TransactionRequest, gasMultipliers = {price: 1.3, limit: 1.3}, waitConfirmation = true) {
+async function sendTx(
+    signer: Wallet,
+    txBody: TransactionRequest,
+    gasMultipliers = {price: 1.3, limit: 1.3},
+    waitConfirmation = true,
+    retryParams = {maxRetryCount: 3, retryInterval: 20, needLog: false}
+) {
     let gasLimit = txBody?.gasLimit ?? (await estimateTx(signer, txBody, gasMultipliers.limit))
     txBody.gasLimit = gasLimit
     if (txBody?.gasPrice == undefined && txBody?.maxFeePerGas == undefined) {
         let fee = await getGasPrice(signer, gasMultipliers.price)
         txBody = {...txBody, ...fee}
     }
-    let txReceipt: TransactionResponse = await retry(
-        signer.sendTransaction.bind(signer),
-        {maxRetryCount: 3, retryInterval: 20, needLog: false},
-        txBody
-    )
+    let txReceipt: TransactionResponse = await retry(signer.sendTransaction.bind(signer), retryParams, txBody)
     if (waitConfirmation) {
         return getTxStatus(signer, txReceipt.hash)
     } else {
         return txReceipt.hash
     }
 }
-async function sendRawTx(signer: Wallet, txBody: TransactionRequest, waitConfirmation = true) {
-    let txReceipt: TransactionResponse = await retry(signer.sendTransaction.bind(signer), {maxRetryCount: 3, retryInterval: 20}, txBody)
+async function sendRawTx(signer: Wallet, txBody: TransactionRequest, waitConfirmation = true, retryParams = {maxRetryCount: 3, retryInterval: 20}) {
+    let txReceipt: TransactionResponse = await retry(signer.sendTransaction.bind(signer), retryParams, txBody)
     if (waitConfirmation) {
-        return getTxStatus(signer, txReceipt.hash)
+        return getTxStatus(signer, txReceipt.hash, undefined, retryParams)
     } else {
         return txReceipt.hash
     }

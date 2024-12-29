@@ -1,4 +1,4 @@
-import {Chain, ChainName} from './types'
+import {Chain, ChainName, StargateParams} from './types'
 
 export const timeout = 5
 
@@ -20,16 +20,8 @@ export const scenarios = [
         value: 'Relay bridge'
     },
     {
-        name: `Odos claimer`,
-        value: 'Odos claimer'
-    },
-    {
-        name: `Odos claimer & seller`,
-        value: 'Odos claimer & seller'
-    },
-    {
-        name: `Odos claimer & sender`,
-        value: 'Odos claimer & sender'
+        name: `Stargate bridge`,
+        value: 'Stargate bridge'
     }
 ]
 // prettier-ignore
@@ -55,6 +47,30 @@ export const sushiswapV2Routers: {[key in ChainName]: string} = {
     Taiko:    '',
     // Zora:     '',
     Nova: '0x1b02dA8Cb0d097eB8D57A175b88c7D8b47997506'
+}
+// prettier-ignore
+export const stargateParams: {[key in ChainName]: StargateParams} = {
+    Ethereum: {stargatePoolNativeAddress: '0x77b2043768d28E9C9aB44E1aBfC95944bcE57931', eid: 30101},
+    Arbitrum: {stargatePoolNativeAddress: '0xA45B5130f36CDcA45667738e2a258AB09f4A5f7F', eid: 30110},
+    Optimism: {stargatePoolNativeAddress: '0xe8CDF27AcD73a434D661C84887215F7598e7d0d3', eid: 30111},
+    Base:     {stargatePoolNativeAddress: '0xdc181Bd607330aeeBEF6ea62e03e5e1Fb4B6F7C7', eid: 30184},
+    Linea:    {stargatePoolNativeAddress: '0x81F6138153d473E8c5EcebD3DC8Cd4903506B075', eid: 30183},
+    Zksync:   undefined,
+    Bsc:      undefined,
+    Opbnb:    undefined,
+    Polygon:  undefined,
+    Avalanche:undefined,
+    Scroll:   {stargatePoolNativeAddress: '0xC2b638Cb5042c1B3c5d5C969361fB50569840583', eid: 30214},
+    Blast:    undefined,
+    Mantle:   undefined,
+    Gnosis:   undefined,
+    Fantom:   undefined,
+    Celo:     undefined,
+    Core:     undefined,
+    Manta:    undefined,
+    Taiko:    undefined,
+    // Zora:     undefined,
+    Nova:     undefined
 }
 export const networkNameToCoingeckoQueryString: {[key in ChainName]: string} = {
     Ethereum: 'ethereum',
@@ -177,7 +193,7 @@ export const chains: {[key: string]: Chain} = {
     Base: {
         id: 8453,
         lzId: '184',
-        rpc: ['https://base.publicnode.com'],
+        rpc: ['https://mainnet.base.org'],
         explorer: 'https://basescan.org/tx/',
         currency: {name: 'ETH'},
         tokens: {

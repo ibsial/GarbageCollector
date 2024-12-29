@@ -45,16 +45,14 @@ class NativeSender extends NativeSenderConfig {
                 let nativePrice = await getNativeCoinPrice(networkName)
                 let valueInUsd = (value * BigInt(Math.floor(nativePrice * 100_000_000))) / 100_000_000n
                 if (nativePrice == 0) {
-                    console.log(
-                        c.yellow(
-                            `[NativeSender in ${networkName}] could not fetch native currency price`
-                        )
-                    )
+                    console.log(c.yellow(`[NativeSender in ${networkName}] could not fetch native currency price`))
                 }
                 if (parseEther(this.minToSend) > valueInUsd) {
                     console.log(
                         c.yellow(
-                            `[NativeSender in ${networkName}] Send value ($${bigintToPrettyStr(valueInUsd, undefined, 4)}) is below $${this.minToSend}`
+                            `[NativeSender in ${networkName}] Send value ($${bigintToPrettyStr(valueInUsd, undefined, 4)}) is below $${
+                                this.minToSend
+                            }`
                         )
                     )
                     continue
@@ -92,6 +90,9 @@ class NativeSender extends NativeSenderConfig {
         }
         return anyNativeSent
     }
+    /**
+     * Unused and WIP
+     */
     async sendToken(networkName: ChainName, tokenAddress: string) {
         let result: boolean = await retry(
             async () => {
@@ -117,11 +118,12 @@ class NativeSender extends NativeSenderConfig {
         return result
     }
     async getSendValue(networkName: ChainName): Promise<bigint> {
-        // if (parseFloat(this.values.from) < 0 || parseFloat(this.values.to) < 0) {
-        //     console.log(c.red(`Can't pass negative numbers to NativeSender`))
-        //     throw Error(`Can't pass negative numbers to NativeSender`)
-        // }
         if (this.values.from.includes('%') && this.values.to.includes('%')) {
+            if (parseFloat(this.values.from) < 0 || parseFloat(this.values.to) < 0) {
+                console.log(c.red(`Can't pass negative numbers to NativeSender`))
+                throw Error(`Can't pass negative numbers to NativeSender`)
+            }
+
             let precision = 1000
             let balance = await getBalance(getProvider(networkName), this.signer.address)
             let randomPortion = BigInt(
@@ -150,6 +152,9 @@ class NativeSender extends NativeSenderConfig {
             throw Error(`Your "values" in "NativeSenderConfig" are wrong. Should be *number* or *percentage*`)
         }
     }
+    /**
+     * Unused and WIP
+     */
     async getTokenSendValue(networkName: ChainName, tokenAddress: string): Promise<bigint> {
         let balance = await getBalance(getProvider(networkName), this.signer.address, tokenAddress)
         return balance

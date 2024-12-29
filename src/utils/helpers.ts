@@ -50,7 +50,7 @@ async function delayedPrint(paste: string, delay = 0.05) {
 }
 const retry = async (
     fn: any,
-    {maxRetryCount = maxRetries ?? 5, retryInterval = 10, backoff = 1, needLog = true, throwOnError = true},
+    {maxRetryCount = maxRetries ?? 5, retryInterval = 10, backoff = 1, needLog = true, throwOnError = true, errorMessage = ''},
     ...args: any
 ): Promise<any> => {
     retryInterval = retryInterval * backoff
@@ -65,8 +65,12 @@ const retry = async (
                 console.log(e)
             }
             if (needLog) {
-                console.log(e?.message)
-                console.log(`catched error, retrying... [${i}]`)
+                if (errorMessage == '') {
+                    console.log(e?.message)
+                    console.log(`catched error, retrying... [${i}]`)
+                } else {
+                    console.log(`retry log:`, errorMessage)
+                }
             }
             // console.log(c.magenta('if you see this, please contact the author and tell about error above'))
             await defaultSleep(retryInterval, false)

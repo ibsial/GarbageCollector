@@ -1,11 +1,11 @@
-import {ChainName, NotChainName} from './src/utils/types'
+import {BridgeType, ChainName, NotChainName} from './src/utils/types'
 
 export const DEV = false
 
 export const maxRetries = 2
 export const shuffleWallets = true
 
-export const goodGwei = 50
+export const goodGwei = 100
 export const sleepBetweenActions = {from: 5, to: 60} // secs
 export const sleepBetweenAccs = {from: 5 * 60, to: 15 * 60} // secs
 
@@ -31,7 +31,7 @@ export class GarbageCollectorConfig {
 
         Swaps not supported: Opbnb, Manta, Taiko
     */
-    chainsToExclude: (ChainName | NotChainName)[] = []
+    chainsToExclude: (ChainName | NotChainName)[] = ['!Linea']
     tokensToIgnore: string[] = [] // token address to ignore
     tokensToInclude: string[] = [] // tokens to check explicitly
     trySushi = true // true | false
@@ -56,8 +56,8 @@ export class NativeSenderConfig {
         Note: Be careful with 'Gnosis', 'Taiko', 'Manta', 'Opbnb', 'Nova' -- not many exchanges accept their natives
     */
     chainsToExclude: (ChainName | NotChainName)[] = ['!Bsc']
-    
-    /** 
+
+    /**
      * value in *USD*, not in token amount
      * set 0 to disable
      */
@@ -68,7 +68,7 @@ export class NativeSenderConfig {
      * as PERCENTAGE: {from: '80%', to: '100%'} (you can also set both 100%)
      * as NUMBER TO LEAVE: {from: '-0.1', to: '-0.2'} ([-0.1, -0.2] means you'll leave from 0.1 to 0.2 in the wallet)
      */
-    values: {from: string; to: string} = {from: '90%', to: '100%'}
+    values: {from: string; to: string} = {from: '-0.0015', to: '-0.004'}
     /**
      * If set to *true*, fee will be deducted before transfer: *(Value - Fee)* will be sent
      * If set to *false*, fee wont be deducted before transfer: *(Value)* will be sent
@@ -76,21 +76,33 @@ export class NativeSenderConfig {
     deductFee: boolean = true
 }
 
-export class RelayBridgeConfig {
-    /*********************************************************/
-    /*********************** CHAIN LIST **********************
-        Ethereum | Arbitrum | Optimism |  Base   |   Linea   |  
-        Zksync   |          |          |         |           |
-        Scroll   |  Blast   |          |         |           |
-        Nova     |          |          | Taiko   |           |
-    **********************************************************/
+export class BridgeConfig {
+    /** Bridge types: Stargate, Relay **/
+    bridgeType: BridgeType = 'Stargate'
+    // bridgeSpecificSettings: {[key in BridgeType]: {[key: string]: any}} = {
+    bridgeSpecificSettings = {
+        Stargate: {
+            mode: 'economy', // "economy" (bus) or "fast" (taxi)
+            waitBus: 10 * 60 // 10 min, to disable set 0
+        },
+        Relay: {}
+    }
+    /**************************************************************************************/
+    /************************************* CHAIN LIST **************************************
+     * S = Stargate, R = Relay
+
+        Ethereum (S|R) | Arbitrum (S|R) | Optimism (S|R) |  Base (S|R)   |   Linea (S|R)   |  
+        Zksync (_|R)   |                |                |               |                 |
+        Scroll (S|R)   |  Blast (_|R)   |                |               |                 |
+        Nova (_|R)     |                |                | Taiko (_|R)   |                 |
+    ***************************************************************************************/
     /**
         This module bridges ONLY ETH between ETH-chains
         
         You can set multiple *from* chains and one *to* chain
         
      */
-    fromNetworks: ChainName[] = ['Zksync']
+    fromNetworks: ChainName[] = ['Arbitrum', 'Base']
 
     toNetwork: ChainName = 'Linea'
     /**

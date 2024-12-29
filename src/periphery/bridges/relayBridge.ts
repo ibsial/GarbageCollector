@@ -1,19 +1,20 @@
 import {formatEther, parseEther, Wallet} from 'ethers'
-import {chains} from '../utils/constants'
+import {chains} from '../../utils/constants'
 import axios from 'axios'
-import {estimateTx, getBalance, sendRawTx} from './web3Client'
-import {bigintToPrettyStr, c, defaultSleep, RandomHelpers, retry} from '../utils/helpers'
-import {maxRetries, RelayBridgeConfig, sleepBetweenActions} from '../../config'
-import {ChainName} from '../utils/types'
-import {getProvider} from './utils'
+import {estimateTx, getBalance, sendRawTx} from '../web3Client'
+import {bigintToPrettyStr, c, defaultSleep, RandomHelpers, retry} from '../../utils/helpers'
+import {maxRetries, BridgeConfig, sleepBetweenActions} from '../../../config'
+import {ChainName} from '../../utils/types'
+import {getProvider} from '../utils'
+import {BridgeInterface} from './baseBridgeInterface'
 
-class RelayBridge extends RelayBridgeConfig {
+class RelayBridge extends BridgeConfig implements BridgeInterface {
     signer: Wallet
     constructor(signer: Wallet) {
         super()
         this.signer = signer
     }
-    async bridgeRelay(signer: Wallet, currency = 'ETH', fromNetwork: ChainName, toNetwork: ChainName, value: bigint): Promise<boolean> {
+    async #executeBridge(signer: Wallet, currency = 'ETH', fromNetwork: ChainName, toNetwork: ChainName, value: bigint): Promise<boolean> {
         let result: boolean | undefined = await retry(
             async () => {
                 const fromChainId = chains[fromNetwork].id.toString()
@@ -29,33 +30,7 @@ class RelayBridge extends RelayBridgeConfig {
                         return false
                     }
                 }
-                const quoteBridgeResp = await axios.post(
-                    'https://api.relay.link/quote',
-                    {
-                        user: await signer.getAddress(),
-                        originChainId: fromChainId,
-                        destinationChainId: toChainId,
-                        originCurrency: '0x0000000000000000000000000000000000000000',
-                        destinationCurrency: '0x0000000000000000000000000000000000000000',
-                        recipient: await signer.getAddress(),
-                        tradeType: 'EXACT_OUTPUT',
-                        amount: (value - avgBridgeFee).toString(),
-                        usePermit: false,
-                        useExternalLiquidity: false,
-                        referrer: 'relay.link/bridge'
-                    },
-                    {
-                        headers: {
-                            Host: 'api.relay.link',
-                            Origin: 'https://relay.link',
-                            Referer: 'https://relay.link/',
-                            'Content-Type': 'application/json',
-                            'User-Agent':
-                                'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36'
-                        }
-                    }
-                )
-                let bridgeFee = BigInt(quoteBridgeResp.data?.fees.relayer.amount)
+                let bridgeFee = await this.estimateBridgeFee(signer, currency as 'ETH', fromNetwork, toNetwork, value, {avgBridgeFee: avgBridgeFee})
                 let valueToBridge = this.deductFee ? value - bridgeFee : value
                 if (valueToBridge <= 0n) {
                     console.log(
@@ -136,7 +111,7 @@ class RelayBridge extends RelayBridgeConfig {
         }
     }
 
-    async executeRelayBridge(signer: Wallet, currency = 'ETH') {
+    async bridge(signer: Wallet, currency = 'ETH'): Promise<boolean> {
         let networks = RandomHelpers.shuffleArray(this.fromNetworks)
         let hasBridged = false
         for (let i = 0; i < networks.length; i++) {
@@ -164,7 +139,7 @@ class RelayBridge extends RelayBridgeConfig {
                 )
                 continue
             }
-            let success = await this.bridgeRelay(signer.connect(getProvider(fromNetwork)), currency, fromNetwork, toNetwork, valueToBridge)
+            let success = await this.#executeBridge(signer.connect(getProvider(fromNetwork)), currency, fromNetwork, toNetwork, valueToBridge)
             if (success) {
                 await defaultSleep(RandomHelpers.getRandomNumber(sleepBetweenActions))
                 hasBridged = true
@@ -172,13 +147,49 @@ class RelayBridge extends RelayBridgeConfig {
         }
         return hasBridged
     }
-
+    async estimateBridgeFee(
+        signer: Wallet,
+        currency: 'ETH',
+        fromNetwork: ChainName,
+        toNetwork: ChainName,
+        value: bigint,
+        additionalParams: {avgBridgeFee: bigint}
+    ): Promise<bigint> {
+        const fromChainId = chains[fromNetwork].id.toString()
+        const toChainId = chains[toNetwork].id.toString()
+        const quoteBridgeResp = await axios.post(
+            'https://api.relay.link/quote',
+            {
+                user: await signer.getAddress(),
+                originChainId: fromChainId,
+                destinationChainId: toChainId,
+                originCurrency: '0x0000000000000000000000000000000000000000',
+                destinationCurrency: '0x0000000000000000000000000000000000000000',
+                recipient: await signer.getAddress(),
+                tradeType: 'EXACT_OUTPUT',
+                amount: (value - additionalParams.avgBridgeFee).toString(),
+                usePermit: false,
+                useExternalLiquidity: false,
+                referrer: 'relay.link/bridge'
+            },
+            {
+                headers: {
+                    Host: 'api.relay.link',
+                    Origin: 'https://relay.link',
+                    Referer: 'https://relay.link/',
+                    'Content-Type': 'application/json',
+                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36'
+                }
+            }
+        )
+        return BigInt(quoteBridgeResp.data?.fees.relayer.amount)
+    }
     async getSendValue(networkName: ChainName): Promise<bigint> {
-        // if (parseFloat(this.values.from) < 0 || parseFloat(this.values.to) < 0) {
-        //     console.log(c.red(`Can't pass negative numbers to Relay Bridge`))
-        //     throw Error(`Can't pass negative numbers to Relay Bridge`)
-        // }
         if (this.values.from.includes('%') && this.values.to.includes('%')) {
+            if (parseFloat(this.values.from) < 0 || parseFloat(this.values.to) < 0) {
+                console.log(c.red(`Can't pass negative numbers to Relay Bridge`))
+                throw Error(`Can't pass negative numbers to Relay Bridge`)
+            }
             let precision = 1000
             let balance = await getBalance(getProvider(networkName), this.signer.address)
             let randomPortion = BigInt(
@@ -210,8 +221,8 @@ class RelayBridge extends RelayBridgeConfig {
             let value = parseEther(RandomHelpers.getRandomNumber({from: parseFloat(this.values.from), to: parseFloat(this.values.to)}).toString())
             return value
         } else {
-            console.log(c.red(`Your "values" in "RelayBridgeConfig" are wrong. Should be *number* or *percentage*`))
-            throw Error(`Your "values" in "RelayBridgeConfig" are wrong. Should be *number* or *percentage*`)
+            console.log(c.red(`Your "values" in "RelayBridgeConfig" are wrong. Should be *number*, *percentage* or *to leave*`))
+            throw Error(`Your "values" in "RelayBridgeConfig" are wrong. Should be *number*, *percentage* or *to leave*`)
         }
     }
 }

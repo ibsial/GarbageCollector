@@ -62,6 +62,8 @@ export declare type NotChainName =
     // | '!Zora'
     | '!Nova'
 
+export declare type BridgeType = 'Stargate' | 'Relay'
+
 export declare type TokenlistResp = {
     name: string
     keywords: any
@@ -129,3 +131,77 @@ export declare type OdosAssembleType = {
         simulationError: any
     }
 }
+
+export declare type StargateParams =
+    | {
+          stargatePoolNativeAddress: string
+          eid: number
+      }
+    | undefined
+
+export declare type StargateSendParam = {
+    dstEid: number // uint32 Destination endpoint ID.
+    to: string // bytes32 Recipient address.
+    amountLD: bigint // uint256 Amount to send in local decimals.
+    minAmountLD: bigint // uint256 Minimum amount to send in local decimals.
+    extraOptions: string // bytes Additional options supplied by the caller to be used in the LayerZero message.
+    composeMsg: string // bytes The composed message for the send() operation.
+    oftCmd: string // bytes The OFT command to be executed, unused in default OFT implementations.
+}
+export declare type BusQueueResp =
+    | {
+          srcEid: number
+          dstEid: number
+          srcChainKey: string
+          dstChainKey: string
+          inQueue: boolean
+          bus: {
+              busId: string
+              guid: string
+              txHash: string
+              timestamp: number
+              numPassengers: number
+              passengers: {
+                  sender: string
+                  receiver: string
+                  ticketId: string
+                  assetId: number
+                  asset: string
+                  amountSD: string
+                  rideStatus: string
+                  txHash: string
+                  blockNumber: number
+                  timestamp: number
+                  busFare: string
+                  nativeDrop: boolean
+                  passengerBytes: string
+              }[]
+          }
+      }[]
+    | {
+          srcEid: number
+          dstEid: number
+          srcChainKey: string
+          dstChainKey: string
+          inQueue: boolean
+          queue: {
+              currentBusParams: {
+                  capacity: number
+              }
+              passengers: {
+                  sender: string
+                  receiver: string
+                  ticketId: string
+                  assetId: number
+                  asset: string
+                  amountSD: string
+                  rideStatus: string
+                  txHash: string
+                  blockNumber: number
+                  timestamp: number
+                  busFare: string
+                  nativeDrop: boolean
+                  passengerBytes: string
+              }[]
+          }
+      }[]
