@@ -114,6 +114,7 @@ export class BridgeConfig {
      * as NUMBER: {from: '0.1', to: '0.11'}
      * as PERCENTAGE: {from: '80%', to: '100%'} (you can also set both 100%)
      * as NUMBER TO LEAVE: {from: '-0.1', to: '-0.2'} ([-0.1, -0.2] means you'll leave from 0.1 to 0.2 in the wallet)
+     * as NUMBER TO HAVE ON DESTINATION: {from: '+0.1', to: '+0.2'} ([+0.1, +0.2] means you'll have at least from 0.1 to 0.2 in destination chain)
      */
     values: {from: string; to: string} = {from: '95%', to: '100%'}
     /**

@@ -9,6 +9,7 @@ import {NativeSender} from './src/core/nativeSender'
 import {getBalance, Multicall, waitGwei} from './src/periphery/web3Client'
 import {RelayBridge} from './src/periphery/bridges/relayBridge'
 import {StargateBridge} from './src/periphery/bridges/stargateBridge'
+import { bridgeFactory } from './src/periphery/bridges/bridgeFactory'
 
 async function main() {
     let scenario = await menu.chooseTask()
@@ -76,7 +77,7 @@ async function main() {
                 }
             }
             break
-        case 'Relay bridge':
+        case 'Stargate/Relay bridge':
             keysAndAddresses = await importAndValidatePrivateData('./privates.txt', false)
             if (shuffleWallets) {
                 keysAndAddresses = RandomHelpers.shuffleArray(keysAndAddresses)
@@ -85,24 +86,8 @@ async function main() {
                 let signer = new Wallet(keysAndAddresses[i].key, provider)
                 console.log(c.cyan(`#${i + 1}/${keysAndAddresses.length} ${signer.address}`))
                 await waitGwei(goodGwei)
-                const relay = new RelayBridge(signer)
-                let result = await relay.bridge(signer)
-                if (result) {
-                    await sleep(RandomHelpers.getRandomNumber(sleepBetweenAccs))
-                }
-            }
-            break
-        case 'Stargate bridge':
-            keysAndAddresses = await importAndValidatePrivateData('./privates.txt', false)
-            if (shuffleWallets) {
-                keysAndAddresses = RandomHelpers.shuffleArray(keysAndAddresses)
-            }
-            for (let i = 0; i < keysAndAddresses.length; i++) {
-                let signer = new Wallet(keysAndAddresses[i].key, provider)
-                console.log(c.cyan(`#${i + 1}/${keysAndAddresses.length} ${signer.address}`))
-                await waitGwei(goodGwei)
-                const stargate = new StargateBridge(signer)
-                let result = await stargate.bridge(signer)
+                const bridge = bridgeFactory.getBridge(signer)
+                let result = await bridge.bridge(signer, 'ETH')
                 if (result) {
                     await sleep(RandomHelpers.getRandomNumber(sleepBetweenAccs))
                 }

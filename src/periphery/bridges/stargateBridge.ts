@@ -75,7 +75,7 @@ class StargateBridge extends BridgeConfig implements BridgeInterface {
                 if (valueToBridge <= 0n) {
                     console.log(
                         c.red(
-                            `[Stargate] Can't from ${fromNetwork} to ${toNetwork} ${bigintToPrettyStr(
+                            `[Stargate] Can't send from ${fromNetwork} to ${toNetwork} ${bigintToPrettyStr(
                                 valueToBridge,
                                 undefined,
                                 6
@@ -111,7 +111,7 @@ class StargateBridge extends BridgeConfig implements BridgeInterface {
                 if ((tx.value as bigint) <= 0n) {
                     console.log(
                         c.red(
-                            `[Stargate] Can't from ${fromNetwork} to ${toNetwork} ${bigintToPrettyStr(
+                            `[Stargate] Can't send from ${fromNetwork} to ${toNetwork} ${bigintToPrettyStr(
                                 tx.value as bigint,
                                 undefined,
                                 6
@@ -200,8 +200,8 @@ class StargateBridge extends BridgeConfig implements BridgeInterface {
         const maxWaitTime = this.bridgeSpecificSettings.Stargate.waitBus
         const sleepTime = 15
         let timeElapsed = 0
-        let status = 'DRIVABLE' // or 'DRIVEN'
-        while (status == 'DRIVABLE') {
+        let status = 'DRIVABLE' // or 'DRIVEN' or 'NOT_DRIVEN'
+        while (status == 'DRIVABLE' || status == 'NOT_DRIVEN') {
             if (timeElapsed >= maxWaitTime) {
                 process.stdout.clearLine(0) // clear current text
                 process.stdout.cursorTo(0)
@@ -216,7 +216,7 @@ class StargateBridge extends BridgeConfig implements BridgeInterface {
                     // console.log(resp.data)
                     return resp.data
                 },
-                {maxRetryCount: 3, retryInterval: 5, needLog: false, errorMessage: '[Stargate] Bus status request failed'}
+                {maxRetryCount: 3, retryInterval: 10, needLog: false, errorMessage: '[Stargate] Bus status request failed'}
             )
             if (res == undefined) {
                 if (timeElapsed > sleepTime) {
@@ -232,6 +232,16 @@ class StargateBridge extends BridgeConfig implements BridgeInterface {
             } else {
                 body = res[0].queue
             }
+            if (body == undefined) {
+                if (timeElapsed > maxWaitTime) {
+                    process.stdout.clearLine(0) // clear current text
+                    process.stdout.cursorTo(0)
+
+                    console.log(c.blue(`[Stargate] Could not get bus status, but bridge could succeed anyway`))
+                    return true
+                }
+                continue
+            }
             if (timeElapsed > sleepTime) {
                 process.stdout.clearLine(0) // clear current text
                 process.stdout.cursorTo(0)
@@ -239,10 +249,8 @@ class StargateBridge extends BridgeConfig implements BridgeInterface {
             process.stdout.write(`Passengers count: ${body.passengers.length}`)
             status = body.passengers[0].rideStatus
         }
-        if (timeElapsed > sleepTime) {
-            process.stdout.clearLine(0) // clear current text
-            process.stdout.cursorTo(0)
-        }
+        process.stdout.clearLine(0) // clear current text
+        process.stdout.cursorTo(0)
         console.log(c.green(`[Stargate] Bus waiting finished with status: ${status}`))
         return true
     }
@@ -335,11 +343,29 @@ class StargateBridge extends BridgeConfig implements BridgeInterface {
                 return randomValue
             }
             return 0n
+        } else if (this.values.from.includes('+') && this.values.to.includes('+')) {
+            let srcBalance = await getBalance(getProvider(networkName), this.signer.address)
+            let dstBalance = await getBalance(getProvider(this.toNetwork), this.signer.address)
+            let i = 0
+            while (i < 10) {
+                let toRefuelMin = parseEther(this.values.from.replace('+', '')) - dstBalance // balance - min_to_have
+                let toRefuelMax = parseEther(this.values.to.replace('+', '')) - dstBalance // balance - max_to_have
+
+                let randomValue = BigInt(RandomHelpers.getRandomBigInt({from: toRefuelMin, to: toRefuelMax}).toString())
+                if (randomValue < 0n || srcBalance < randomValue) {
+                    i++
+                    continue
+                }
+                return randomValue
+            }
+            return 0n
         } else if (
             !this.values.from.includes('%') &&
             !this.values.to.includes('%') &&
             !this.values.from.includes('-') &&
-            !this.values.to.includes('-')
+            !this.values.to.includes('-') &&
+            !this.values.from.includes('+') &&
+            !this.values.to.includes('+')
         ) {
             let value = parseEther(RandomHelpers.getRandomNumber({from: parseFloat(this.values.from), to: parseFloat(this.values.to)}).toString())
             return value

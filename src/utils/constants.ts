@@ -16,12 +16,8 @@ export const scenarios = [
         value: 'Garbage collector & native sender'
     },
     {
-        name: `Relay bridge`,
-        value: 'Relay bridge'
-    },
-    {
-        name: `Stargate bridge`,
-        value: 'Stargate bridge'
+        name: `Stargate/Relay bridge`,
+        value: 'Stargate/Relay bridge'
     }
 ]
 // prettier-ignore

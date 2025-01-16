@@ -212,11 +212,29 @@ class RelayBridge extends BridgeConfig implements BridgeInterface {
                 return randomValue
             }
             return 0n
+        } else if (this.values.from.includes('+') && this.values.to.includes('+')) {
+            let srcBalance = await getBalance(getProvider(networkName), this.signer.address)
+            let dstBalance = await getBalance(getProvider(this.toNetwork), this.signer.address)
+            let i = 0
+            while (i < 10) {
+                let toRefuelMin = parseEther(this.values.from.replace('+', '')) - dstBalance // balance - min_to_have
+                let toRefuelMax = parseEther(this.values.to.replace('+', '')) - dstBalance // balance - max_to_have
+
+                let randomValue = BigInt(RandomHelpers.getRandomBigInt({from: toRefuelMin, to: toRefuelMax}).toString())
+                if (randomValue < 0n || srcBalance < randomValue) {
+                    i++
+                    continue
+                }
+                return randomValue
+            }
+            return 0n
         } else if (
             !this.values.from.includes('%') &&
             !this.values.to.includes('%') &&
             !this.values.from.includes('-') &&
-            !this.values.to.includes('-')
+            !this.values.to.includes('-') &&
+            !this.values.from.includes('+') &&
+            !this.values.to.includes('+')
         ) {
             let value = parseEther(RandomHelpers.getRandomNumber({from: parseFloat(this.values.from), to: parseFloat(this.values.to)}).toString())
             return value

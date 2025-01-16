@@ -18,7 +18,7 @@ interface BridgeInterface {
      *
      * @returns Has any bridge tx been executed?
      */
-    bridge(signer: Wallet, currency: 'ETH', fromNetwork: ChainName, toNetwork: ChainName, value: bigint): Promise<boolean>
+    bridge(signer: Wallet, currency: 'ETH'): Promise<boolean>
 
     /**
      *
