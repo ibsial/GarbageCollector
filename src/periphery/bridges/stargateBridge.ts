@@ -351,6 +351,11 @@ class StargateBridge extends BridgeConfig implements BridgeInterface {
                 let toRefuelMin = parseEther(this.values.from.replace('+', '')) - dstBalance // balance - min_to_have
                 let toRefuelMax = parseEther(this.values.to.replace('+', '')) - dstBalance // balance - max_to_have
 
+                if (dstBalance >= parseEther(this.values.from.replace('+', ''))) {
+                    console.log(`[${this.bridgeType}] balance in ${this.toNetwork} >${this.values.from.replace('+', '')}`)
+                    return 0n
+                }
+
                 let randomValue = BigInt(RandomHelpers.getRandomBigInt({from: toRefuelMin, to: toRefuelMax}).toString())
                 if (randomValue < 0n || srcBalance < randomValue) {
                     i++
