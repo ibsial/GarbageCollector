@@ -17,8 +17,10 @@ class RelayBridge extends BridgeConfig implements BridgeInterface {
     async #executeBridge(signer: Wallet, currency = 'ETH', fromNetwork: ChainName, toNetwork: ChainName, value: bigint): Promise<boolean> {
         let result: boolean | undefined = await retry(
             async () => {
-                const fromChainId = chains[fromNetwork].id.toString()
-                const toChainId = chains[toNetwork].id.toString()
+                // const fromChainId = chains[fromNetwork].id.toString()
+                // const toChainId = chains[toNetwork].id.toString()
+                const fromChainId = chains[fromNetwork].id
+                const toChainId = chains[toNetwork].id
                 let avgBridgeFee = 501_383_102_086_736n
                 if (value - avgBridgeFee <= 0n) {
                     avgBridgeFee = 50_000_000_000_000n
@@ -57,7 +59,9 @@ class RelayBridge extends BridgeConfig implements BridgeInterface {
                         amount: valueToBridge.toString(),
                         usePermit: false,
                         useExternalLiquidity: false,
-                        referrer: 'relay.link/bridge'
+                        useDepositAddress: false,
+                        referrer: 'relay.link/bridge',
+                        slippageTolerance: ''
                     },
                     {
                         headers: {
@@ -81,6 +85,55 @@ class RelayBridge extends BridgeConfig implements BridgeInterface {
                 let estimate = await estimateTx(signer, testTx)
                 let cost = (BigInt(tx?.gasPrice ?? tx?.maxFeePerGas) * BigInt(estimate) * 16n) / 10n
                 tx.value = this.deductFee ? BigInt(tx?.value) - cost : BigInt(tx?.value)
+                if (tx.value <= 0n) {
+                    console.log(
+                        c.red(
+                            `[relay] Can't from ${fromNetwork} to ${toNetwork} ${bigintToPrettyStr(
+                                tx.value,
+                                undefined,
+                                6
+                            )} ${currency}: Value is too small after fee deduction`
+                        )
+                    )
+                    return false
+                }
+                // need to do another request with correct value since relay sends requestID as tx.data
+                // and reverts if request value != tx value
+                // Code in here is kinda sphagetti, but i'm lazy to rewrite it :/
+                const finalBridgeResp = await axios.post(
+                    'https://api.relay.link/quote',
+                    {
+                        user: await signer.getAddress(),
+                        originChainId: fromChainId,
+                        destinationChainId: toChainId,
+                        originCurrency: '0x0000000000000000000000000000000000000000',
+                        destinationCurrency: '0x0000000000000000000000000000000000000000',
+                        recipient: await signer.getAddress(),
+                        tradeType: 'EXACT_OUTPUT',
+                        amount: tx.value.toString(),
+                        usePermit: false,
+                        useExternalLiquidity: false,
+                        useDepositAddress: false,
+                        referrer: 'relay.link/bridge',
+                        slippageTolerance: ''
+                    },
+                    {
+                        headers: {
+                            Host: 'api.relay.link',
+                            Origin: 'https://relay.link',
+                            Referer: 'https://relay.link/',
+                            'Content-Type': 'application/json',
+                            'User-Agent':
+                                'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36'
+                        }
+                    }
+                )
+                tx = finalBridgeResp.data?.steps[0].items[0].data
+                if (tx?.gasPrice != undefined) {
+                    if (tx.gasPrice?.type == 'BigNumber') {
+                        tx.gasPrice = tx.gasPrice.hex
+                    }
+                }
                 if (tx.value <= 0n) {
                     console.log(
                         c.red(
@@ -167,6 +220,7 @@ class RelayBridge extends BridgeConfig implements BridgeInterface {
                 destinationCurrency: '0x0000000000000000000000000000000000000000',
                 recipient: await signer.getAddress(),
                 tradeType: 'EXACT_OUTPUT',
+                slippageTolerance: '',
                 amount: (value - additionalParams.avgBridgeFee).toString(),
                 usePermit: false,
                 useExternalLiquidity: false,
