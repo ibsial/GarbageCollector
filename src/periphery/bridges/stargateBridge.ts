@@ -71,6 +71,20 @@ class StargateBridge extends BridgeConfig implements BridgeInterface {
                     valueToBridgeAndLzFee = valueToBridge + bridgeFee[0]
                     sendParam.amountLD = valueToBridge
                     sendParam.minAmountLD = (sendParam.amountLD * 995n) / 1000n
+
+                    while (bridgeFee[0] > parseEther(this.bridgeSpecificSettings.Stargate.maxFee)) {
+                        await defaultSleep(15, false)
+                        console.log(
+                            `[Stargate] Waiting stargate fee (current: ${formatEther(bridgeFee[0])} ETH, want: ${
+                                this.bridgeSpecificSettings.Stargate.maxFee
+                            } ETH)`
+                        )
+                        bridgeFee = await this.getLzFee(this.signer, fromNetwork, sendParam, payWithZRO)
+                        if (bridgeFee == undefined) {
+                            console.log(c.red(`[Stargate] Can't estimate LZ fee ${fromNetwork} to ${toNetwork}`))
+                            return false
+                        }
+                    }
                 }
                 if (valueToBridge <= 0n) {
                     console.log(
@@ -196,7 +210,7 @@ class StargateBridge extends BridgeConfig implements BridgeInterface {
 
     async #waitBus(hash: string) {
         console.log(`[Stargate] Waiting for a bus driver... (from 5 to 7 min on average)`)
-        const url = 'https://d3k4i7b673n27r.cloudfront.net/v1/buses/bus-queue/'
+        const url = 'https://mainnet.stargate-api.com/v1/buses/bus-queue/'
         const maxWaitTime = this.bridgeSpecificSettings.Stargate.waitBus
         const sleepTime = 15
         let timeElapsed = 0

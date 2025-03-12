@@ -83,7 +83,8 @@ export class BridgeConfig {
     bridgeSpecificSettings = {
         Stargate: {
             mode: 'economy', // "economy" (bus) or "fast" (taxi)
-            waitBus: 10 * 60 // 10 min, to disable set 0
+            waitBus: 10 * 60, // 10 min, to disable set 0
+            maxFee: '0.0005' // max LZ fee in ETH
         },
         Relay: {}
     }
