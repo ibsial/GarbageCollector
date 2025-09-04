@@ -5,7 +5,7 @@ import {estimateTx, getBalance, sendRawTx} from '../web3Client'
 import {bigintToPrettyStr, c, defaultSleep, RandomHelpers, retry} from '../../utils/helpers'
 import {maxRetries, BridgeConfig, sleepBetweenActions} from '../../../config'
 import {ChainName} from '../../utils/types'
-import {getProvider} from '../utils'
+import {getNativeCoinPrice, getProvider} from '../utils'
 import {BridgeInterface} from './baseBridgeInterface'
 
 class RelayBridge extends BridgeConfig implements BridgeInterface {
@@ -14,7 +14,7 @@ class RelayBridge extends BridgeConfig implements BridgeInterface {
         super()
         this.signer = signer
     }
-    async #executeBridge(signer: Wallet, currency = 'ETH', fromNetwork: ChainName, toNetwork: ChainName, value: bigint): Promise<boolean> {
+    async #executeBridge(signer: Wallet, currency: string, fromNetwork: ChainName, toNetwork: ChainName, value: bigint): Promise<boolean> {
         let result: boolean | undefined = await retry(
             async () => {
                 // const fromChainId = chains[fromNetwork].id.toString()
@@ -55,8 +55,8 @@ class RelayBridge extends BridgeConfig implements BridgeInterface {
                         originCurrency: '0x0000000000000000000000000000000000000000',
                         destinationCurrency: '0x0000000000000000000000000000000000000000',
                         recipient: await signer.getAddress(),
-                        tradeType: 'EXACT_OUTPUT',
-                        amount: valueToBridge.toString(),
+                        tradeType: 'EXACT_INPUT',
+                        amount: value.toString(),
                         usePermit: false,
                         useExternalLiquidity: false,
                         useDepositAddress: false,
@@ -147,7 +147,7 @@ class RelayBridge extends BridgeConfig implements BridgeInterface {
                     return false
                 }
                 tx.gasLimit = estimate
-                console.log(c.yellow(`[relay] bridging ${formatEther(tx.value)} ETH from ${fromNetwork} to ${toNetwork}`))
+                console.log(c.yellow(`[relay] bridging ${formatEther(tx.value)} ${chains[fromNetwork].currency.name} from ${fromNetwork} to ${toNetwork}`))
                 let hash = await sendRawTx(signer, tx, true)
                 console.log(
                     c.green(`[relay] ${formatEther(tx.value)} ${currency}: ${fromNetwork} --> ${toNetwork} ${chains[fromNetwork].explorer + hash}`)
@@ -202,7 +202,7 @@ class RelayBridge extends BridgeConfig implements BridgeInterface {
     }
     async estimateBridgeFee(
         signer: Wallet,
-        currency: 'ETH',
+        currency: string,
         fromNetwork: ChainName,
         toNetwork: ChainName,
         value: bigint,
@@ -219,7 +219,7 @@ class RelayBridge extends BridgeConfig implements BridgeInterface {
                 originCurrency: '0x0000000000000000000000000000000000000000',
                 destinationCurrency: '0x0000000000000000000000000000000000000000',
                 recipient: await signer.getAddress(),
-                tradeType: 'EXACT_OUTPUT',
+                tradeType: 'EXACT_INPUT',
                 slippageTolerance: '',
                 amount: (value - additionalParams.avgBridgeFee).toString(),
                 usePermit: false,

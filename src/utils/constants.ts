@@ -149,7 +149,7 @@ export const chains: {[key: string]: Chain} = {
     Arbitrum: {
         id: 42161,
         lzId: '110',
-        rpc: ['https://arbitrum-one.publicnode.com'],
+        rpc: ['https://arbitrum-one.publicnode.com', 'https://arb1.arbitrum.io/rpc'],
         explorer: 'https://arbiscan.io/tx/',
         currency: {name: 'ETH'},
         tokens: {
@@ -169,7 +169,7 @@ export const chains: {[key: string]: Chain} = {
     Optimism: {
         id: 10,
         lzId: '111',
-        rpc: ['https://optimism-rpc.publicnode.com'],
+        rpc: ['https://mainnet.optimism.io', 'https://optimism-rpc.publicnode.com'],
         explorer: 'https://optimistic.etherscan.io/tx/',
         currency: {name: 'ETH'},
         tokens: {
@@ -249,7 +249,7 @@ export const chains: {[key: string]: Chain} = {
     Bsc: {
         id: 56,
         lzId: '102',
-        rpc: ['https://rpc.ankr.com/bsc'],
+        rpc: ['https://bsc-dataseed.bnbchain.org'],
         explorer: 'https://bscscan.com/tx/',
         currency: {name: 'BNB'},
         tokens: {
@@ -289,7 +289,7 @@ export const chains: {[key: string]: Chain} = {
     Polygon: {
         id: 137,
         lzId: '109',
-        rpc: ['https://polygon-rpc.com', 'https://rpc.ankr.com/polygon'],
+        rpc: ['https://polygon-rpc.com'],
         explorer: 'https://polygonscan.com/tx/',
         currency: {name: 'MATIC'},
         tokens: {
@@ -310,7 +310,7 @@ export const chains: {[key: string]: Chain} = {
         id: 43114,
         lzId: '106',
 
-        rpc: ['https://avalanche.public-rpc.com'],
+        rpc: ['https://avalanche-c-chain-rpc.publicnode.com', 'https://avalanche.drpc.org'],
         explorer: 'https://snowtrace.io/tx/',
         currency: {name: 'AVAX'},
         tokens: {
@@ -391,7 +391,7 @@ export const chains: {[key: string]: Chain} = {
     Gnosis: {
         id: 100,
         lzId: '145',
-        rpc: ['https://rpc.gnosischain.com'],
+        rpc: ['https://rpc.gnosischain.com', 'https://rpc.gnosis.gateway.fm'],
         explorer: 'https://gnosisscan.io/tx/',
         currency: {name: 'xDAI'},
         tokens: {
@@ -511,7 +511,7 @@ export const chains: {[key: string]: Chain} = {
     // Zora: { // not supported by coingecko xdd
     //     id: 7777777,
     //     lzId: '290',
-    //     rpc: ['https://7777777.rpc.thirdweb.com'],
+    //     rpc: ['https://rpc.zora.energy'],
     //     explorer: 'https://zora.superscan.network/tx/',
     //     currency: {name: 'ETH'},
     //     tokens: {
@@ -522,7 +522,7 @@ export const chains: {[key: string]: Chain} = {
     //         }
     //     },
     //     multicall: '0xcA11bde05977b3631167028862bE2a173976CA11'
-    // }
+    // },
     Nova: {
         id: 42170,
         lzId: '175',
