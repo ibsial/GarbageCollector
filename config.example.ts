@@ -9,6 +9,9 @@ export const goodGwei = 100
 export const sleepBetweenActions = {from: 5, to: 60} // secs
 export const sleepBetweenAccs = {from: 5 * 60, to: 15 * 60} // secs
 
+// MIN LINEA PRICE FOR SELLING SCENARIO. If it's below configured price -- no tokens will be sold
+export const minPricePerLineaToSell = '0.05'
+
 /**
  * THIS MODULE SWAPS ALL SHITCOINS INTO NATIVE COIN
  * First ODOS aggregator is used

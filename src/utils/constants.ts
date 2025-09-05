@@ -18,6 +18,18 @@ export const scenarios = [
     {
         name: `Stargate/Relay bridge`,
         value: 'Stargate/Relay bridge'
+    },
+    {
+        name: `Claim linea`,
+        value: 'Claim linea'
+    },
+    {
+        name: `Claim and transfer to exch`,
+        value: 'Claim and transfer to exch'
+    },
+    {
+        name: `Claim and sell (into ETH)`,
+        value: 'Claim and sell'
     }
 ]
 // prettier-ignore

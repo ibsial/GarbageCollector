@@ -218,7 +218,7 @@ async function sendTx(
     }
     let txReceipt: TransactionResponse = await retry(signer.sendTransaction.bind(signer), retryParams, txBody)
     if (waitConfirmation) {
-        return getTxStatus(signer, txReceipt.hash)
+        return getTxStatus(signer, txReceipt.hash, undefined, retryParams)
     } else {
         return txReceipt.hash
     }

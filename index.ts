@@ -2,14 +2,13 @@ import {Wallet} from 'ethers'
 import {menu} from './src/periphery/menu'
 import {getProvider} from './src/periphery/utils'
 import {scenarios} from './src/utils/constants'
-import {c, defaultSleep, importAndValidatePrivateData, importProxies, RandomHelpers, retry, sleep} from './src/utils/helpers'
+import {c, defaultSleep, importAndValidatePrivateData, importProxies, RandomHelpers, sleep} from './src/utils/helpers'
 import {GarbageCollector} from './src/core/garbageCollector'
-import {goodGwei, maxRetries, shuffleWallets, sleepBetweenAccs, sleepBetweenActions} from './config'
+import {goodGwei, shuffleWallets, sleepBetweenAccs, sleepBetweenActions} from './config'
 import {NativeSender} from './src/core/nativeSender'
-import {getBalance, Multicall, waitGwei} from './src/periphery/web3Client'
-import {RelayBridge} from './src/periphery/bridges/relayBridge'
-import {StargateBridge} from './src/periphery/bridges/stargateBridge'
-import { bridgeFactory } from './src/periphery/bridges/bridgeFactory'
+import {waitGwei} from './src/periphery/web3Client'
+import {bridgeFactory} from './src/periphery/bridges/bridgeFactory'
+import {executeClaim, executeClaimAndSell, executeClaimAndTransfer} from './src/periphery/lineaClaimer'
 
 async function main() {
     let scenario = await menu.chooseTask()
@@ -88,6 +87,49 @@ async function main() {
                 await waitGwei(goodGwei)
                 const bridge = bridgeFactory.getBridge(signer)
                 let result = await bridge.bridge(signer, 'ETH')
+                if (result) {
+                    await sleep(RandomHelpers.getRandomNumber(sleepBetweenAccs))
+                }
+            }
+            break
+
+        case 'Claim linea':
+            keysAndAddresses = await importAndValidatePrivateData('./privates.txt', false)
+            if (shuffleWallets) {
+                keysAndAddresses = RandomHelpers.shuffleArray(keysAndAddresses)
+            }
+            for (let i = 0; i < keysAndAddresses.length; i++) {
+                let signer = new Wallet(keysAndAddresses[i].key, getProvider('Linea'))
+                console.log(c.cyan(`#${i + 1}/${keysAndAddresses.length} ${signer.address}`))
+                let result = await executeClaim(i + 1, signer)
+                if (result) {
+                    await sleep(RandomHelpers.getRandomNumber(sleepBetweenAccs))
+                }
+            }
+            break
+        case 'Claim and transfer to exch':
+            keysAndAddresses = await importAndValidatePrivateData('./privates.txt', true)
+            if (shuffleWallets) {
+                keysAndAddresses = RandomHelpers.shuffleArray(keysAndAddresses)
+            }
+            for (let i = 0; i < keysAndAddresses.length; i++) {
+                let signer = new Wallet(keysAndAddresses[i].key, getProvider('Linea'))
+                console.log(c.cyan(`#${i + 1}/${keysAndAddresses.length} ${signer.address}`))
+                let result = await executeClaimAndTransfer(i + 1, signer, keysAndAddresses[i].address)
+                if (result) {
+                    await sleep(RandomHelpers.getRandomNumber(sleepBetweenAccs))
+                }
+            }
+            break
+        case 'Claim and sell':
+            keysAndAddresses = await importAndValidatePrivateData('./privates.txt', true)
+            if (shuffleWallets) {
+                keysAndAddresses = RandomHelpers.shuffleArray(keysAndAddresses)
+            }
+            for (let i = 0; i < keysAndAddresses.length; i++) {
+                let signer = new Wallet(keysAndAddresses[i].key, getProvider('Linea'))
+                console.log(c.cyan(`#${i + 1}/${keysAndAddresses.length} ${signer.address}`))
+                let result = await executeClaimAndSell(i + 1, signer, proxies)
                 if (result) {
                     await sleep(RandomHelpers.getRandomNumber(sleepBetweenAccs))
                 }
