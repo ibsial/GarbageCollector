@@ -1,7 +1,7 @@
 import {Contract, formatEther, isAddress, parseEther, Wallet} from 'ethers'
 import {estimateTx, getBalance, sendRawTx, sendTx, transfer} from './web3Client'
 import {bigintToPrettyStr, c, defaultSleep, RandomHelpers, retry} from '../utils/helpers'
-import {maxRetries, BridgeConfig, sleepBetweenActions} from '../../config'
+import {maxRetries, BridgeConfig, sleepBetweenActions, minPricePerLineaToSell} from '../../config'
 import {getNativeCoinPrice, getProvider} from './utils'
 import {L2TokenWithPermit, L2TokenWithPermit__factory, LineaClaim, LineaClaim__factory} from '../../typechain'
 import {chains} from '../utils/constants'
@@ -151,6 +151,11 @@ class LineaClaimer {
             throw Error('Could not get qoute from odos')
         }
         let sumValueIn = quoteResp.inValues.reduce((accumulator, currentValue) => accumulator + currentValue, 0)
+        let lineaPrice = sumValueIn / parseFloat((balance / 10n ** 18n).toString())
+        if (lineaPrice < parseFloat(minPricePerLineaToSell)) {
+            this.print(`Linea price is below set value: ${lineaPrice.toFixed(6)} < ${minPricePerLineaToSell}`, c.yellow)
+            throw Error('Linea price is below set value')
+        }
         if (sumValueIn * 0.95 < quoteResp.netOutValue) {
             this.print('>5% slippage quote received from odos, trying again', c.red)
             throw Error('>5% slippage quote received from odos')
