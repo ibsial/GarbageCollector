@@ -239,7 +239,7 @@ class OdosAggregator {
         }
         delete adjustedTx?.gas
         let gasPriceMultiplier = this.networkName == 'Ethereum' || this.networkName == 'Polygon' || this.networkName == 'Avalanche' ? 1.1 : 1
-        if (this.networkName == 'Linea') {
+        if (this.networkName == 'Linea' && tokenIn.name == 'LINEA') {
             gasPriceMultiplier = 1.5
         }
         let swapHash = await sendTx(this.signer, adjustedTx, {price: gasPriceMultiplier, limit: 1}, true)
