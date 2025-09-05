@@ -8,7 +8,7 @@ import {DEV, maxRetries} from '../../config'
 import {HttpsProxyAgent} from 'https-proxy-agent'
 
 class OdosAggregator {
-    quoteUrl = 'https://api.odos.xyz/sor/quote/v2'
+    quoteUrl = 'https://api.odos.xyz/sor/quote/v3'
     assembleUrl = 'https://api.odos.xyz/sor/assemble'
     signer: Wallet
     networkName: ChainName
@@ -49,7 +49,7 @@ class OdosAggregator {
     ): Promise<boolean> {
         let quote
         try {
-            quote = await this.#quoteSwap(tokenIn, tokenOut, amountIn)
+            quote = await this.quoteSwap(tokenIn, tokenOut, amountIn)
             if (quote == undefined) {
                 // console.log(`[Odos]      ${tokenIn.symbol} --> ${tokenOut.symbol} swap is too expensive or is not available`)
                 return false
@@ -59,7 +59,7 @@ class OdosAggregator {
             return false
         }
         try {
-            let swapResult = await this.#executeSwap(tokenIn, tokenOut, quote)
+            let swapResult = await this.executeSwap(tokenIn, tokenOut, quote)
             if (swapResult) {
             }
             return swapResult
@@ -68,7 +68,7 @@ class OdosAggregator {
             return false
         }
     }
-    async #quoteSwap(
+    async quoteSwap(
         tokenIn: {
             address: string
             name: string
@@ -154,7 +154,7 @@ class OdosAggregator {
         )
         return res
     }
-    async #executeSwap(
+    async executeSwap(
         tokenIn: {
             address: string
             name: string
@@ -172,7 +172,7 @@ class OdosAggregator {
         let approvalTarget: string | undefined = await retry(
             async () => {
                 try {
-                    let resp = await this.session.get(`https://api.odos.xyz/info/contract-info/v2/${chains[this.networkName].id}`, {
+                    let resp = await this.session.get(`https://api.odos.xyz/info/contract-info/v3/${chains[this.networkName].id}`, {
                         headers: {'Content-Type': 'application/json'}
                     })
                     return resp.data.routerAddress
@@ -239,6 +239,9 @@ class OdosAggregator {
         }
         delete adjustedTx?.gas
         let gasPriceMultiplier = this.networkName == 'Ethereum' || this.networkName == 'Polygon' || this.networkName == 'Avalanche' ? 1.1 : 1
+        if (this.networkName == 'Linea') {
+            gasPriceMultiplier = 1.5
+        }
         let swapHash = await sendTx(this.signer, adjustedTx, {price: gasPriceMultiplier, limit: 1}, true)
         console.log(
             `[Odos]     `,
