@@ -1,11 +1,10 @@
-import {Contract, formatEther, isAddress, parseEther, Wallet} from 'ethers'
-import {estimateTx, getBalance, sendRawTx, sendTx, transfer} from './web3Client'
+import {isAddress, Wallet} from 'ethers'
+import {getBalance, sendTx, transfer} from './web3Client'
 import {bigintToPrettyStr, c, defaultSleep, RandomHelpers, retry} from '../utils/helpers'
-import {maxRetries, BridgeConfig, sleepBetweenActions, minPricePerLineaToSell} from '../../config'
-import {getNativeCoinPrice, getProvider} from './utils'
+import {maxRetries, sleepBetweenActions, minPricePerLineaToSell, DEV} from '../../config'
+import {getProvider} from './utils'
 import {L2TokenWithPermit, L2TokenWithPermit__factory, LineaClaim, LineaClaim__factory} from '../../typechain'
 import {chains} from '../utils/constants'
-import {GarbageCollector} from '../core/garbageCollector'
 import {OdosAggregator} from './odosAggregator'
 
 class LineaClaimer {
@@ -68,6 +67,18 @@ class LineaClaimer {
         }
         if (!this.canClaim) {
             this.print(`Claim is not open yet (No tokens on distributor contract)`, c.yellow)
+            while (this.canClaim == undefined || !this.canClaim) {
+                try {
+                    this.canClaim = await this.claimOpen()
+                } catch (e: any) {
+                    if (DEV) {
+                        console.log(e)
+                    }
+                    this.print(`Error on waiting for the claim`, c.yellow)
+                }
+                await defaultSleep(10, false)
+            }
+            this.print(`Claim is now open!`, c.bgYellow)
             return false
         }
         let tx = {
@@ -227,6 +238,7 @@ async function executeClaimAndSell(index: string | number, signer: Wallet, proxi
     let result: boolean | undefined = await retry(
         async () => {
             await claimer.init()
+            claimer.print(`Eligible for: ${bigintToPrettyStr(claimer.allo ?? 0n, 18n, 4)} $Linea`, c.blue)
             let claimed = await claimer.claim()
             if (!claimed) {
                 claimer.print('Error on claiming tokens', c.red)
