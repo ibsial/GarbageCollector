@@ -1,4 +1,4 @@
-import {isAddress, Wallet} from 'ethers'
+import {isAddress, parseEther, Wallet} from 'ethers'
 import {getBalance, sendTx, transfer} from './web3Client'
 import {bigintToPrettyStr, c, defaultSleep, RandomHelpers, retry} from '../utils/helpers'
 import {maxRetries, sleepBetweenActions, minPricePerLineaToSell, DEV} from '../../config'
@@ -43,7 +43,7 @@ class LineaClaimer {
     }
     async claimOpen() {
         let claimContractBalance = await getBalance(this.signer, this.LINEA_CLAIM_ADDRESS, this.LINEA_TOKEN_ADDRESS)
-        if (claimContractBalance <= 0n) {
+        if (claimContractBalance <= parseEther("1000000")) {
             return false
         }
         return true
@@ -76,7 +76,7 @@ class LineaClaimer {
                     }
                     this.print(`Error on waiting for the claim`, c.yellow)
                 }
-                await defaultSleep(10, false)
+                await defaultSleep(5, false)
             }
             this.print(`Claim is now open!`, c.bgYellow)
             return false
