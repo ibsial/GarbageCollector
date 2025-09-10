@@ -122,7 +122,7 @@ async function main() {
             }
             break
         case 'Claim and sell':
-            keysAndAddresses = await importAndValidatePrivateData('./privates.txt', true)
+            keysAndAddresses = await importAndValidatePrivateData('./privates.txt', false)
             if (shuffleWallets) {
                 keysAndAddresses = RandomHelpers.shuffleArray(keysAndAddresses)
             }
