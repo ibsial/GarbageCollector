@@ -1,6 +1,6 @@
 import {JsonRpcProvider, Network} from 'ethers'
 import {ChainName} from '../utils/types'
-import {chains, networkNameToCoingeckoQueryString} from '../utils/constants'
+import {chains} from '../utils/constants'
 import {RandomHelpers, retry} from '../utils/helpers'
 import axios, {AxiosInstance} from 'axios'
 import {HttpsProxyAgent} from 'https-proxy-agent'

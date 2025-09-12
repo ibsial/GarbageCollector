@@ -43,7 +43,7 @@ class LineaClaimer {
     }
     async claimOpen() {
         let claimContractBalance = await getBalance(this.signer, this.LINEA_CLAIM_ADDRESS, this.LINEA_TOKEN_ADDRESS)
-        if (claimContractBalance <= parseEther("1000000")) {
+        if (claimContractBalance <= parseEther('1000000')) {
             return false
         }
         return true
@@ -88,11 +88,13 @@ class LineaClaimer {
         let hash = await sendTx(this.signer, tx)
         if (hash != '') {
             this.print(`Claimed $Linea: ${chains['Linea'].explorer + hash}`, c.green)
+            await this.hasClaimed()
             return true
         }
         return false
     }
     async transfer() {
+        let actionDone = false
         let balance: bigint
         if (this.claimed == undefined || this.allo == undefined || this.canClaim == undefined) {
             await this.init()
@@ -107,7 +109,7 @@ class LineaClaimer {
                 this.print(`[Transfer] Not eligible`, c.yellow)
                 return false
             }
-            this.claimed = await this.claim()
+            actionDone = await this.claim()
             await defaultSleep(RandomHelpers.getRandomNumber({from: 5, to: 15}), false)
             balance = this.allo
         }
@@ -118,26 +120,29 @@ class LineaClaimer {
             this.print(`[Transfer] No $Linea on account`, c.yellow)
             return false
         }
-        if (this.receiver == undefined || this.receiver == '' || isAddress(this.receiver)) {
+        if (this.receiver == undefined || this.receiver == '' || !isAddress(this.receiver)) {
             this.print(`Receiving address is incorrect, cant transfer funds: ${this.receiver}`, c.red)
-            return false
+            return false || actionDone
         }
         let transferHash = await transfer(this.signer, this.receiver, balance, this.LINEA_TOKEN_ADDRESS)
         if (transferHash != '') {
-            this.print(`Sent ${bigintToPrettyStr(balance, 18n, 3)} $Linea to ${this.receiver}: ${chains['Linea'].explorer + transferHash}`, c.red)
+            this.print(`Sent ${bigintToPrettyStr(balance, 18n, 3)} $Linea to ${this.receiver}: ${chains['Linea'].explorer + transferHash}`, c.green)
             return true
         }
-        return false
+        return actionDone
     }
     async sell(proxies: string[]) {
         if (this.claimed == undefined || this.allo == undefined || this.canClaim == undefined) {
             await this.init()
         }
+        if (this.allo ?? 0n <= 0n) {
+            return false
+        }
         let balance = 0n
         if (this.claimed) {
             balance = await getBalance(this.signer, this.signer.address, this.LINEA_TOKEN_ADDRESS)
         } else {
-            this.claimed = await this.claim()
+            await this.claim()
             await defaultSleep(RandomHelpers.getRandomNumber({from: 5, to: 15}), false)
         }
         if (!this.claimed) {
@@ -212,11 +217,9 @@ async function executeClaimAndTransfer(index: string | number, signer: Wallet, r
         async () => {
             await claimer.init()
             let claimed = await claimer.claim()
-            if (!claimed) {
-                claimer.print('Error on claiming tokens', c.red)
-                return false
+            if (claimed) {
+                await defaultSleep(RandomHelpers.getRandomNumber(sleepBetweenActions), false)
             }
-            await defaultSleep(RandomHelpers.getRandomNumber(sleepBetweenActions), false)
             let transferred = await claimer.transfer()
             if (transferred) {
                 await defaultSleep(RandomHelpers.getRandomNumber(sleepBetweenActions), false)
@@ -240,11 +243,9 @@ async function executeClaimAndSell(index: string | number, signer: Wallet, proxi
             await claimer.init()
             claimer.print(`Eligible for: ${bigintToPrettyStr(claimer.allo ?? 0n, 18n, 4)} $Linea`, c.blue)
             let claimed = await claimer.claim()
-            if (!claimed) {
-                claimer.print('Error on claiming tokens', c.red)
-                return false
+            if (claimed) {
+                await defaultSleep(RandomHelpers.getRandomNumber(sleepBetweenActions), false)
             }
-            await defaultSleep(RandomHelpers.getRandomNumber(sleepBetweenActions), false)
             let sold = await claimer.sell(proxies ?? [])
             if (sold) {
                 await defaultSleep(RandomHelpers.getRandomNumber(sleepBetweenActions), false)

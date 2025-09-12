@@ -221,7 +221,8 @@ export const chains: {[key: string]: Chain} = {
     Linea: {
         id: 59144,
         lzId: '183',
-        rpc: ['https://rpc.linea.build'],
+        rpc: ['https://rpc.linea.build', 'https://linea-rpc.publicnode.com', 'https://linea.therpc.io'],
+
         explorer: 'https://lineascan.build/tx/',
         currency: {name: 'ETH'},
         tokens: {
